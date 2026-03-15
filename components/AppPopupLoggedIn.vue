@@ -106,6 +106,6 @@ onMounted(() => {
     }
 
     carouselPopupsRef.value.next()
-  }, 6000)
+  }, 12000)
 })
 </script>
