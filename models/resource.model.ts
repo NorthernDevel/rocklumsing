@@ -1,18 +1,22 @@
 export interface ResoucesData {
-  _id: string
-  info: InfoSetting
-  contacts: ContactData[]
+  id: string
+  siteCode: string
+  logo: string
+  info: InfoData
   registerType: RegisterTypes
+  promotionNotify: boolean
+  extraApplication: ExtraApplication
   tags: string[]
-  theme: string
   announcement: Announcement
-  banners: imageLuancherData[]
-  promotions: imageLuancherData[]
-  popups: PopupData[]
   imageUrl: ImageURL
   url: string
-  createAt: Date
+  createdAt: Date
   updatedAt: Date
+  contacts: ContactData[]
+  banners: BannerData[]
+  promotions: PromotionData[]
+  popups: PopupData[]
+  seoMeta: SEOMetaData
 }
 
 export type RegisterTypes =
@@ -21,42 +25,11 @@ export type RegisterTypes =
   | 'CAPTCHA_NO_PHONE'
   | 'CAPTCHA_REQUIRE_BANK'
   | 'USER_BY_PHONE'
+  | 'CAPTCHA_PHONE_SHORT'
 
 export interface Announcement {
   display: DisplayData
   isActive: boolean
-}
-
-export interface ContactData {
-  provider: string
-  display: DisplayData
-  options: Options
-}
-
-export interface Options {
-  link: string
-  lineId: string
-}
-
-export interface InfoSetting {
-  language: LanguageSetting
-  title: DisplayData
-  description: DisplayData
-}
-
-export interface LanguageSetting {
-  en: boolean
-  th: boolean
-}
-
-export interface CantactOption {
-  link: string
-  lineId?: string
-}
-
-export interface FooterDescription {
-  title: DisplayData
-  description: DisplayData
 }
 
 export interface DisplayData {
@@ -64,23 +37,81 @@ export interface DisplayData {
   th: string
 }
 
-export interface ApkFile {
-  active: boolean
-  source?: string
-}
-
-export interface imageLuancherData {
+export interface BannerData {
+  id: string
+  siteId: string
   image: string
   isActive: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface ContactData {
+  id: string
+  siteId: string
+  provider: string
+  display: DisplayData
+  options: Options
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface Options {
+  link: string
+  lineId?: string
 }
 
 export interface ImageURL {
-  appIcon: string
-  banner: string
-  icon: string
   logo: string
   popup: string
+  banner: string
   promotion: string
+}
+
+export interface InfoData {
+  title: DisplayData
+  language: Language
+  description: DisplayData
+}
+
+export interface Language {
+  en: boolean
+  th: boolean
+}
+
+export interface PromotionData {
+  id: string
+  siteId: string
+  refId: null
+  image: string
+  title: string
+  shortContent: string
+  content: string
+  slug: string
+  isActive: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface ExtraApplication {
+  ios: ExtraApplicationInfo
+  andriod: ExtraApplicationInfo
+}
+
+export interface ExtraApplicationInfo {
+  active: boolean
+  source: string
+}
+
+export interface FooterDescription {
+  title: DisplayData
+  description?: DisplayData
+}
+
+export interface SEOMetaData {
+  title: string
+  keywords: string
+  description: string
 }
 
 export interface PopupData {

@@ -5,7 +5,7 @@
         {{ $t('promotion') }}
       </h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-col-3 gap-4">
-        <div v-for="promotion in promotionStore.promotions">
+        <div v-for="promotion in resourceStore.promotions">
           <UCard
             :ui="{
               body: {
@@ -19,7 +19,7 @@
           >
             <NuxtImg
               class="rounded-md w-full object-cover cursor-pointer"
-              :src="promotionImage(promotion.image)"
+              :src="promotion.image"
               @click="moreDetail(promotion.slug)"
             />
             <div class="px-4 py-2">
@@ -56,17 +56,11 @@
 <script lang="ts" setup>
 const { t } = useI18n()
 const router = useRouter()
-const promotionStore = usePromotionStore()
 const resourceStore = useResourceStore()
 
 useHead({
   title: t('promotion'),
 })
-
-const promotionImage = (image: string) => {
-  if (!resourceStore.resources) return 'assets/images/notfound/promotion.webp'
-  return resourceStore.resources.imageUrl.promotion + image
-}
 
 const moreDetail = (slug: string) => {
   router.push(`/promotion/${slug}`)

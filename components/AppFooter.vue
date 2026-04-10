@@ -40,7 +40,7 @@ const footerTitle = computed(() => {
 
 const footerDescription = computed(() => {
   if (resourceStore.footerDescription) {
-    const { en, th } = resourceStore.footerDescription.description
+    const { en, th } = resourceStore.footerDescription.description!
     if (langStore.currentLang === 'en') return en
     return th
   }

@@ -54,9 +54,11 @@ const { t } = useI18n()
 import { GameType } from '~/models/default.model'
 import type { GamesList } from '~/models/games.model'
 
+const resourceStore = useResourceStore()
 const navStore = useNavStore()
 const loaderStore = useLoaderStore()
 const popupStore = usePopupStore()
+const { origin } = useBestUrl()
 
 const slots = t('game_slot')
 const casino = t('game_casino')
@@ -64,12 +66,13 @@ const casino = t('game_casino')
 useSeoMeta({
   title: 'Home Page',
   description: 'This is the home Page',
-  ogTitle: 'THEAMB303',
-  ogDescription: 'THEAMB303, slot, casino, pgslot, poker, bacarat',
+  ogTitle: () => resourceStore.infoSetting.title.th ?? 'THEAMB303',
+  ogDescription: () => resourceStore.seoMeta.description,
+  keywords: () => resourceStore.seoMeta.keywords,
   ogImage: '/assets/images/logo.png',
-  ogUrl: 'https://theamb-303.com',
-  twitterTitle: 'THEAMB303',
-  twitterDescription: 'THEAMB303, slot, casino, pgslot, poker, bacarat',
+  ogUrl: () => origin,
+  twitterTitle: () => resourceStore.infoSetting.title.th ?? 'THEAMB303',
+  twitterDescription: () => resourceStore.seoMeta.description,
   twitterImage: '/assets/images/logo.png',
   twitterCard: 'summary',
 })

@@ -22,7 +22,7 @@
         <h3 class="text-2xl sm:text-3xl">{{ promotion.title }}</h3>
         <NuxtImg
           class="rounded-md w-full object-cover my-4"
-          :src="promotionImage"
+          :src="promotion.image"
         />
         <UDivider class="border-gray-100" />
         <div class="w-full text-left pt-4">
@@ -35,32 +35,20 @@
 </template>
 
 <script lang="ts" setup>
-import type { PromotionData } from '~/models/promotion.model'
-
 const route = useRoute()
-const promotionStrore = usePromotionStore()
 const resourceStore = useResourceStore()
 
-const promotion = ref<PromotionData>()
 const slug = computed(() => route.params.slug)
 
-const promotionImage = computed(() => {
-  if (!resourceStore.resources) return 'assets/images/notfound/promotion.webp'
-  return resourceStore.resources.imageUrl.promotion + promotion.value?.image!
-})
-
-const findPromotionBySlug = () => {
-  const promotionFinded = promotionStrore.promotions.find(
-    (promotion) => promotion.slug === slug.value
+const promotion = computed(() => {
+  const promotionFinded = resourceStore.promotions.find(
+    (item) => item.slug === slug.value,
   )
-  promotion.value = promotionFinded
+  if (!promotionFinded) return null
 
   useHead({
-    title: promotion.value?.title,
+    title: promotionFinded.title,
   })
-}
-
-onMounted(() => {
-  findPromotionBySlug()
+  return promotionFinded
 })
 </script>

@@ -201,13 +201,13 @@ const announceImages = computed(() => {
 const carouselPromotionRef = ref()
 
 const promotionImages = computed(() => {
-  if (!resourceStore.promotionImages)
+  if (!resourceStore.promotions)
     return [
       'assets/images/notfound/promotion.webp',
       'assets/images/notfound/promotion.webp',
       'assets/images/notfound/promotion.webp',
     ]
-  return resourceStore.promotionImages
+  return resourceStore.promotions
     .filter((promotion) => promotion.isActive)
     .map((item) => item.image)
 })
