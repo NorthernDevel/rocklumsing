@@ -6,7 +6,7 @@
   <section>
     <div class="flex flex-col">
       <div class="flex justify-center px-2 py-4 mt-4">
-        <AppGameNav :links="navStore.menuGames" color="green" />
+        <AppGameNav :links="navStore.menuGames" />
       </div>
       <AppDownload />
 
@@ -17,97 +17,95 @@
         <p class="text-gray-500 text-3xl">Page Not Found</p>
       </div>
       <div v-else class="w-full p-2 md:p-4">
-        <section
-          v-if="route.params.id === 'slot' || route.params.id === 'fishing'"
-        >
-          <AppGameBar
-            :src="`/assets/images/menus/${route.params.id}.webp`"
-            :name="$t(`game_${route.params.id}`)"
-            :to="`/${route.params.id}`"
-            is-search
-            v-on:search-term="gameStore.onSearchTerm"
-          />
-          <AppGameList
-            :is-loading="loaderStore.isLoading"
-            :games-list="gameStore.filterListData"
-            first-large
-            is-provider
-          />
-        </section>
-        <section v-else-if="route.params.id === 'lottery'">
-          <AppGameBar
-            :src="`/assets/images/menus/${route.params.id}.webp`"
-            :name="$t(`game_${route.params.id}`)"
-            :to="`/${route.params.id}`"
-            is-search
-            v-on:search-term="gameStore.onSearchTerm"
-          />
-          <AppGameList
-            :is-loading="loaderStore.isLoading"
-            :games-list="gameStore.filterListData"
-          />
-        </section>
-        <section v-else-if="route.params.id === 'sport'">
-          <AppGameBar
-            :src="`/assets/images/menus/${route.params.id}.webp`"
-            :name="$t(`game_${route.params.id}`)"
-          />
-          <AppGameSportList :game-sports="gameStore.gameSports" />
-        </section>
-        <section
-          v-else-if="
-            route.params.id === 'recently' || route.params.id === 'favorites'
-          "
-        >
-          <AppGameBar
-            :src="`/assets/images/menus/${route.params.id}.webp`"
-            :name="$t(`game_${route.params.id}`)"
-            is-search
-            v-on:search-term="gameStore.onSearchTerm"
-          />
-          <AppGameList
-            :is-loading="loaderStore.isLoading"
-            :games-list="gameStore.filterListData"
-          />
-        </section>
-        <section
-          v-else-if="route.params.id === 'casino' || route.params.id === 'card'"
-        >
-          <div
-            v-for="provider in gameStore.filterListData"
-            :key="provider.productCode"
-            class="mb-8"
+        <div class="game-block rounded-3xl">
+          <section
+            v-if="route.params.id === 'slot' || route.params.id === 'casino'"
           >
             <AppGameBar
-              :src="provider.logo.default"
-              :name="provider.productName"
-              show-collapse
-              :is-collapse="gameStore.collapsed[provider.productCode]"
-              @toggleCollapse="gameStore.toggleCollapse(provider.productCode)"
+              :src="`/assets/images/menus/${route.params.id}.webp`"
+              :name="$t(`game_${route.params.id}`)"
+              :to="`/${route.params.id}`"
+              is-search
+              v-on:search-term="gameStore.onSearchTerm"
             />
             <AppGameList
               :is-loading="loaderStore.isLoading"
-              :games-list="provider.games"
-              :is-collapse="gameStore.collapsed[provider.productCode]"
+              :games-list="gameStore.filterListData"
+              :is-provider="gameStore.afterSearch === ''"
             />
-          </div>
-        </section>
-        <section v-else>
-          <div
-            v-for="provider in gameStore.filterListData"
-            :key="provider.productCode"
-            class="mb-14"
+          </section>
+          <section
+            v-else-if="
+              route.params.id === 'fishing' || route.params.id === 'card'
+            "
           >
             <AppGameBar
-              :src="provider.logo.default"
-              :name="provider.productName"
+              :src="`/assets/images/menus/${route.params.id}.webp`"
+              :name="$t(`game_${route.params.id}`)"
+              :to="`/${route.params.id}`"
+              is-search
+              v-on:search-term="gameStore.onSearchTerm"
             />
             <AppGameList
               :is-loading="loaderStore.isLoading"
-              :games-list="provider.games"
+              :games-list="gameStore.filterListData"
+              first-large
+              is-provider
             />
-          </div>
-        </section>
+          </section>
+          <section v-else-if="route.params.id === 'lottery'">
+            <AppGameBar
+              :src="`/assets/images/menus/${route.params.id}.webp`"
+              :name="$t(`game_${route.params.id}`)"
+              :to="`/${route.params.id}`"
+              is-search
+              v-on:search-term="gameStore.onSearchTerm"
+            />
+            <AppGameList
+              :is-loading="loaderStore.isLoading"
+              :games-list="gameStore.filterListData"
+            />
+          </section>
+          <section v-else-if="route.params.id === 'sport'">
+            <AppGameBar
+              :src="`/assets/images/menus/${route.params.id}.webp`"
+              :name="$t(`game_${route.params.id}`)"
+            />
+            <AppGameSportList :game-sports="gameStore.gameSports" />
+          </section>
+          <section
+            v-else-if="
+              route.params.id === 'recently' || route.params.id === 'favorites'
+            "
+          >
+            <AppGameBar
+              :src="`/assets/images/menus/${route.params.id}.webp`"
+              :name="$t(`game_${route.params.id}`)"
+              is-search
+              v-on:search-term="gameStore.onSearchTerm"
+            />
+            <AppGameList
+              :is-loading="loaderStore.isLoading"
+              :games-list="gameStore.filterListData"
+            />
+          </section>
+          <section v-else>
+            <div
+              v-for="provider in gameStore.filterListData"
+              :key="provider.productCode"
+              class="mb-14"
+            >
+              <AppGameBar
+                :src="provider.logo.default"
+                :name="provider.productName"
+              />
+              <AppGameList
+                :is-loading="loaderStore.isLoading"
+                :games-list="provider.games"
+              />
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </section>
@@ -141,7 +139,7 @@ watchEffect(() => {
 
 const gameObject = computed(() => {
   const gameFinded = navStore.menuGames.find(
-    (item) => item.name === route.params.id
+    (item) => item.name === route.params.id,
   )
 
   return gameFinded
@@ -158,7 +156,7 @@ onMounted(() => {
       return gameStore.fetchGameFavorites()
 
     const cachedGameType = gameStore.cacheStringToGameType(
-      gameObject.value.gameType!
+      gameObject.value.gameType!,
     )
     if (cachedGameType) gameStore.fetchGameListByType(cachedGameType)
   }

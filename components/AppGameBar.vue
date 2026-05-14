@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-12 flex items-center justify-between mb-3 px-2 space-x-2 bg-gradient-to-b from-red-500 via-red-500 to-red-400 rounded-md"
+    class="h-12 flex items-center justify-between mb-2 md:mb-6"
   >
     <div v-if="isSelect" class="flex items-center grow">
       <USelectMenu
@@ -58,8 +58,8 @@
     />
     <NuxtLink :to="to" v-if="isMore">
       <UButton
-        class="text-gray-100 dark:text-gray-100 font-light bg-gradient-to-b from-red-600 via-red-700 to-red-600"
-        >{{ $t('btn_more') }}</UButton
+        class="w-24 h-10 justify-center text-sm text-red-600 dark:text-red-600 border border-red-700 bg-gradient-to-b from-gray-950 via-gray-950 to-red-950"
+        >{{ $t('btn_view_all') }}</UButton
       >
     </NuxtLink>
     <UButton
@@ -70,7 +70,7 @@
           : 'i-heroicons-chevron-up-solid'
       "
       @click="$emit('toggleCollapse')"
-      class="text-gray-100 dark:text-gray-100 font-light bg-gradient-to-b from-red-600 via-red-700 to-red-600"
+      class="text-gray-100 dark:text-gray-100 font-light bg-gradient-to-b from-red-600 via-red-800 to-red-800"
       />
   </div>
 </template>
@@ -124,7 +124,7 @@ const fetchGameListByType = async (gameType: GameType) => {
         popupStore.alertError({ message: message })
       } else {
         if (gamesList && gamesList.length) {
-          gamesProviderOption.value = gameStore.gamesProviderList(gamesList)
+          gamesProviderOption.value = gameStore.gamesProviderListBar(gamesList)
           providerSelect(gamesProviderOption)
         }
       }

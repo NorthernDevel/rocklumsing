@@ -1,16 +1,20 @@
 <template>
-  <div class="bg-gray-100 bg-opacity-80">
+  <div class="border-y border-red-950/40 bg-gradient-to-b from-neutral-950 via-black to-neutral-900">
     <div class="container mx-auto">
       <div class="grid grid-cols-2 lg:grid-cols-3 gab-4">
-        <div v-for="status in status" class="flex my-3 mx-2">
+        <div v-for="item in status" class="flex my-3 mx-2">
           <NuxtImg
-            :src="'/assets/images/icons/' + status.img + '.png'"
+            :src="'/assets/images/icons/' + item.img + '.webp'"
             alt="aaa"
             class="w-20 object-contain"
           />
-          <div class="flex flex-col justify-center text-gray-800">
-            <h2 class="text-[16px] font-semibold">{{ $t(status.title) }}</h2>
-            <p class="hidden md:inline">{{ $t(status.description) }}</p>
+          <div class="flex flex-col justify-center">
+            <h2 class="theme-title text-[16px] font-semibold">
+              {{ $t(item.title) }}
+            </h2>
+            <p class="hidden md:inline text-amber-100/70">
+              {{ $t(item.description) }}
+            </p>
           </div>
         </div>
       </div>

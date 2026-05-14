@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <h3 class="text-2xl mb-4">{{ $t('menu_cashback') }}</h3>
+    <h3 class="theme-title text-2xl font-semibold mb-4">{{ $t('menu_cashback') }}</h3>
 
     <UTabs v-model="activeTab" :items="tabList" class="w-full">
       <template #icon="{ item, selected }">
         <UIcon
           :name="item.icon"
           class="w-4 h-4 flex-shrink-0 mr-2"
-          :class="[selected && 'text-amber-500 dark:text-amber-400']"
+          :class="[selected && 'text-amber-500 dark:text-amber-300']"
         />
       </template>
     </UTabs>

@@ -6,6 +6,7 @@
     :fullscreen="navStore.isMobile"
   >
     <UCard
+      class="u-card-bg"
       :ui="{
         body: {
           padding: 'px-0 py-0 sm:p-0',
@@ -14,9 +15,9 @@
     >
       <template #header>
         <div class="flex items-center justify-between">
-          <NuxtImg src="/assets/images/logo.png" alt="logo" class="w-20" />
+          <NuxtImg src="/assets/images/logo.webp" alt="logo" class="w-20" />
           <UButton
-            color="cyan"
+            color="red"
             variant="ghost"
             class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
             @click="isOpen = false"
@@ -59,6 +60,15 @@
 
           <PageConfigPromotion
             v-else-if="navStore.currentMenu === 'config-promotion'"
+          />
+
+          <InformationUpdate
+            v-else-if="navStore.currentMenu === 'update-information'"
+            form-profile
+          />
+
+          <PromptPayUpdate
+            v-else-if="navStore.currentMenu === 'update-prompt-pay'"
           />
 
           <PageProfile v-else />

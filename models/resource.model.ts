@@ -15,7 +15,7 @@ export interface ResoucesData {
   contacts: ContactData[]
   banners: BannerData[]
   promotions: PromotionData[]
-  popups: PopupData[]
+  popups: any[]
   seoMeta: SEOMetaData
 }
 
@@ -83,6 +83,7 @@ export interface PromotionData {
   id: string
   siteId: string
   refId: null
+<<<<<<< HEAD
   image: string
   title: string
   shortContent: string
@@ -115,10 +116,35 @@ export interface SEOMetaData {
 }
 
 export interface PopupData {
+=======
+>>>>>>> uat
   image: string
-  route: string
-  isInternal: boolean
-  isLogin: boolean
+  title: string
+  shortContent: string
+  content: string
+  slug: string
   isActive: boolean
-  isFlash: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface ExtraApplication {
+  ios: ExtraApplicationInfo
+  andriod: ExtraApplicationInfo
+}
+
+export interface ExtraApplicationInfo {
+  active: boolean
+  source: string
+}
+
+export interface FooterDescription {
+  title: DisplayData
+  description?: DisplayData
+}
+
+export interface SEOMetaData {
+  title: string
+  keywords: string
+  description: string
 }

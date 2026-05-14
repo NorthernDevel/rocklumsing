@@ -5,7 +5,7 @@
     class="flex justify-center h-32"
   >
     <div
-      class="w-40 h-32 flex flex-col items-center justify-center cursor-pointer rounded-3xl shadow-light hover:shadow-light-hover dark:shadow-dark dark:hover:shadow-dark-hover"
+      class="menu-btn-inactive w-full flex flex-col items-center justify-center rounded-2xl p-2 transition-all duration-300 hover:scale-105"
     >
       <NuxtImg
         :src="item.image"

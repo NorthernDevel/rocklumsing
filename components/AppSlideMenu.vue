@@ -1,15 +1,15 @@
 <template>
   <USlideover v-model="isOpen" side="left" class="h-full overflow-scroll">
-    <UCard class="flex flex-col flex-1">
+    <UCard class="flex flex-col flex-1 slide-bar-bg">
       <template #header>
         <div class="flex items-center justify-between">
           <h3
             class="text-base font-semibold leading-6 text-gray-900 dark:text-white"
           >
-            <NuxtImg src="/assets/images/logo.png" alt="logo" class="w-32" />
+            <NuxtImg src="/assets/images/logo.webp" alt="logo" class="w-32" />
           </h3>
           <UButton
-            color="cyan"
+            color="red"
             variant="ghost"
             class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
             @click="isOpen = false"

@@ -1,5 +1,11 @@
 // stores/modal.ts
-export type AlertTypes = 'success' | 'error' | 'confirm' | 'warning'
+export type AlertTypes =
+  | 'success'
+  | 'error'
+  | 'confirm'
+  | 'warning'
+  | 'p2c-warning'
+  | 'loading'
 type Ref = 'ref' | 'marketingRef'
 
 export type PopupProps = {
@@ -11,6 +17,7 @@ export type PopupProps = {
   doNotShow?: boolean | undefined
   onConfirm?: () => void
   onCancel?: () => void
+  onLooping?: () => void
 }
 
 type QueryString = {
@@ -121,6 +128,14 @@ export const usePopupStore = defineStore('popupStore', {
     },
     alertWarning(props: PopupProps) {
       this.alertProps = { ...props, type: 'warning' }
+      this.isOpenAlertPopup = true
+    },
+    alertP2cWarning(props: PopupProps) {
+      this.alertProps = { ...props, type: 'p2c-warning' }
+      this.isOpenAlertPopup = true
+    },
+    alertLoading(props: PopupProps) {
+      this.alertProps = { ...props, type: 'loading' }
       this.isOpenAlertPopup = true
     },
     closeAlertPopup() {

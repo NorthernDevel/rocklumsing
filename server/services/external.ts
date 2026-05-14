@@ -21,6 +21,7 @@ import {
   RegisterMigration,
   RequestRegisterMigration,
 } from '~/models/register.model'
+import { Tournament } from '~/models/games.model'
 
 // NOTE: -------------- AUTH --------------
 export const authenticateUser = async (body: RequestAuth): Promise<Auth> => {
@@ -31,7 +32,7 @@ export const authenticateUser = async (body: RequestAuth): Promise<Auth> => {
 export const signOut = async (): Promise<DefaultResponse> => {
   const { data: response } = await useHttpClient().post<DefaultResponse>(
     `/signout`,
-    {}
+    {},
   )
   return response
 }
@@ -44,17 +45,17 @@ export const getUserProfile = async (): Promise<Profile> => {
 export const register = async (body: RequestRegister): Promise<Register> => {
   const { data: response } = await useHttpClient().post<Register>(
     `/register`,
-    body
+    body,
   )
   return response
 }
 
 export const registerMigration = async (
-  body: RequestRegisterMigration
+  body: RequestRegisterMigration,
 ): Promise<RegisterMigration> => {
   const { data: response } = await useHttpClient().post<RegisterMigration>(
     `/register-migration`,
-    body
+    body,
   )
   return response
 }
@@ -67,47 +68,47 @@ export const getCaptcha = async (): Promise<Captcha> => {
 export const recommendList = async (): Promise<RecommendList> => {
   const { data: response } = await useHttpClient().post<RecommendList>(
     `/recommend-list`,
-    {}
+    {},
   )
   return response
 }
 
 export const checkUser = async (
-  body: RequestUser
+  body: RequestUser,
 ): Promise<DefaultResponse> => {
   const { data: response } = await useHttpClient().post<DefaultResponse>(
     `/check-use`,
-    body
+    body,
   )
   return response
 }
 
 export const checkPhone = async (
-  body: RequestPhone
+  body: RequestPhone,
 ): Promise<DefaultResponse> => {
   const { data: response } = await useHttpClient().post<DefaultResponse>(
     `/check-phone`,
-    body
+    body,
   )
   return response
 }
 
 export const changePassword = async (
-  body: RequestChangePassword
+  body: RequestChangePassword,
 ): Promise<DefaultResponse> => {
   const { data: response } = await useHttpClient().post<DefaultResponse>(
     `/update-pass`,
-    body
+    body,
   )
   return response
 }
 
 export const getForgotPassword = async (
-  body: RequestForgotPass
+  body: RequestForgotPass,
 ): Promise<DefaultResponse> => {
   const { data: response } = await useHttpClient().post<DefaultResponse>(
     `/forgot-pass`,
-    body
+    body,
   )
   return response
 }
@@ -116,7 +117,7 @@ export const getForgotPassword = async (
 export const requestOTP = async (body: RequestPhone): Promise<Otp> => {
   const { data: response } = await useHttpClient().post<Otp>(
     `/request-otp`,
-    body
+    body,
   )
   return response
 }
@@ -124,7 +125,7 @@ export const requestOTP = async (body: RequestPhone): Promise<Otp> => {
 export const checkOTP = async (body: RequestOtp): Promise<DefaultResponse> => {
   const { data: response } = await useHttpClient().post<DefaultResponse>(
     `/check-otp`,
-    body
+    body,
   )
   return response
 }
@@ -133,17 +134,17 @@ export const checkOTP = async (body: RequestOtp): Promise<DefaultResponse> => {
 export const getBankList = async (): Promise<BankList> => {
   const { data: response } = await useHttpClient().post<BankList>(
     `/bank-list`,
-    {}
+    {},
   )
   return response
 }
 
 export const updateBank = async (
-  body: RequestUpdateBank
+  body: RequestUpdateBank,
 ): Promise<BankList> => {
   const { data: response } = await useHttpClient().post<BankList>(
     `/update-bank`,
-    body
+    body,
   )
   return response
 }
@@ -156,7 +157,19 @@ export const getPrefix = async (): Promise<Prefix> => {
 export const getPeer2PayInfo = async (): Promise<Peer2PayInfo> => {
   const { data: response } = await useHttpClient().get<Peer2PayInfo>(
     `/getPeer2PayInfo`,
-    {}
+    {},
   )
+  return response
+}
+
+export const getTournament = async (): Promise<Tournament> => {
+  const { data: response } =
+    await useHttpClient().get<Tournament>(`/tournament`)
+  return response
+}
+
+export const getTournamentUnauth = async (): Promise<Tournament> => {
+  const { data: response } =
+    await useHttpClient().get<Tournament>(`/tournament-unauth`)
   return response
 }

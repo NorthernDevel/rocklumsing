@@ -1,7 +1,7 @@
 <template>
   <SplashScreen />
   <div v-if="isShowContent" class="main-container min-w-[375px]">
-    <div class="overflow-x-hidden">
+    <div class="relative overflow-x-hidden">
       <AppHeader />
       <main
         class="cover-container before:w-full before:h-[720px] before:md:h-[620px]"
@@ -29,6 +29,8 @@ const gameStore = useGameStore()
 const popupStore = usePopupStore()
 const resourceStore = useResourceStore()
 
+const colorMode = useColorMode()
+colorMode.preference = 'dark'
 const isShowContent = ref(true)
 
 useHead({
@@ -50,7 +52,7 @@ if (process.env.NODE_ENV === 'production') {
   useHead({
     script: [
       {
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-ZM4WRQBY25',
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-HDQNGHJY5T',
         async: true,
       },
       {
@@ -59,7 +61,7 @@ if (process.env.NODE_ENV === 'production') {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-ZM4WRQBY25');
+        gtag('config', 'G-HDQNGHJY5T');
       `,
       },
     ],
@@ -78,7 +80,7 @@ onBeforeMount(() => {
     if (queryString.action && queryString.action === 'register') {
       // NOTE: Ref afiliate or marketing.
       const key = Object.keys(queryString).find(
-        (k) => k === 'ref' || k === 'marketingRef'
+        (k) => k === 'ref' || k === 'marketingRef',
       )
       const body = key ? { key: key, value: queryString[key] as string } : null
       if (body) {
@@ -96,6 +98,9 @@ onBeforeMount(() => {
         if (type === 'ASKMEBET') {
           // NOTE: Play Sport Askmebet.
           gameStore.playAskmebet()
+        } else if (type === 'TOURNAMENT') {
+          // NOTE: Play Tournament.
+          gameStore.playTournament()
         } else {
           // NOTE: Play other.
           const cachedGameType = gameStore.cacheStringToGameType(type as string)

@@ -1,58 +1,87 @@
 <template>
   <div class="w-full flex flex-col items-center gap-2 sm:gap-4">
-    <div
-      class="w-full border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg p-2"
-    >
-      <div class="flex flex-col items-center">
-        <div class="flex items-center gap-1 text-green-600 dark:text-green-500">
-          <UIcon name="i-heroicons-exclamation-triangle" class="w-5 h-5" />
-          <p class="text-sm">
-            {{
-              $t('deposit_please_use_your_bank', {
-                bank_account: bankStore.userBank.account,
-              })
-            }}
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="isLoading" class="w-full">
-      <USkeleton class="w-full h-20 mt-2" />
+    <div v-if="isLoading" class="w-full h-40 flex items-center justify-center">
+      <UIcon name="i-heroicons-arrow-path" class="theme-loading-icon" />
     </div>
     <div v-else class="w-full">
       <div
-        v-for="bank in depositBank"
-        class="border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg p-2 mt-2"
+        v-if="!depositBank.length"
+        class="theme-error-box w-full flex flex-col justify-center items-center text-center"
       >
-        <div class="flex gap-2 sm:gap-4">
-          <NuxtImg :src="bank.avatar" :alt="bank.label" class="w-16 h-16" />
-          <div class="flex flex-col font-light">
-            <p>{{ bank.label }}</p>
-            <div class="flex items-center gap-1">
-              <p class="text-lg">{{ bank.account }}</p>
-              <UIcon
-                name="i-heroicons-clipboard-document"
-                class="w-5 h-5 cursor-pointer"
-                @click="copyToClipboard(bank.account)"
-              />
+        <p>ขณะนี้ระบบ {{ $t(title) }} ปิดให้บริการ</p>
+        <p>กรุณาเลือกใช้ช่องทางอื่น</p>
+      </div>
+      <div v-else>
+        <div class="theme-panel w-full mb-2 px-3 py-2">
+          <div class="flex flex-col items-center">
+            <div class="flex items-center gap-1 text-amber-200">
+              <UIcon name="i-heroicons-exclamation-triangle" class="w-5 h-5" />
+              <p v-if="cashierStore.idSelect === 'TRUEWALLET'" class="text-sm">
+                {{
+                  $t('deposit_please_use_your_bank', {
+                    bank_account:
+                      cashierStore.idSelect === 'TRUEWALLET'
+                        ? profileStore.userData?.phoneNo
+                        : bankStore.userBank.account,
+                  })
+                }}
+              </p>
+              <p v-else class="text-sm">
+                {{
+                  $t('deposit_please_use_your_bank', {
+                    bank_account: bankStore.userBank.account,
+                  })
+                }}
+              </p>
             </div>
-            <p class="text-sm mt-1">{{ bank.accountName }}</p>
+          </div>
+        </div>
+
+        <div v-for="bank in depositBank" class="theme-panel p-2 mt-2">
+          <div class="flex gap-2 sm:gap-4">
+            <NuxtImg :src="bank.avatar" :alt="bank.label" class="w-16 h-16" />
+            <div class="flex flex-col font-light text-gray-50">
+              <p class="theme-label">{{ bank.label }}</p>
+              <div class="flex items-center gap-1">
+                <p class="theme-title text-lg font-semibold">
+                  {{ bank.account }}
+                </p>
+                <UIcon
+                  name="i-heroicons-clipboard-document"
+                  class="w-5 h-5 cursor-pointer"
+                  @click="copyToClipboard(bank.account)"
+                />
+              </div>
+              <p class="text-sm mt-1 text-amber-100/80">
+                {{ bank.accountName }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
+
       <p
         v-if="depositBank.length"
-        class="text-[12px] font-light text-center text-gray-500 dark:text-gray-300 mt-2"
+        class="text-[12px] font-light text-center text-amber-200/70 mt-2"
       >
         {{ $t('deposit_can_copy_with_button') }}
         <UIcon name="i-heroicons-clipboard-document" class="w-3 h-3" />
       </p>
+
+      <UButton
+        v-if="cashierStore.idSelect === 'AUTO'"
+        type="button"
+        class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
+        :loading="isLoading"
+        @click="cashierStore.goDepositHistory()"
+      >
+        {{ $t('history_deposit') }}
+      </UButton>
     </div>
 
     <div
       v-if="cashierStore.idSelect === 'MANUAL_SLIP'"
-      class="w-full border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg p-4"
+      class="theme-panel w-full p-4"
     >
       <AppFormGroup
         :label="$t('please_specify_amount')"
@@ -62,6 +91,12 @@
         <UInput
           :ui="{
             base: 'text-right',
+            color: {
+              white: {
+                outline:
+                  'bg-black/50 border-red-900/60 text-gray-100 ring-red-900/60 focus:ring-red-500 focus:border-amber-300',
+              },
+            },
           }"
           icon="i-heroicons-banknotes"
           type="text"
@@ -71,7 +106,7 @@
           v-on:blur="onBlur"
         >
           <template #trailing>
-            <span class="text-gray-500 dark:text-gray-400 text-xs">{{
+            <span class="text-amber-200/70 text-xs">{{
               profileStore.currency
             }}</span>
           </template>
@@ -79,26 +114,17 @@
       </AppFormGroup>
     </div>
 
-    <div v-if="isSlip" class="w-full">
+    <div v-if="isSlip && depositBank.length" class="w-full">
       <AppUploadFile v-on:base64-file="getBase64Image" />
     </div>
 
-    <div v-if="isSlip" class="w-full">
+    <div v-if="isSlip && depositBank.length" class="w-full">
       <UButton
         type="button"
-        class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+        class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
         @click="onSubmit"
         :disabled="isLoading"
         >{{ $t('btn_apply') }}</UButton
-      >
-    </div>
-    <div v-else class="w-full">
-      <UButton
-        type="button"
-        class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
-        @click="cashierStore.goDepositHistory"
-        :disabled="isLoading"
-        >{{ $t('history_deposit') }}</UButton
       >
     </div>
   </div>
@@ -114,7 +140,7 @@ const cashierStore = useCashierStore()
 const bankStore = useBankStore()
 const popupStore = usePopupStore()
 const profileStore = useProfileStore()
-const { useCurrency } = useFormatter()
+const { useParseAmount } = useFormatter()
 const { copyToClipboard } = useClipboard()
 
 const isLoading = ref(false)
@@ -130,6 +156,21 @@ const isSlip = computed(() => {
   )
 })
 
+const title = computed(() => {
+  switch (cashierStore.idSelect) {
+    case 'AUTO':
+      return 'deposit_auto'
+    case 'AUTO_SLIP':
+      return 'deposit_auto_slip'
+    case 'TRUEWALLET':
+      return 'deposit_truemoney'
+    case 'DECIMAL':
+      return 'deposit_decimal'
+    default:
+      return 'deposit_auto'
+  }
+})
+
 const depositBank = computed(() => {
   return BankDeposit.value.map((bank) => {
     const { accountBankName, accountNumber, accountName } = bank
@@ -142,7 +183,7 @@ const depositBank = computed(() => {
       }
     }
     const bankFiltered = bankStore.bankList.filter(
-      (bank) => bank.id === accountBankName
+      (bank) => bank.id === accountBankName,
     )
     return {
       account: accountNumber,
@@ -160,6 +201,7 @@ const getBankDeposit = async (body: RequestBankDeposit) => {
     if (!status) {
       popupStore.alertError({ message: message })
     } else {
+      BankDeposit.value = []
       if (data) BankDeposit.value = data
     }
   } catch (e) {
@@ -176,14 +218,12 @@ const getBase64Image = (file: string | undefined) => {
 
 const onBlur = (event: Event) => {
   const input = (event.target as HTMLInputElement).value
-  // Remove all non-numeric characters except for decimal point
-  const cleanedValue = input.replace(/[^0-9.]/g, '')
 
-  const amountNumber = parseFloat(cleanedValue)
-  const { currency } = useCurrency(amountNumber, 'none')
-  amountInput.value = currency.value || '0'
+  const amountNumber = useParseAmount().parseAmount(input)
 
-  amount.value = Math.round(amountNumber * 100) / 100
+  amountInput.value = useParseAmount().formatAmount(amountNumber)
+
+  amount.value = amountNumber
 }
 
 const onSubmit = async () => {
@@ -223,7 +263,13 @@ const resetForm = () => {
   amount.value = 0
 }
 
+watchEffect(() => {
+  if (cashierStore.idSelect) {
+    getBankDeposit({ limit: 1, accountType: cashierStore.idSelect })
+  }
+})
+
 onMounted(() => {
-  getBankDeposit({ limit: 1, accountType: cashierStore.idSelect })
+  cashierStore.getP2cDepositPending()
 })
 </script>

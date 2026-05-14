@@ -24,7 +24,7 @@ defineProps({
   },
   color: {
     type: String,
-    default: 'amber',
+    default: 'red',
   },
   useRoute: {
     type: Boolean,

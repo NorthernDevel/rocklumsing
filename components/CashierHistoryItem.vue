@@ -1,33 +1,35 @@
 <template>
   <div
-    class="flex flex-col gap-2 py-4 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100"
+    class="theme-panel flex flex-col gap-3 p-3 my-2"
   >
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
-        <p class="text-gray-400 text-xs">{{ $t('date') }}</p>
-        <p class="text-sm">{{ item.date }}</p>
+        <p class="theme-label text-xs">{{ $t('date') }}</p>
+        <p class="text-sm text-gray-100">{{ item.date }}</p>
       </div>
       <div class="flex flex-col">
-        <p class="text-right text-gray-400 text-xs">
+        <p class="theme-label text-right text-xs">
           {{ $t('reward_amount') }}
         </p>
-        <p class="text-sm">{{ currency }}</p>
+        <p class="theme-title text-right text-sm font-semibold">
+          {{ currency }}
+        </p>
       </div>
     </div>
 
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
-        <p class="text-gray-400 text-xs">{{ $t('history_channel') }}</p>
-        <p class="text-sm">{{ item.channel }}</p>
+        <p class="theme-label text-xs">{{ $t('history_channel') }}</p>
+        <p class="text-sm text-gray-100">{{ item.channel }}</p>
       </div>
       <div class="flex flex-col">
-        <p class="text-right text-gray-400 text-xs">{{ $t('status') }}</p>
+        <p class="theme-label text-right text-xs">{{ $t('status') }}</p>
         <div class="flex gap-2">
           <UButton
             v-if="item.isRejectTrans && !item.isReceive"
-            color="amber"
+            color="red"
             variant="solid"
-            class="h-6 rounded-full"
+            class="theme-primary-btn h-6 justify-center px-3 text-xs"
             @click="receiveRejectTransactionId(item)"
             >{{ $t('get_money') }}</UButton
           >
@@ -71,7 +73,7 @@ const statusColor = computed(() => {
     case 'REJECTED':
       return 'rose'
     case 'PENDING':
-      return 'amber'
+      return 'red'
     default:
       return 'primary'
   }

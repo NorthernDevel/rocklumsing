@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <h3 class="text-2xl mb-4">{{ $t('menu_minigame') }}</h3>
+    <h3 class="theme-title text-2xl font-semibold mb-4">{{ $t('menu_minigame') }}</h3>
     <div v-if="miniGameData && miniGameData.length" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div v-for="(item, key) in miniGameData" :key="key" :item="item" class="relative">
         <div class="group relative bg-gray-900 rounded-lg cursor-pointer mb-3">

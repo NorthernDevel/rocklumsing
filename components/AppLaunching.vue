@@ -1,39 +1,54 @@
 <template>
   <div
     v-if="!authStore.isAuthenticated"
-    class="container flex flex-col sm:flex-row items-center mx-auto md:mx-auto mt-2 mb-4"
+    class="relative max-h-[600px] overflow-hidden"
   >
-    <UCarousel
-      ref="carouselAnnouncementRef"
-      v-slot="{ item }"
-      :items="announceImages"
-      :ui="{
-        item: 'basis-full md:basis-1/2 xl:basis-1/3 space-x-1',
-        indicators: {
-          wrapper: 'bottom-0',
-          base: 'rounded-full h-1 w-5',
-          active: 'bg-amber-500 dark:bg-amber-500',
-          inactive: 'bg-gray-100 dark:bg-gray-100',
-        },
-      }"
-      :prev-button="{
-        color: 'amber',
-        icon: 'i-heroicons-chevron-left',
-        class: 'left-4',
-      }"
-      :next-button="{
-        color: 'amber',
-        icon: 'i-heroicons-chevron-right',
-        class: 'right-4',
-      }"
-      class="overflow-hidden"
-      arrows
-      indicators
+    <div
+      class="absolute isolate md:right-1/2 top-1/2 -translate-y-1/2 size-[clamp(240px,42vw,600px)] flex flex-col items-center justify-center gap-1 md:gap-2 before:absolute before:inset-[-12%] before:-z-10 before:bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.82)_0%,rgba(0,0,0,0.58)_38%,rgba(0,0,0,0.22)_68%,transparent_100%)] before:blur-xl"
     >
-      <div class="mx-2 my-2 border-2 rounded-xl p-[1px]">
-        <img :src="item" class="w-full rounded-lg" draggable="false" />
+      <p
+        class="theme-title font-semibold text-xl md:text-4xl lg:text-6xl"
+      >
+        WELCOME TO
+      </p>
+      <NuxtImg
+        src="assets/images/logo.webp"
+        alt="Logo"
+        class="w-40 md:w-64 lg:w-96"
+      />
+      <div
+        class="text-center font-semibold text-sm md:text-xl lg:text-2xl text-transparent"
+      >
+        <p
+          class="bg-clip-text bg-gradient-to-b from-yellow-100 via-amber-300 to-amber-600"
+        >
+          คาสิโนออนไลน์ ที่ใหญ่ที่สุด
+        </p>
+        <p
+          class="bg-clip-text bg-gradient-to-b from-yellow-100 via-amber-300 to-amber-600"
+        >
+          ครบทุกความบันเทิง
+        </p>
       </div>
-    </UCarousel>
+      <UButton
+        class="md:w-44 lg:w-64 md:h-12 lg:h-16 justify-center rounded-full border-2 border-slate-200/85 bg-gradient-to-b from-red-400 via-red-700 to-red-950 md:text-xl lg:text-3xl font-semibold !text-slate-100 shadow-[0_0_28px_rgba(220,38,38,0.55)] ring-2 ring-slate-100/30 ring-offset-2 ring-offset-black lg:my-2 [&_*]:!text-slate-100"
+        @click="popupStore.openModalRegister()"
+        >{{ $t('register') }}</UButton
+      >
+      <p class="text-xs md:text-base lg:text-lg text-amber-100/90">
+        สมัครง่าย รวดเร็ว ปลอดภัย 100%
+      </p>
+    </div>
+    <picture>
+      <source media="(min-width: 768px)" :srcset="bannerDesktop" />
+
+      <NuxtImg
+        src="assets/images/banners/banner-mobile.webp"
+        class="w-full h-auto object-cover"
+        alt="Banner"
+        loading="lazy"
+      />
+    </picture>
   </div>
 
   <div v-else>
@@ -46,17 +61,17 @@
         indicators: {
           wrapper: 'bottom-0',
           base: 'rounded-full h-1 w-5',
-          active: 'bg-amber-500 dark:bg-amber-500',
-          inactive: 'bg-gray-100 dark:bg-gray-100',
+          active: 'bg-red-600 dark:bg-red-600',
+          inactive: 'bg-amber-100/40 dark:bg-amber-100/40',
         },
       }"
       :prev-button="{
-        color: 'amber',
+        color: 'red',
         icon: 'i-heroicons-chevron-left',
         class: 'left-3',
       }"
       :next-button="{
-        color: 'amber',
+        color: 'red',
         icon: 'i-heroicons-chevron-right',
         class: 'right-3',
       }"
@@ -72,7 +87,7 @@
 
   <div class="relative">
     <div
-      class="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-100 opacity-40"
+      class="absolute inset-0 border-y  border-red-900/50 bg-[radial-gradient(ellipse_at_center,rgba(185,28,28,0.3)_0%,rgba(15,15,18,0.98)_48%,rgba(24,24,24,1)_100%)]"
     ></div>
     <NuxtMarquee :speed="50" direction="left">
       <NuxtImg
@@ -93,15 +108,18 @@
       @click="popupStore.openModalProfile('config-promotion')"
       :class="[
         profileStore.isAutoPromotion &&
-          '!bg-gradient-to-b !from-green-400 !via-green-500 !to-green-600',
+          '!border-emerald-300/70 !from-emerald-400 !via-emerald-600 !to-emerald-900 !shadow-emerald-500/30',
       ]"
-      class="w-32 flex items-center justify-center gap-1 bg-gradient-to-b from-rose-400 via-rose-500 to-rose-600 p-1 rounded-full cursor-pointer"
+      class="theme-primary-btn w-36 flex items-center justify-center gap-1.5 px-3 py-1.5 cursor-pointer"
     >
-      <UIcon :name="bonusStatusIcon" class="w-4 h-4 text-gray-100" />
-      <p v-if="profileStore.isAutoPromotion" class="text-sm text-gray-100">
+      <UIcon :name="bonusStatusIcon" class="w-4 h-4 text-white drop-shadow" />
+      <p
+        v-if="profileStore.isAutoPromotion"
+        class="text-sm font-medium text-white drop-shadow"
+      >
         {{ $t('status_is_active') }}
       </p>
-      <p v-else class="text-sm text-gray-100">
+      <p v-else class="text-sm font-medium text-white drop-shadow">
         {{ $t('status_is_inactive') }}
       </p>
     </div>
@@ -109,9 +127,9 @@
 
   <div v-if="authStore.isAuthenticated">
     <div class="flex items-center justify-center gap-4 mt-4 sm:mt-6 mb-2">
-      <div class="group" @click="popupStore.openModalProfile('cashier')">
+      <div class="group" @click="cashierStore.openWithdrawFromPage()">
         <div
-          class="relative w-36 sm:w-44 lg:w-52 h-14 sm:h-16 lg:h-20 p-2 flex flex-nowrap items-center justify-center gap-1 tab-menu !bg-gradient-to-b from-sky-400 via-sky-500 to-sky-600"
+          class="relative w-36 sm:w-44 lg:w-52 h-14 sm:h-16 lg:h-20 p-2 flex flex-nowrap items-center justify-center gap-1 menu-btn-inactive !border-emerald-300/60 !bg-gradient-to-b !from-emerald-400 !via-emerald-700 !to-black !shadow-emerald-700/30"
         >
           <AppChip :show="!bankStore.isCustomerAccount" />
           <NuxtImg
@@ -121,15 +139,15 @@
             loading="lazy"
           />
 
-          <p class="text-center text-gray-50 sm:text-lg lg:text-xl">
+          <p class="text-center text-amber-100 sm:text-lg lg:text-xl">
             {{ $t('deposit') }}
           </p>
         </div>
       </div>
 
-      <div class="group" @click="cashierStore.openWithdrawFromPage()">
+      <div class="group" @click="popupStore.openModalProfile('cashier')">
         <div
-          class="w-36 sm:w-44 lg:w-52 h-14 sm:h-16 lg:h-20 p-2 flex flex-nowrap items-center justify-center gap-1 tab-menu !bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600"
+          class="w-36 sm:w-44 lg:w-52 h-14 sm:h-16 lg:h-20 p-2 flex flex-nowrap items-center justify-center gap-1 menu-btn-inactive !border-sky-300/60 !bg-gradient-to-b !from-sky-400 !via-blue-700 !to-black !shadow-sky-700/30"
         >
           <NuxtImg
             src="/assets/images/icons/ic-3d-withdraw.webp"
@@ -137,22 +155,21 @@
             class="w-16 sm:w-20 h-16 sm:h-20 lg:w-24 lg:h-24 object-contain transition-all duration-200 group-hover:scale-110"
             loading="lazy"
           />
-          <p class="text-center text-gray-50 sm:text-lg lg:text-xl">
+          <p class="text-center text-amber-100 sm:text-lg lg:text-xl">
             {{ $t('withdraw') }}
           </p>
         </div>
       </div>
     </div>
 
-    <div
+    <!-- <div
       v-if="miniGameStore.answersData.length"
       class="flex justify-center py-2"
     >
       <div class="group" @click="popupStore.openModalPrediction()">
         <div
-          class="w-52 sm:w-60 lg:w-80 h-20 sm:h-24 lg:h-28 p-2 flex flex-nowrap items-center justify-center gap-1 tab-menu"
+          class="w-52 sm:w-60 lg:w-80 h-20 sm:h-24 lg:h-28 p-2 flex flex-nowrap items-center justify-center gap-1 menu-btn-inactive"
         >
-          <!-- <AppChip :show="true" /> -->
           <NuxtImg
             src="/assets/images/icons/ic-3d-quiz.webp"
             alt="pridiction activity"
@@ -164,18 +181,13 @@
           </p>
         </div>
       </div>
-    </div>
-  </div>
-  <div v-else class="flex items-center justify-center mt-10 mb-4">
-    <UButton
-      class="register-btn w-60 h-16 justify-center rounded-full text-3xl"
-      @click="popupStore.openModalRegister()"
-      >{{ $t('register') }}</UButton
-    >
+    </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
+import bannerDesktop from 'public/assets/images/banners/banner-desktop.webp'
+
 const authStore = useAuthStore()
 const profileStore = useProfileStore()
 const resourceStore = useResourceStore()
@@ -235,7 +247,7 @@ const partners = [
 const bonusStatusIcon = computed(() =>
   profileStore.isAutoPromotion
     ? 'i-heroicons-check-20-solid'
-    : 'i-heroicons-x-mark-solid'
+    : 'i-heroicons-x-mark-solid',
 )
 
 onMounted(() => {

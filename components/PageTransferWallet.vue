@@ -1,22 +1,24 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <h3 class="text-2xl mb-4">{{ $t('menu_transfer_wallet') }}</h3>
+    <h3 class="theme-title mb-4 text-2xl font-semibold">
+      {{ $t('menu_transfer_wallet') }}
+    </h3>
 
     <div class="w-full flex flex-col items-center gap-2 sm:gap-4">
       <div
-        class="rounded-xl border-2 w-full h-40 flex flex-col items-center justify-center bg-zinc-100 dark:border-gray-500 dark:bg-gray-800 p-4"
+        class="theme-panel w-full min-h-40 flex flex-col items-center justify-center p-4"
       >
         <UIcon
           v-if="isLoading"
           name="i-heroicons-arrow-path"
-          class="animate-spin text-slate-500 text-4xl"
+          class="theme-loading-icon"
         />
 
         <div v-else class="flex flex-col items-center justify-center">
-          <p>{{ $t('txt_amount') }} ({{ $t('transfer_wallet_cash') }})</p>
-          <p
-            class="cashback text-4xl sm:text-5xl text-green-600 dark:text-green-400"
-          >
+          <p class="theme-label">
+            {{ $t('txt_amount') }} ({{ $t('transfer_wallet_cash') }})
+          </p>
+          <p class="theme-amount">
             {{ walletCash.currency }}
           </p>
         </div>
@@ -24,7 +26,7 @@
         <UButton
           v-if="user?.walletCash"
           type="button"
-          class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+          class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
           :loading="isLoading"
           :disabled="isLoading"
           @click="onConfirm()"
@@ -33,9 +35,11 @@
       </div>
       <div
         v-if="!user?.walletCash"
-        class="w-full text-center mt-5 flex flex-col items-center justify-center"
+        class="w-full text-center flex flex-col items-center justify-center"
       >
-        <div class="text-sm text-red-700">{{ $t('can_not_transfer_now') }}</div>
+        <div class="theme-error-box w-full">
+          {{ $t('can_not_transfer_now') }}
+        </div>
       </div>
     </div>
   </div>

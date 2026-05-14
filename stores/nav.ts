@@ -76,7 +76,7 @@ export const useNavStore = defineStore('navStore', () => {
     {
       name: 'cashier',
       label: 'menu_cashier',
-      image: 'assets/images/icons/ic-3d-wallet-2.webp',
+      image: 'assets/images/icons/ic-3d-wallet.webp',
       to: '/cashier',
     },
     {
@@ -174,27 +174,27 @@ export const useNavStore = defineStore('navStore', () => {
       gameType: 'CARD',
       to: '/card',
     },
-    {
-      name: 'poker',
-      label: 'game_poker',
-      image: 'assets/images/menus/poker.webp',
-      gameType: 'POKER',
-      to: '/poker',
-    },
-    {
-      name: 'keno',
-      label: 'game_keno',
-      image: 'assets/images/menus/keno.webp',
-      gameType: 'KENO',
-      to: '/keno',
-    },
-    {
-      name: 'trading',
-      label: 'game_trading',
-      image: 'assets/images/menus/trading.webp',
-      gameType: 'TRADING',
-      to: '/trading',
-    },
+    // {
+    //   name: 'poker',
+    //   label: 'game_poker',
+    //   image: 'assets/images/menus/poker.webp',
+    //   gameType: 'POKER',
+    //   to: '/poker',
+    // },
+    // {
+    //   name: 'keno',
+    //   label: 'game_keno',
+    //   image: 'assets/images/menus/keno.webp',
+    //   gameType: 'KENO',
+    //   to: '/keno',
+    // },
+    // {
+    //   name: 'trading',
+    //   label: 'game_trading',
+    //   image: 'assets/images/menus/trading.webp',
+    //   gameType: 'TRADING',
+    //   to: '/trading',
+    // },
     {
       name: 'esport',
       label: 'game_esport',
@@ -202,12 +202,19 @@ export const useNavStore = defineStore('navStore', () => {
       gameType: 'ESPORT',
       to: '/esport',
     },
+    // {
+    //   name: 'cockfight',
+    //   label: 'game_cockfight',
+    //   image: 'assets/images/menus/cockfight.webp',
+    //   gameType: 'COCK',
+    //   to: '/cockfight',
+    // },
     {
-      name: 'cockfight',
-      label: 'game_cockfight',
-      image: 'assets/images/menus/cockfight.webp',
-      gameType: 'COCK',
-      to: '/cockfight',
+      name: 'tournament',
+      label: 'game_tournament',
+      image: 'assets/images/menus/tournament.webp',
+      gameType: 'TOURNAMENT',
+      to: '',
     },
   ]
   const menuSlidebar = [
@@ -232,7 +239,7 @@ export const useNavStore = defineStore('navStore', () => {
     {
       name: 'cashier',
       label: 'menu_cashier',
-      image: 'assets/images/icons/ic-3d-wallet-2.webp',
+      image: 'assets/images/icons/ic-3d-wallet.webp',
       to: '',
     },
     {
@@ -264,7 +271,7 @@ export const useNavStore = defineStore('navStore', () => {
     {
       name: 'profile',
       label: 'profile_full',
-      image: 'assets/images/icons/ic-profile.webp',
+      image: 'assets/images/icons/ic-3d-person.webp',
       to: 'profile',
     },
     {
@@ -276,7 +283,7 @@ export const useNavStore = defineStore('navStore', () => {
     {
       name: 'cashier',
       label: 'menu_cashier',
-      image: 'assets/images/icons/ic-3d-wallet-2.webp',
+      image: 'assets/images/icons/ic-3d-wallet.webp',
       to: 'cashier',
     },
     {
@@ -285,12 +292,12 @@ export const useNavStore = defineStore('navStore', () => {
       image: 'assets/images/icons/ic-3d-transfer.webp',
       to: 'transfer-wallet',
     },
-    {
-      name: 'mini-game',
-      label: 'menu_minigame',
-      image: 'assets/images/menus/esport.webp',
-      to: 'mini-game',
-    },
+    // {
+    //   name: 'mini-game',
+    //   label: 'menu_minigame',
+    //   image: 'assets/images/menus/esport.webp',
+    //   to: 'mini-game',
+    // },
     {
       name: 'reward',
       label: 'menu_reward',

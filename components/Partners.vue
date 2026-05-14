@@ -1,12 +1,12 @@
 <template>
-  <div class="flex flex-col items-center bg-gray-200 py-4">
-    <div class="container flex items-center justify-center flex-wrap space-x-3">
-      <div v-for="partner in partners" class="py-5">
+  <div class="flex flex-col items-center border-y border-red-700/70 bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.58)_0%,rgba(127,29,29,0.58)_38%,rgba(20,0,0,0.98)_72%,rgba(0,0,0,1)_100%)] py-6 shadow-[inset_0_1px_0_rgba(255,235,170,0.18),inset_0_-1px_0_rgba(255,235,170,0.12)]">
+    <div class="container flex max-w-7xl flex-wrap items-center justify-center gap-x-7 gap-y-6 px-4">
+      <div v-for="partner in partners" :key="partner" class="flex min-w-32 justify-center">
         <div>
           <NuxtImg
             :src="'/assets/images/partners/' + partner + '.png'"
             :alt="partner"
-            class="partner w-24"
+            class="w-32 sm:w-36 lg:w-40"
           />
         </div>
       </div>
@@ -29,9 +29,3 @@ const partners = [
   'slot-logo-goldy',
 ]
 </script>
-
-<style scoped>
-.partner {
-  filter: grayscale(1);
-}
-</style>

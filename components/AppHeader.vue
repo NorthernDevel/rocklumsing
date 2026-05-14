@@ -1,13 +1,20 @@
 <template>
   <header
-    class="w-full py-2 px-2 lg:px-0 transition-all duration-500 ease-in-out z-20"
+    class="w-full py-2 lg:px-0 transition-all duration-500 ease-in-out z-20"
     :class="{
-      'fixed ': isChangeClass,
+      'fixed top-0 left-0 right-0': isChangeClass,
+      relative: !isChangeClass,
     }"
   >
     <div
+      class="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-amber-200/70 to-transparent"
+    ></div>
+    <div
+      class="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-red-950 via-red-600/70 to-red-950"
+    ></div>
+    <div
       v-if="isChangeClass"
-      class="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-400 opacity-95 dark:bg-gray-900 dark:opacity-95 -z-10"
+      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.24)_0%,rgba(127,29,29,0.12)_42%,transparent_70%),linear-gradient(180deg,rgba(18,18,20,0.96),rgba(20,0,0,0.92)_55%,rgba(0,0,0,0.96))] shadow-[inset_0_1px_0_rgba(255,235,170,0.14),inset_0_-10px_26px_rgba(185,28,28,0.16)] backdrop-blur-sm"
     ></div>
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex gap-2">
@@ -15,7 +22,7 @@
           <AppSlideMenu v-model="popupStore.isOpenSlideMenu" />
           <UIcon
             name="i-heroicons-bars-3-bottom-left-20-solid"
-            class="w-10 h-10 bg-white dark:bg-white"
+            class="h-10 w-10 cursor-pointer text-amber-100 drop-shadow-[0_0_10px_rgba(220,38,38,0.45)]"
             @click="popupStore.openSlideMenu"
           />
         </div>
@@ -23,7 +30,7 @@
         <div class="flex flex-col">
           <NuxtLink to="/">
             <NuxtImg
-              src="/assets/images/header-logo.webp"
+              src="/assets/images/logo.webp"
               alt="logo"
               class="w-28 sm:w-32"
             />
@@ -44,26 +51,26 @@
               <div class="flex items-center">
                 <UIcon
                   name="i-heroicons-user-16-solid"
-                  class="w-4 h-4 mr-1 text-white dark:text-white"
+                  class="w-4 h-4 mr-1 text-amber-300"
                 />
                 <UDropdown
                   :items="navStore.menuHeaderDropdown"
                   :ui="{ item: { disabled: 'cursor-text select-text' } }"
                   :popper="{ placement: 'bottom-end' }"
                 >
-                  <span class="text-white dark:text-white text-sm">{{
+                  <span class="text-amber-100 text-sm">{{
                     profileStore.userData.username
                   }}</span>
                   <UIcon
                     name="i-heroicons-chevron-down-16-solid"
-                    class="w-4 h-4 ml-1 text-white dark:text-white"
+                    class="w-4 h-4 ml-1 text-amber-300"
                   />
 
                   <template #item="{ item }">
                     <span class="truncate text-base">{{ $t(item.label) }}</span>
                     <UIcon
                       :name="item.icon"
-                      class="flex-shrink-0 h-6 w-6 text-gray-400 dark:text-gray-500 ms-auto"
+                      class="flex-shrink-0 h-6 w-6 text-red-400 ms-auto"
                     />
                   </template>
                 </UDropdown>
@@ -71,7 +78,7 @@
               <div class="flex gap-2">
                 <div
                   v-if="profileStore.diamond.value !== '0'"
-                  class="hidden sm:flex h-7 items-center relative bg-gray-900 bg-opacity-80 rounded-full pl-1 pr-3"
+                  class="theme-panel hidden sm:flex h-7 items-center relative rounded-full pl-1 pr-3"
                 >
                   <NuxtImg
                     src="/assets/images/diamond.svg"
@@ -79,12 +86,12 @@
                     class="w-7"
                   />
                   <span
-                    class="text-sky-400 dark:text-sky-400 sm:text-lg font-semibold"
+                    class="text-amber-200 sm:text-lg font-semibold"
                     >{{ profileStore.diamond }}</span
                   >
                 </div>
                 <div
-                  class="h-7 flex items-center relative bg-gray-900 bg-opacity-80 rounded-full pl-6 pr-3"
+                  class="theme-panel h-7 flex items-center relative rounded-full pl-6 pr-3"
                 >
                   <NuxtImg
                     src="/assets/images/coin.webp"
@@ -92,15 +99,14 @@
                     class="w-7 absolute -left-2"
                   />
                   <span
-                    class="text-amber-400 dark:text-amber-400 sm:text-lg font-semibold"
+                    class="theme-title sm:text-lg font-semibold"
                     >{{ profileStore.balance }}</span
                   >
                   <UButton
                     :ui="{
                       color: {
                         white: {
-                          ghost:
-                            'text-white dark:text-white hover:text-gray-200 dark:hover:text-gray-200 hover:bg-tranparent dark:hover:bg-tranparent',
+                          ghost: 'text-amber-200 dark:text-amber-200 bg-transparent',
                         },
                       },
                     }"
@@ -114,7 +120,7 @@
                   />
                 </div>
                 <UButton
-                  class="hidden sm:inline-block login-btn w-18 h-7 justify-center rounded-full text-sm font-light"
+                  class="theme-primary-btn hidden sm:inline-block w-18 h-7 justify-center text-sm"
                   @click="popupStore.openModalProfile('cashier')"
                   >{{ $t('menu_cashier') }}</UButton
                 >
@@ -124,10 +130,10 @@
           <div v-else>
             <div class="flex flex-col items-end space-y-1">
               <USkeleton
-                class="h-4 w-32 rounded-full bg-gray-100 dark:bg-gray-300"
+                class="h-4 w-32 rounded-full bg-neutral-800"
               />
               <USkeleton
-                class="h-6 w-28 rounded-full bg-gray-100 dark:bg-gray-300"
+                class="h-6 w-28 rounded-full bg-neutral-800"
               />
             </div>
           </div>
@@ -136,7 +142,7 @@
         <div v-else class="flex items-center justify-end space-x-2">
           <UButton
             icon="i-heroicons-arrow-right-end-on-rectangle"
-            class="login-btn w-36 h-10 justify-center rounded-full text-lg font-light"
+            class="theme-primary-btn w-36 h-10 justify-center text-lg"
             @click="popupStore.openModalLogin"
             >{{ $t('sign_in') }}</UButton
           >

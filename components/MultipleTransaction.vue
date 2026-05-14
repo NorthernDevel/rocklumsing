@@ -10,16 +10,23 @@
         />
         <div
           v-else
-          class="py-4 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100"
+          class="theme-panel py-4 text-amber-100"
         >
           <div class="flex justify-center gap-1">
-            <UIcon name="i-heroicons-circle-stack-solid" class="w-4 h-4" />
+            <UIcon
+              name="i-heroicons-circle-stack-solid"
+              class="w-4 h-4 text-amber-300"
+            />
             <p class="text-sm">{{ $t('data_not_found') }}</p>
           </div>
         </div>
       </section>
       <section v-else>
-        <USkeleton class="h-10 w-full mb-2" v-for="i in 5" :key="i" />
+        <USkeleton
+          class="h-10 w-full mb-2 rounded-lg bg-neutral-800"
+          v-for="i in 5"
+          :key="i"
+        />
       </section>
     </div>
   </div>

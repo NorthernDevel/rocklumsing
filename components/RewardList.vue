@@ -1,15 +1,23 @@
 <template>
   <div class="w-full">
-    <div class="flex gap-2">
+    <div class="theme-panel flex gap-2 p-3">
       <USelectMenu
         v-model="selected"
         :options="typeOfReward"
         @change="onChanged"
         size="xl"
         class="grow"
+        :ui="{
+          color: {
+            white: {
+              outline:
+                'bg-black/50 border-red-900/60 text-gray-100 ring-red-900/60 focus:ring-red-500 focus:border-amber-300',
+            },
+          },
+        }"
       />
       <div class="grow flex items-center justify-end gap-1">
-        <p class="text-2xl sm:text-3xl font-semibold">
+        <p class="theme-title text-2xl sm:text-3xl font-semibold drop-shadow-[0_0_10px_rgba(220,38,38,0.35)]">
           {{
             useCurrency(profileStore.userData?.walletDiamond || 0, 'none')
               .currency
@@ -24,7 +32,7 @@
     </div>
 
     <div v-if="isLoading">
-      <USkeleton class="h-32 sm:h-36 mt-4" />
+      <USkeleton class="h-32 sm:h-36 mt-4 rounded-xl bg-neutral-800" />
     </div>
     <div v-else>
       <RewardListItem
@@ -34,9 +42,15 @@
         :is-loading="isExchangeLoading"
         v-on:get-reward="onGetReward"
       />
-      <UCard v-else class="flex items-center justify-center mt-4 h-36">
+      <UCard
+        v-else
+        class="theme-panel flex items-center justify-center mt-4 h-36 text-amber-100"
+      >
         <div class="flex justify-center gap-1">
-          <UIcon name="i-heroicons-circle-stack-solid" class="w-6 h-6" />
+          <UIcon
+            name="i-heroicons-circle-stack-solid"
+            class="w-6 h-6 text-amber-300"
+          />
           <p class="text-lg">{{ $t('data_not_found') }}</p>
         </div>
       </UCard>

@@ -1,16 +1,23 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <h3 class="text-2xl mb-4">{{ $t('affiliate_menus_reports') }}</h3>
+    <h3 class="theme-title text-2xl font-semibold mb-4">
+      {{ $t('affiliate_menus_reports') }}
+    </h3>
   </div>
   <div class="w-full flex items-center justify-between gap-4">
     <div class="flex flex-col w-1/2">
-      <div class="mb-1">{{ $t('start_date') }} :</div>
+      <div class="theme-label mb-1">{{ $t('start_date') }} :</div>
       <UPopover :popper="{ placement: 'bottom-start' }">
         <UButton
           id="startDate"
           icon="i-heroicons-calendar-days-20-solid"
           :label="dayjs(startDate).format('DD-MM-YYYY')"
-          class="w-full flex justify-center items-center text-center"
+          color="red"
+          variant="ghost"
+          class="theme-panel w-full flex justify-center items-center text-center !text-amber-100"
+          :ui="{
+            icon: { base: 'text-amber-300' },
+          }"
         />
         <template #panel="{ close }">
           <DatePicker
@@ -24,13 +31,18 @@
     </div>
 
     <div class="flex flex-col w-1/2">
-      <div class="mb-1">{{ $t('end_date') }} :</div>
+      <div class="theme-label mb-1">{{ $t('end_date') }} :</div>
       <UPopover :popper="{ placement: 'bottom-start' }">
         <UButton
           id="endDate"
           icon="i-heroicons-calendar-days-20-solid"
           :label="dayjs(endDate).format('DD-MM-YYYY')"
-          class="w-full flex justify-center items-center text-center"
+          color="red"
+          variant="ghost"
+          class="theme-panel w-full flex justify-center items-center text-center !text-amber-100"
+          :ui="{
+            icon: { base: 'text-amber-300' },
+          }"
         />
         <template #panel="{ close }">
           <DatePicker
@@ -51,14 +63,14 @@
           <div
             v-for="(item, key) in transactions"
             :key="key"
-            class="grid grid-cols-3 py-4 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100"
+            class="grid grid-cols-3 py-4 border-b border-dashed border-red-900/40 text-gray-100"
           >
             <div class="flex items-center justify-between space-x-1 col-span-2">
               <div class="flex flex-col text-sm">
-                <div class="text-gray-900 dark:text-gray-100">
+                <div class="text-gray-100">
                   {{ item.child }}
                 </div>
-                <div class="text-gray-500 dark:text-gray-400 text-xs">
+                <div class="text-amber-200/60 text-xs">
                   {{ dayjs(item.createdDate).format('YYYY-MM-DD HH:mm:ss') }}
                 </div>
               </div>
@@ -77,9 +89,9 @@
             <div
               class="flex items-center justify-end text-sm"
               :class="{
-                'text-green-500': item.value > 0,
-                'text-gray-900': item.value === 0,
-                'text-red-500': item.value < 0,
+                'text-emerald-400': item.value > 0,
+                'text-amber-100': item.value === 0,
+                'text-rose-400': item.value < 0,
               }"
             >
               {{ item.value }}
@@ -87,19 +99,23 @@
           </div>
         </div>
 
-        <div
-          v-else
-          class="py-4 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100"
-        >
+        <div v-else class="theme-panel py-4 mt-4 text-amber-100">
           <div class="flex justify-center gap-1">
-            <UIcon name="i-heroicons-circle-stack-solid" class="w-4 h-4" />
+            <UIcon
+              name="i-heroicons-circle-stack-solid"
+              class="w-4 h-4 text-amber-300"
+            />
             <p class="text-sm">{{ $t('data_not_found') }}</p>
           </div>
         </div>
       </section>
 
       <section v-else>
-        <USkeleton class="h-10 w-full mb-2" v-for="i in 5" :key="i" />
+        <USkeleton
+          class="h-10 w-full mb-2 rounded-lg bg-neutral-800"
+          v-for="i in 5"
+          :key="i"
+        />
       </section>
     </div>
   </div>

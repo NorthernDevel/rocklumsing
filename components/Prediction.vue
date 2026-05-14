@@ -91,7 +91,7 @@
             :key="key"
             :item="value"
             type="button"
-            color="orange"
+            color="red"
             variant="soft"
             @click="onSelectedAnswer(key)"
             class="w-full h-8 rounded-full font-light"
@@ -120,7 +120,7 @@
             />
             <NuxtImg
               v-else
-              src="/assets/images/logo.png"
+              src="/assets/images/logo.webp"
               :alt="answer.name"
               class="w-40 h-40 object-contain sm:w-48 sm:h-48 rounded-md"
             />
@@ -182,7 +182,7 @@ const preiod = computed(() => {
   const { start, end } = answer.value.date
 
   return `${dayjs(start).format('DD/MM/YYYY HH:mm')} - ${dayjs(end).format(
-    'DD/MM/YYYY HH:mm'
+    'DD/MM/YYYY HH:mm',
   )}`
 })
 </script>

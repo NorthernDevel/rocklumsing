@@ -1,7 +1,11 @@
 <template>
   <div v-if="!bankStore.isCustomerAccount">
     <div class="flex flex-col items-center justify-center">
-      <h3 class="text-2xl mb-4">{{ $t('cashier_update_bank') }}</h3>
+      <h3
+        class="theme-title mb-4 text-2xl font-semibold"
+      >
+        {{ $t('cashier_update_bank') }}
+      </h3>
       <div
         class="w-60 sm:w-72 border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg p-2 mb-4"
       >
@@ -22,7 +26,7 @@
         :schema="updateBankSchema"
         ref="form"
         @submit.prevent="onSubmit"
-        :validateOn="['submit']"
+        :validate-on="['submit']"
       >
         <AppFormGroup
           :label="$t('cashier_enter_name')"
@@ -30,6 +34,13 @@
           name="firstName"
         >
           <UInput
+            :ui="{
+              color: {
+                white: {
+                  outline: 'focus:ring-gray-500 dark:focus:ring-gray-400',
+                },
+              },
+            }"
             icon="i-heroicons-user"
             type="text"
             size="lg"
@@ -44,6 +55,13 @@
           name="lastName"
         >
           <UInput
+            :ui="{
+              color: {
+                white: {
+                  outline: 'focus:ring-gray-500 dark:focus:ring-gray-400',
+                },
+              },
+            }"
             icon="i-heroicons-user"
             type="text"
             size="lg"
@@ -76,6 +94,13 @@
           name="accountNo"
         >
           <UInput
+            :ui="{
+              color: {
+                white: {
+                  outline: 'focus:ring-gray-500 dark:focus:ring-gray-400',
+                },
+              },
+            }"
             icon="i-heroicons-book-open"
             type="text"
             size="lg"
@@ -86,7 +111,7 @@
 
         <UButton
           type="submit"
-          class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+          class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
           :loading="isLoading"
           :disabled="isLoading"
           >{{ $t('btn_submit') }}</UButton
@@ -95,39 +120,34 @@
     </div>
   </div>
   <div v-else>
+    <div class="flex justify-center">
+      <h3
+        class="theme-title mb-4 text-2xl font-semibold"
+      >
+        {{ cashierStore.title }}
+      </h3>
+    </div>
+
     <div class="flex flex-col items-center justify-center">
-      <div class="flex justify-evenly w-full">
-        <UIcon
-          v-if="cashierStore.isSelectedChannel"
-          name="i-heroicons-chevron-left-20-solid"
-          class="w-8 h-8 cursor-pointer"
-          @click="cashierStore.previousPage"
-        />
-        <div class="flex-grow text-center">
-          <h3 class="text-2xl mb-4">{{ cashierStore.title }}</h3>
-        </div>
-        <div v-if="cashierStore.isSelectedChannel" class="w-8"></div>
-      </div>
-      <UTabs
-        v-if="!cashierStore.isSelectedChannel"
+      <LazyUTabs
         v-model="cashierStore.activeTab"
         :items="cashierStore.tabList"
-        class="w-full"
+        class="w-full b"
       >
         <template #icon="{ item, selected }">
           <UIcon
             :name="item.icon"
-            class="w-4 h-4 flex-shrink-0 mr-2 hidden sm:inline-block"
-            :class="[selected && 'text-amber-500 dark:text-amber-400']"
+            class="w-4 h-4 flex-shrink-0 mr-2 sm:inline-block"
+            :class="[selected && 'text-amber-300']"
           />
         </template>
-      </UTabs>
+      </LazyUTabs>
 
+      <CashierWithdraw v-if="cashierStore.activeTab === 0" />
       <CashierDeposit
-        v-if="cashierStore.activeTab === 0"
+        v-if="cashierStore.activeTab === 1"
         :is-loading="isLoading"
       />
-      <CashierWithdraw v-if="cashierStore.activeTab === 1" />
       <CashierHistory v-if="cashierStore.activeTab === 2" />
     </div>
   </div>
@@ -136,7 +156,6 @@
 <script lang="ts" setup>
 import { z } from 'zod'
 import type { RequestUpdateBank } from '~/models/default.model'
-import type { ServiceAskmepayData } from '~/models/service-ask.model'
 
 const cashierStore = useCashierStore()
 const resourceStore = useResourceStore()
@@ -153,8 +172,11 @@ const initialState: RequestUpdateBank = {
   accountNo: undefined,
   firstName: undefined,
   lastName: undefined,
+  firstNameEn: '',
+  lastNameEn: '',
   middleName: '',
-  isAutoPromotion: true,
+  promptPayID: '',
+  type: '',
 }
 
 const state = ref({

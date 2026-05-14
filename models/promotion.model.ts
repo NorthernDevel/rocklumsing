@@ -91,3 +91,21 @@ export interface PromotionList {
 export interface RequestTakePromotion {
   promotionId: string
 }
+
+// ============================= Form Protal =============================
+export interface Promotion {
+  code: number
+  message: string
+  data: PromotionData[]
+  totalData: number
+}
+
+export interface PromotionData {
+  id: string
+  promotionId: string
+  image: string
+  title: string
+  shortContent: string
+  content: string
+  slug: string
+}

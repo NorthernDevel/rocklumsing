@@ -190,8 +190,13 @@ export const useResourceStore = defineStore('resourceStore', () => {
   const showPopupLoggedIn = () => {
     setTimeout(() => {
       if (popupLoggedIn.value.length) popupStore.openPopupLoggedIn()
-    }, 1000)
+    }, 500)
   }
+
+  const seoMeta = computed(() => {
+    if (!resources.value) return { title: '', keywords: '', description: '' }
+    return resources.value.seoMeta
+  })
 
   const getResoures = async () => {
     try {
@@ -229,7 +234,6 @@ export const useResourceStore = defineStore('resourceStore', () => {
     footerDescription,
     bannerImages,
     promotions,
-    popups,
     registerType,
     tags,
     extraApplication,

@@ -6,26 +6,28 @@
   <section>
     <div class="flex flex-col">
       <div class="flex justify-center px-2 py-4 mt-4">
-        <AppGameNav :links="navStore.menuGames" color="green" />
+        <AppGameNav :links="navStore.menuGames" />
       </div>
 
       <div class="w-full p-2 md:p-4">
-        <section>
-          <AppGameBar
-            v-if="gameObject?.gameType === 'SPORT'"
-            :name="title"
-            :src="barImage"
-          />
-          <AppGameBar
-            v-else
-            :game-type="`${gameObject?.gameType}`"
-            is-search
-            is-select
-            v-on:search-term="onSearchTerm"
-            v-on:selected="onSelected"
-          />
-          <AppGameList :is-loading="isLoading" :games-list="filterListData" />
-        </section>
+        <div class="game-block rounded-3xl">
+          <section>
+            <AppGameBar
+              v-if="gameObject?.gameType === 'SPORT'"
+              :name="title"
+              :src="barImage"
+            />
+            <AppGameBar
+              v-else
+              :game-type="`${gameObject?.gameType}`"
+              is-search
+              is-select
+              v-on:search-term="onSearchTerm"
+              v-on:selected="onSelected"
+            />
+            <AppGameList :is-loading="isLoading" :games-list="filterListData" />
+          </section>
+        </div>
       </div>
     </div>
   </section>
@@ -58,7 +60,7 @@ watch(debouncedSearchTerm, (value) => {
   if (!value) return (filterListData.value = gamesListData)
   const regex = new RegExp(value, 'i')
   filterListData.value = gamesListData.filter((item) =>
-    regex.test(item.gameName!)
+    regex.test(item.gameName!),
   )
 })
 
@@ -97,7 +99,13 @@ const fetchGameListByType = async (gameType: GameType) => {
           const { productName, logo, games } = gamesList[0]
           title.value = productName
           barImage.value = logo.mobile || logo.default
-          gamesListData = games ? games.filter(item => (item.gameName !== 'SBO bet 568Win Sportsbook' && item.gameName !== 'SBO bet Third Party SportsBook') ) : []
+          gamesListData = games
+            ? games.filter(
+                (item) =>
+                  item.gameName !== 'SBO bet 568Win Sportsbook' &&
+                  item.gameName !== 'SBO bet Third Party SportsBook',
+              )
+            : []
           filterListData.value = gamesListData
         }
       }
@@ -112,7 +120,7 @@ const fetchGameListByType = async (gameType: GameType) => {
 
 const gameObject = computed(() => {
   const gameFinded = navStore.menuGames.find(
-    (item) => item.name === route.params.id
+    (item) => item.name === route.params.id,
   )
   return gameFinded
 })
@@ -120,7 +128,7 @@ const gameObject = computed(() => {
 watch(title, () =>
   useHead({
     title: title.value.toUpperCase(),
-  })
+  }),
 )
 
 const onSelected = (productCode: string) => {

@@ -15,16 +15,19 @@ export interface GameSportData {
 }
 
 export const useGameStore = defineStore('gameStore', () => {
+  const route = useRoute()
   const popupStore = usePopupStore()
   const loaderStore = useLoaderStore()
 
   const searchTerm = ref('')
+  const afterSearch = ref('')
   const collapsed = ref<Record<string, boolean>>({})
   const gameTypeCache = new Map<string, GameType>()
   const gamesProviderSlot = ref<GamesProvider[]>([])
   const gamesProviderFishing = ref<GamesProvider[]>([])
   const filterListData = ref<GamesList[]>([])
   let gamesListData: GamesList[] = []
+  let searchGameList: GamesList[] = []
 
   const gameSports: GameSport = {
     // games: [
@@ -94,6 +97,21 @@ export const useGameStore = defineStore('gameStore', () => {
     imageUrl: '/assets/images/games/sports/',
   }
 
+  const providerBlackList = ['T24W', 'RTG', 'NLC', 'RTG', 'NLC']
+
+  const gameSlotBlackList = [
+    'Super Ace',
+    'Super Ace Deluxe',
+    'Super Ace X',
+    'Super Ace 2',
+    'Wild Ace',
+    'Nova Crash',
+    'Rabbit Mines',
+    "Mummy's Treasure",
+    'Lucky Mine',
+    'Wizard Dice',
+  ]
+
   const onSearchTerm = (search: string) => {
     searchTerm.value = search
   }
@@ -102,11 +120,22 @@ export const useGameStore = defineStore('gameStore', () => {
 
   // NOTE: Search by name.
   watch(debouncedSearchTerm, (value) => {
+    afterSearch.value = value
     if (!value) return (filterListData.value = gamesListData)
     const regex = new RegExp(value, 'i')
-    filterListData.value = gamesListData.filter(
-      (item) => regex.test(item.productName) || regex.test(item.gameName!)
-    )
+    if (route.params.id === 'slot' || route.params.id === 'casino') {
+      loaderStore.start()
+      filterListData.value = searchGameList.filter(
+        (item) => regex.test(item.productName) || regex.test(item.gameName!),
+      )
+      setTimeout(() => {
+        loaderStore.stop()
+      }, 1000)
+    } else {
+      filterListData.value = gamesListData.filter(
+        (item) => regex.test(item.productName) || regex.test(item.gameName!),
+      )
+    }
   })
 
   const toggleCollapse = (productCode: string) => {
@@ -143,6 +172,20 @@ export const useGameStore = defineStore('gameStore', () => {
     }
   }
 
+  const playTournament = async () => {
+    try {
+      const { status, message, data } = await useTournament()
+      if (!status) {
+        popupStore.alertError({ message: message })
+      } else {
+        if (data) window.location.replace(`${data.url}`)
+      }
+    } catch (e) {
+      popupStore.toastError({ message: (e as Error).message })
+      console.log((e as Error).message)
+    }
+  }
+
   // Utility function to get the GameType from a string.
   const cacheStringToGameType = (gameTypeStr: string): GameType | undefined => {
     if (gameTypeCache.has(gameTypeStr)) {
@@ -171,6 +214,18 @@ export const useGameStore = defineStore('gameStore', () => {
     })
   }
 
+  const gamesProviderListBar = (games: GamesList[]): GamesProvider[] => {
+    return games.map((game) => {
+      const { productCode, productName, logo } = game
+      const { mobile, transparent } = logo
+      return {
+        id: productCode,
+        label: productName,
+        avatar: { src: logo.default || mobile || transparent },
+      }
+    })
+  }
+
   const fetchGameListByType = async (gameType: GameType) => {
     try {
       loaderStore.start()
@@ -178,7 +233,29 @@ export const useGameStore = defineStore('gameStore', () => {
       if (!status) {
         popupStore.alertError({ message: message })
       } else {
-        setGameList(gamesList, gameType)
+        let gameFiller = gamesList
+        if (gameType === 6) {
+          // ยิงปลา เหลือ 2 เกม
+          gameFiller = gamesList.filter(
+            (game) => game.productCode === 'JOK' || game.productCode === 'JL',
+          )
+        } else if (gameType === 2) {
+          // casino ['SAG', 'PTG', "PTGC", "PLT", "EVLU", "AB", "BIGG", "DGM", "PMT"]
+          gameFiller = gamesList.filter((game) =>
+            [
+              'SAG',
+              'PTG',
+              'PTGC',
+              'PLT',
+              'EVLU',
+              'AB',
+              'BIGG',
+              'DGM',
+              'PMT',
+            ].includes(game.productCode),
+          )
+        }
+        setGameList(gameFiller, gameType)
       }
     } catch (e) {
       popupStore.toastError({ message: (e as Error).message })
@@ -237,9 +314,14 @@ export const useGameStore = defineStore('gameStore', () => {
       const newGameList = recommendList
         .map((code) => gamesList.find((item) => item.productCode === code))
         .concat(
-          gamesList.filter((item) => !recommendList.includes(item.productCode))
+          gamesList.filter((item) => !recommendList.includes(item.productCode)),
         )
       gamesListData = newGameList as GamesList[] | never[]
+
+      // NOTE: Search all games slot & casino
+      searchGameList = gamesList.flatMap((item) => item.games) as
+        | GamesList[]
+        | never[]
     } else {
       gamesListData = gamesList
     }
@@ -310,17 +392,22 @@ export const useGameStore = defineStore('gameStore', () => {
     gamesListData,
     gameSports,
     collapsed,
+    providerBlackList,
+    gameSlotBlackList,
+    afterSearch,
     onSearchTerm,
     playGame,
     playAskmebet,
     cacheStringToGameType,
     cacheGamesProvider,
     gamesProviderList,
+    gamesProviderListBar,
     fetchGameListByType,
     fetchGameRecently,
     fetchGameFavorites,
     addGameFavorite,
     deleteGameFavorite,
     toggleCollapse,
+    playTournament,
   }
 })

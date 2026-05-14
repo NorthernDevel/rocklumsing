@@ -20,6 +20,7 @@ export interface GamesList {
   loginCode?: string
   isFavorite?: boolean
   rtp?: number
+  online?: number
 }
 
 export interface GameData {
@@ -84,4 +85,14 @@ export interface GameSport {
   message: string
   urlWebProduct: string
   urlMobileProduct: string
+}
+
+export interface Tournament {
+  code: string
+  message: string
+  data: TournamentData
+}
+
+export interface TournamentData {
+  url: string
 }

@@ -8,8 +8,6 @@ export const usePromotionStore = defineStore('promotionStore', () => {
   const profileStore = useProfileStore()
   const resourceStore = useResourceStore()
 
-  // const promotions = ref<PromotionData[]>([])
-
   const isDisabledAutoPromotions = () => {
     // NOTE: Disabled receive promotions.
     setTimeout(() => {
@@ -31,5 +29,5 @@ export const usePromotionStore = defineStore('promotionStore', () => {
     }, 1000)
   }
 
-  return { isDisabledAutoPromotions }
+  return {  isDisabledAutoPromotions }
 })

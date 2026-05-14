@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <h3 class="text-2xl mb-4">{{ $t('password_change') }}</h3>
+    <h3
+      class="theme-title mb-4 text-2xl font-semibold"
+    >{{ $t('password_change') }}</h3>
     <UForm
       class="mt-2 w-60 sm:w-72"
       :state="state"
@@ -32,7 +34,11 @@
         </UButtonGroup>
       </AppFormGroup>
 
-      <AppFormGroup :label="$t('password_new')" :required="true" name="password">
+      <AppFormGroup
+        :label="$t('password_new')"
+        :required="true"
+        name="password"
+      >
         <UButtonGroup size="lg" orientation="horizontal" class="w-full">
           <UInput
             icon="i-heroicons-key"
@@ -76,7 +82,7 @@
 
       <UButton
         type="submit"
-        class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+        class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
         :loading="isLoading"
         :disabled="isLoading"
         >{{ $t('password_change') }}</UButton
@@ -151,7 +157,7 @@ const onSubmit = async () => {
     } else {
       popupStore.alertSuccess({
         title: message,
-        onClick: async () => {
+        onConfirm: async () => {
           resetForm()
           popupStore.closeModalProfile()
           await authStore.signOut()
