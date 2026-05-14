@@ -313,10 +313,11 @@ export const useGameStore = defineStore('gameStore', () => {
         gameType === 1 ? slotRecomnendList : casinoRecomnendList
       const newGameList = recommendList
         .map((code) => gamesList.find((item) => item.productCode === code))
+        .filter((item): item is GamesList => Boolean(item))
         .concat(
           gamesList.filter((item) => !recommendList.includes(item.productCode)),
         )
-      gamesListData = newGameList as GamesList[] | never[]
+      gamesListData = newGameList
 
       // NOTE: Search all games slot & casino
       searchGameList = gamesList.flatMap((item) => item.games) as

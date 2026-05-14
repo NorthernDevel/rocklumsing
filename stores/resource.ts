@@ -162,11 +162,6 @@ export const useResourceStore = defineStore('resourceStore', () => {
     return newPopups
   })
 
-  const seoMeta = computed(() => {
-    if (!resources.value) return { title: '', keywords: '', description: '' }
-    return resources.value.seoMeta
-  })
-
   const popupNotLogin = computed(() => {
     if (!popups) return []
     return popups.value.filter(

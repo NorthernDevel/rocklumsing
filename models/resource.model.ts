@@ -83,41 +83,6 @@ export interface PromotionData {
   id: string
   siteId: string
   refId: null
-<<<<<<< HEAD
-  image: string
-  title: string
-  shortContent: string
-  content: string
-  slug: string
-  isActive: boolean
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface ExtraApplication {
-  ios: ExtraApplicationInfo
-  andriod: ExtraApplicationInfo
-}
-
-export interface ExtraApplicationInfo {
-  active: boolean
-  source: string
-}
-
-export interface FooterDescription {
-  title: DisplayData
-  description?: DisplayData
-}
-
-export interface SEOMetaData {
-  title: string
-  keywords: string
-  description: string
-}
-
-export interface PopupData {
-=======
->>>>>>> uat
   image: string
   title: string
   shortContent: string

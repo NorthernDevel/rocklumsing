@@ -21,8 +21,8 @@
       class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3 md:gap-4"
     >
       <AppGameListItem
-        v-for="(item, key) in gamesList"
-        :key="key"
+        v-for="item in visibleGames"
+        :key="item.loginCode || item.productCode"
         :item="item"
         :is-provider="isProvider"
       />
@@ -48,13 +48,13 @@ import type { GamesList } from '~/models/games.model'
 
 const props = defineProps({
   isLoading: Boolean,
-  gamesList: Object as PropType<GamesList[]>,
+  gamesList: Array as PropType<GamesList[]>,
   isProvider: { type: Boolean, default: false },
   isCollapse: { type: Boolean, default: false },
 })
 
 const visibleGames = computed(() => {
-  if (!props.isCollapse) return props.gamesList || []
+  if (!props.isCollapse) return (props.gamesList || []).filter(Boolean)
   return []
 })
 </script>
