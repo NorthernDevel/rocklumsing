@@ -84,13 +84,13 @@ export const useGameStore = defineStore('gameStore', () => {
     // ],
     games: [
       {
-        type: 'SBO',
-        src: 'Sbobet.gif',
+        type: 'AFB',
+        src: 'AFB888.gif',
         active: true,
       },
       {
-        type: 'SABA',
-        src: 'Saba.gif',
+        type: 'LALI',
+        src: 'LalikaBet.gif',
         active: true,
       },
     ],

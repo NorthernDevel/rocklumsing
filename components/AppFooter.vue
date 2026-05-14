@@ -12,7 +12,7 @@
         <h2 class="theme-title text-2xl font-bold mb-2">
           {{ footerTitle }}
         </h2>
-        <p class="text-center text-amber-100/70">{{ footerDescription }}</p>
+        <p class="text-center text-gray-200">{{ footerDescription }}</p>
 
         <div class="flex items-center justify-center flex-wrap space-x-2 pt-5">
           <div v-for="tag in resourceStore.tags" class="pt-2">
