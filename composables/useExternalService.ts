@@ -124,3 +124,9 @@ export const usePeer2PayInfo = async () => {
   if (!code || code != '0') return { status: false, data: undefined, message }
   return { status: true, data: data, message }
 }
+
+export const useTournament = async () => {
+  const { code, message, data } = await services.getTournament()
+  if (!code || code != '0') return { status: false, data: undefined, message }
+  return { status: true, data: data, message }
+}

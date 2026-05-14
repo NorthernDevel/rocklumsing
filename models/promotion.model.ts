@@ -97,6 +97,7 @@ export interface Promotion {
   code: number
   message: string
   data: PromotionData[]
+  totalData: number
 }
 
 export interface PromotionData {

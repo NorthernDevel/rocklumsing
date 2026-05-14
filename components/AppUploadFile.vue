@@ -1,21 +1,21 @@
 <template>
-  <UCard
-    class="w-full border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800"
-  >
+  <UCard class="theme-panel w-full">
     <!-- Drop area -->
     <div
-      class="border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer"
+      class="rounded-lg border-2 border-dashed border-red-900/60 bg-black/30 p-6 flex flex-col items-center justify-center cursor-pointer"
       @dragover.prevent
       @drop.prevent="handleFileDrop"
       @click="triggerFileInput"
     >
-      <UIcon name="i-heroicons-arrow-up-tray" class="w-8 h-8" />
+      <UIcon name="i-heroicons-arrow-up-tray" class="w-8 h-8 text-amber-300" />
 
       <!-- Instructions -->
-      <p class="text-center font-semibold">{{ $t('drag_and_drop_file') }}</p>
-      <p class="text-center text-sm text-gray-500 mt-1">
+      <p class="theme-title text-center font-semibold">
+        {{ $t('drag_and_drop_file') }}
+      </p>
+      <p class="text-center text-sm text-amber-100/70 mt-1">
         {{ $t('or') }}
-        <span class="text-amber-500 underline cursor-pointer">{{
+        <span class="text-amber-300 underline cursor-pointer">{{
           $t('browse_file')
         }}</span>
         {{ $t('from_device') }}
@@ -37,12 +37,14 @@
         v-if="previewImage"
         :src="previewImage"
         alt="Preview"
-        class="mt-2 w-32 h-32 object-cover rounded-md border"
+        class="mt-2 w-32 h-32 object-cover rounded-md border border-red-900/60"
       />
-      <p class="max-w-48 sm:max-w-72 truncate text-sm font-medium">{{ fileName }}</p>
+      <p class="max-w-48 sm:max-w-72 truncate text-sm font-medium text-amber-100">
+        {{ fileName }}
+      </p>
     </div>
 
-    <p v-if="error" class="text-sm text-red-700 mt-2">{{ error }}</p>
+    <p v-if="error" class="theme-error-box mt-2">{{ error }}</p>
   </UCard>
 </template>
 

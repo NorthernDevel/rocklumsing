@@ -37,7 +37,7 @@ export const usePromotionStore = defineStore('promotionStore', () => {
       {
         id: '666521bce5313a85848c7b50',
         promotionId: '666153b20155c58a5ca62646',
-        image: '14b5d1ab-34a3-406a-8c5e-b71ae9bab0b2.jpg',
+        image: '6787a50e65680d8b970e4c3c.jpg',
         title: 'สมัครสมาชิกใหม่',
         shortContent: '🎉 สมัครสมาชิกใหม่ ฝาก 100 บาท รับเลย 100 บาท',
         content:
@@ -47,7 +47,7 @@ export const usePromotionStore = defineStore('promotionStore', () => {
       {
         id: '666521bce5313a85848c7b51',
         promotionId: '666153b20155c58a5ca62645',
-        image: 'c64659aa-98b9-42c0-b399-668aad9a7149.jpg',
+        image: '6787a50e65680d8b970e4c3d.jpg',
         title: 'สมัครสมาชิกใหม่',
         shortContent: '🎉 สมัครสมาชิกใหม่ ฝาก 200 บาท รับเลย 200 บาท',
         content:
@@ -57,7 +57,7 @@ export const usePromotionStore = defineStore('promotionStore', () => {
       {
         id: '66bb005116899eeb0b9df9c4',
         promotionId: '',
-        image: '49e3ffdf-1144-4329-a8b3-ed12fc4ab702.jpg',
+        image: '6787a50e65680d8b970e4c3e.jpg',
         title: 'ฝากแรกของวัน',
         shortContent: '🎉 ฝากแรกของวัน รับเลย 20% ของยอดฝาก',
         content:
@@ -67,7 +67,7 @@ export const usePromotionStore = defineStore('promotionStore', () => {
       {
         id: '66bb005116899eeb0b9df9c5',
         promotionId: '',
-        image: 'e58f8e18-8fbc-4013-8a88-6f79d3daefce.webp',
+        image: 'f589f912-e6be-4200-b547-1bffac11a18d.webp',
         title: 'แนะนำเพื่อนรับค่าแนะนำฟรีทันที',
         shortContent: '🎊 แนะนำเพื่อนรับค่าแนะนำฟรีทันที 🎊',
         content: `<p><span>🚨 หมายเหตุ 🚨</span></p>
@@ -77,7 +77,7 @@ export const usePromotionStore = defineStore('promotionStore', () => {
       {
         id: '6665278c96c03ad7492b592b',
         promotionId: '666154207137efa02bdb08c1',
-        image: '8be7fd00-8463-48e0-bee5-3f365e15edd4.webp',
+        image: 'ca6c5bb7-1cdc-416b-9473-b4b1b114cfdb.webp',
         title: 'แนะนำเพื่อนรับยอดเสียจากเพื่อน',
         shortContent: '🎊 แนะนำเพื่อนรับยอดเสียจากเพื่อน 3% 🎊',
         content:
@@ -87,11 +87,11 @@ export const usePromotionStore = defineStore('promotionStore', () => {
       {
         id: '666589ed1d0ee59abd89a811',
         promotionId: '666154c0f4e10bbcaa999728',
-        image: '78a9a37c-1c32-481a-8125-974bddf1828c.jpg',
+        image: '6787a50e65680d8b970e4c41.jpg',
         title: 'คืนยอดเสียเป็นเพชร',
         shortContent: 'คืนยอดเสียเป็นเพชร เพื่อใช้เพชรไปเล่นมินิเกมส์ต่าง ๆ',
         content:
-          '<p><span>🚨 หมายเหตุ 🚨</span></p><p><br></p><p><span>คืนยอดเสียเป็นเพชร เพื่อใช้เพชรไปเล่นมินิเกมส์เพื่อสะสมเพชร และแลกรับเครดิตฟรี จำนวนมาก ไม่ต้องทำเทิร์น ถอนได้เลย</span></p><p><br></p><h1>ของรางวัลเครดิตฟรีมีดังนี้</h1><p>1. เครดิตฟรี 50<br>2. เครดิตฟรี 100<br3. เครดิตฟรี 200<br>4. เครดิตฟรี 300<br>5. เครดิตฟรี 400<br>6. เครดิตฟรี 500<br>7. เครดิตฟรี 1,000<br>8. เครดิตฟรี 2,000<br>9. เครดิตฟรี 4,000<br>10. เครดิตฟรี 8,000<br>11. เครดิตฟรี 10,000</p>',
+          '<p><span>**หมายเหตุ**</span></p><p><br></p><p><span>คืนยอดเสียเป็นเพชร เพื่อใช้เพชรไปเล่นมินิเกมส์เพื่อสะสมเพชร และแลกรับเครดิตฟรี จำนวนมาก ไม่ต้องทำเทิร์น ถอนได้เลย</span></p><p><br></p><h1>ของรางวัลเครดิตฟรีมีดังนี้</h1><p>1. เครดิตฟรี 50<br>2. เครดิตฟรี 100<br3. เครดิตฟรี 200<br>4. เครดิตฟรี 300<br>5. เครดิตฟรี 400<br>6. เครดิตฟรี 500<br>7. เครดิตฟรี 1,000<br>8. เครดิตฟรี 2,000<br>9. เครดิตฟรี 4,000<br>10. เครดิตฟรี 8,000<br>11. เครดิตฟรี 10,000</p>',
         slug: 'refund-to-credit',
       },
     ]

@@ -8,18 +8,20 @@
         padding: 'p-0 sm:p-0',
       },
     }"
-    class="relative transition-all duration-500 overflow-hidden mt-4"
+    class="theme-panel relative overflow-hidden mt-4"
   >
     <div class="flex gap-4">
       <NuxtImg
         :src="reward.fullImg"
         :alt="reward.nameReward"
-        class="w-20 h-20 sm:w-24 sm:h-24 rounded-md"
+        class="w-20 h-20 sm:w-24 sm:h-24 rounded-md border border-red-900/50 object-cover"
       />
       <div class="w-full flex flex-col">
-        <p class="text-sm sm:text-base">{{ reward.nameReward }}</p>
+        <p class="text-sm sm:text-base font-medium text-amber-100">
+          {{ reward.nameReward }}
+        </p>
         <div class="flex items-center gap-1">
-          <p class="text-base sm:text-lg font-semibold">
+          <p class="theme-title text-base sm:text-lg font-semibold">
             {{ useCurrency(reward.amount, 'none').currency }}
           </p>
           <NuxtImg
@@ -30,7 +32,7 @@
         </div>
         <UButton
           type="button"
-          class="login-btn w-full h-7 sm:h-9 justify-center rounded-full text-sm sm:text-base font-light mt-2"
+          class="theme-primary-btn w-full h-7 sm:h-9 justify-center text-sm sm:text-base mt-2"
           :disabled="isLoading"
           @click="onClicked(reward)"
           >{{ $t('redeem') }}</UButton
@@ -46,23 +48,30 @@
       leave-to-class="opacity-0 max-h-0"
     >
       <div v-if="isExpanded">
-        <UDivider :label="$t('reward_more_detail')" class="mt-4" />
+        <UDivider
+          :label="$t('reward_more_detail')"
+          class="mt-4"
+          :ui="{
+            label: 'text-amber-300',
+            border: { base: 'border-red-900/50' },
+          }"
+        />
         <div class="flex flex-col gap-4 mt-2">
           <div
-            class="flex items-center justify-between text-sm sm:text-base font-medium text-gray-500 dark:text-gray-300"
+            class="flex items-center justify-between text-sm sm:text-base font-medium text-amber-100/80"
           >
             <p>{{ $t('reward_balance') }}</p>
-            <p>{{ useNumberWithComma(reward.count).amount }}</p>
+            <p class="text-gray-50">
+              {{ useNumberWithComma(reward.count).amount }}
+            </p>
           </div>
           <div>
-            <p
-              class="font-medium text-sm sm:text-base text-gray-500 dark:text-gray-300"
-            >
+            <p class="font-medium text-sm sm:text-base text-amber-100/80">
               {{ $t('reward_description') }}
             </p>
             <p
               v-html="reward.description"
-              class="text-xs sm:text-sm opacity-60"
+              class="text-xs sm:text-sm text-gray-300/70"
             ></p>
           </div>
         </div>
@@ -70,10 +79,10 @@
     </transition>
     <template #footer>
       <div
-        class="flex items-center justify-center h-6 bg-gray-100 dark:bg-gray-800 rounded-b-md cursor-pointer"
+        class="flex items-center justify-center h-6 bg-black/50 border-t border-red-900/40 rounded-b-md cursor-pointer"
         @click="isExpanded = !isExpanded"
       >
-        <p class="text-[12px] font-light dark:font-medium text-gray-500">
+        <p class="text-[12px] font-medium text-amber-200/80">
           {{ isExpanded ? $t('btn_hide') : $t('btn_more') }}
         </p>
       </div>

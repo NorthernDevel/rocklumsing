@@ -1,19 +1,19 @@
 <template>
   <div class="w-full flex flex-col items-center gap-2 sm:gap-4">
     <div
-      class="rounded-xl border-2 w-full h-40 flex flex-col items-center justify-center bg-zinc-100 dark:border-gray-500 dark:bg-gray-800"
+      class="theme-panel w-full h-40 flex flex-col items-center justify-center"
     >
       <UIcon
         v-if="isLoading"
         name="i-heroicons-arrow-path"
-        class="animate-spin text-slate-500 text-4xl"
+        class="theme-loading-icon"
       />
 
       <div v-else class="flex flex-col items-center justify-center">
-        <p>{{ $t('txt_amount') }} ({{ $t('menu_commission') }})</p>
-        <p
-          class="cashback text-4xl sm:text-5xl text-green-600 dark:text-green-400"
-        >
+        <p class="theme-label">
+          {{ $t('txt_amount') }} ({{ $t('menu_commission') }})
+        </p>
+        <p class="theme-amount">
           {{ amount }}
         </p>
       </div>
@@ -21,9 +21,21 @@
 
     <div
       v-if="!isDisbled"
-      class="w-full border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg p-4"
+      class="theme-panel w-full p-4"
     >
-      <USelectMenu v-model="selected" :options="typeOfWithdraw" size="xl">
+      <USelectMenu
+        v-model="selected"
+        :options="typeOfWithdraw"
+        size="xl"
+        :ui="{
+          color: {
+            white: {
+              outline:
+                'bg-black/50 border-red-900/60 text-gray-100 ring-red-900/60 focus:ring-red-500 focus:border-amber-300',
+            },
+          },
+        }"
+      >
         <template #leading>
           <UAvatar v-bind="selected.avatar" size="2xs" />
         </template>
@@ -31,7 +43,7 @@
 
       <UButton
         type="button"
-        class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+        class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
         :loading="isLoading"
         :disabled="isLoading"
         @click="onSubmit"
@@ -40,9 +52,11 @@
     </div>
     <div
       v-else-if="isDisbled && commission"
-      class="w-full text-center mt-5 flex flex-col items-center justify-center"
+      class="w-full text-center flex flex-col items-center justify-center"
     >
-      <div class="text-sm text-red-700">{{ commission.message }}</div>
+      <div class="theme-error-box w-full">
+        {{ commission.message }}
+      </div>
     </div>
   </div>
 </template>
@@ -114,7 +128,7 @@ const getCommission = async () => {
 }
 
 const getCommissionTurnOverDetail = async (
-  body: RequestCommissionTurnOverDetail
+  body: RequestCommissionTurnOverDetail,
 ) => {
   try {
     isLoading.value = true
@@ -135,7 +149,7 @@ const getCommissionTurnOverDetail = async (
 }
 
 const addCommissionToProduct = async (
-  body: RequestCommissionTurnOverDetail
+  body: RequestCommissionTurnOverDetail,
 ) => {
   try {
     isLoading.value = true

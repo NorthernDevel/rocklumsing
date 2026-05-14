@@ -41,8 +41,38 @@ export const useFormatter = () => {
     }
   }
 
+    const useParseAmount = () => {
+      const parseAmount = (input: string) => {
+        // Remove all non-numeric characters except decimal point
+        const cleanedValue = input.replace(/[^0-9.]/g, '')
+
+        let amountNumber = parseFloat(cleanedValue)
+
+        // ป้องกัน NaN
+        if (Number.isNaN(amountNumber)) {
+          amountNumber = 0
+        }
+
+        // ปัดเป็น 2 ตำแหน่ง
+        const rounded = Math.round(amountNumber * 100) / 100
+
+        return rounded
+      }
+
+      const formatAmount = (value: number) => {
+        const { currency } = useCurrency(value, 'none')
+        return currency.value || '0'
+      }
+
+      return {
+        parseAmount,
+        formatAmount,
+      }
+    }
+
   return {
     useCurrency,
     useNumberWithComma,
+    useParseAmount,
   }
 }

@@ -1,10 +1,16 @@
 <template>
-  <div v-if="resourceStrore.apkFile.active" id="app-download" class="flex justify-center pb-2 sm:pt-6 sm:pb-6">
-    <NuxtLink :to="resourceStrore.apkFile.source" target="_blank">
+  <div v-if="resourceStrore.extraApplication.andriod.active"
+    id="app-download"
+    class="w-full flex justify-center sm:gap-2 md:gap-4 mb-6 mt-4 sm:mt-6"
+  >
+    <NuxtLink
+      :to="resourceStrore.extraApplication.andriod.source"
+      target="_blank"
+    >
       <NuxtImg
         src="/assets/images/download-apk.png"
         alt="Get it on google play"
-        class=" object-contain"
+        class="object-contain cursor-pointer sm:w-56 h-16 sm:h-20 transition duration-300 drop-shadow-[0_0_8px_rgba(220,38,38,0.45)] hover:drop-shadow-[0_0_20px_rgba(255,247,214,0.35)]"
         loading="lazy"
       />
     </NuxtLink>

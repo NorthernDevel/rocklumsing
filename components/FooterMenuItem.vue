@@ -1,10 +1,16 @@
 <template>
   <div @click="onSelectedMenu(item.name)" class="grow flex justify-center">
     <div
-      class="w-16 sm:w-20 min-w-16 flex flex-col items-center position-relative cursor-pointer transition-all duration-200 hover:scale-110"
+      class="w-16 sm:w-20 min-w-16 flex flex-col items-center position-relative cursor-pointer"
     >
-      <NuxtImg :src="item.image" :alt="item.name" :class="[item.name === 'home' && 'w-16']" class="w-12" loading="lazy" />
-      <p class="text-sm md:text-base text-gray-100 dark:text-gray-100">
+      <NuxtImg
+        :src="item.image"
+        :alt="item.name"
+        :class="[item.name === 'home' && 'w-16']"
+        class="w-12 drop-shadow-[0_0_10px_rgba(220,38,38,0.25)]"
+        loading="lazy"
+      />
+      <p class="text-sm md:text-base text-amber-100">
         {{ $t(item.label) }}
       </p>
     </div>

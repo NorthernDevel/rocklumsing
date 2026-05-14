@@ -1,39 +1,50 @@
 <template>
   <div>
     <div class="flex flex-col items-center justify-center mb-5">
-      <h3 class="text-2xl mb-4">{{ $t('menu_affiliate') }}</h3>
+      <h3 class="theme-title mb-4 text-2xl font-semibold">
+        {{ $t('menu_affiliate') }}
+      </h3>
       <div
-        class="border-2 border-gray-200 mb-8 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 w-full rounded-lg p-2 pt-4mt-2"
+        class="theme-panel w-full p-4 mb-8"
       >
         <AppFormGroup :label="$t('share_affiliate')" name="linkAffiliate">
           <UInput
             icon="i-heroicons-link"
             :type="'text'"
             class="grow leading-6"
+            :ui="{
+              base: 'text-gray-100 placeholder:text-gray-500',
+              color: {
+                white: {
+                  outline:
+                    'bg-black/50 border-red-900/60 text-gray-100 ring-red-900/60 focus:ring-red-500 focus:border-amber-300',
+                },
+              },
+            }"
             v-model="affiliateLink"
             readonly
           />
         </AppFormGroup>
-        <div class="dark:text-yellow-400 text-center my-4 text-xs">
-          <span class="dark:text-amber-100"
+        <div class="text-amber-300 text-center my-4 text-xs">
+          <span class="text-amber-100/80"
             >{{ $t('signup_referral') }} &nbsp; : &nbsp; </span
           >{{ affiliate_total }}
         </div>
         <UButton
           icon="i-heroicons-document-duplicate"
           @click="copyToClipboard(affiliateLink)"
-          class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-1 mb-3"
+          class="theme-primary-btn w-full h-12 justify-center text-lg mt-1"
           >{{ $t('copy') }}
         </UButton>
       </div>
 
-      <div class="border-t-2 w-full py-5 pt-8">
+      <div class="border-t border-red-900/50 w-full py-5 pt-8">
         <UTabs v-model="activeTab" :items="tabList" class="w-full">
           <template #icon="{ item, selected }">
             <UIcon
               :name="item.icon"
               class="w-4 h-4 flex-shrink-0 mr-2 hidden sm:inline-block"
-              :class="[selected && 'text-amber-500 dark:text-amber-400']"
+              :class="[selected && 'text-amber-500 dark:text-amber-300']"
             />
           </template>
         </UTabs>
@@ -44,7 +55,7 @@
         />
       </div>
 
-      <div class="mt-4 border-t-2 w-full py-5">
+      <div class="mt-4 border-t border-red-900/50 w-full py-5">
         <AffiliateTransaction />
       </div>
     </div>

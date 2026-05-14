@@ -1,6 +1,8 @@
 <template>
   <div class="w-full flex flex-col items-center justify-center">
-    <h3 class="mt-2">{{ $t('history') }}</h3>
+    <h3 class="theme-title mt-2 text-2xl font-semibold">
+      {{ $t('history') }}
+    </h3>
 
     <UTabs
       v-model="cashierStore.activeTabHistory"

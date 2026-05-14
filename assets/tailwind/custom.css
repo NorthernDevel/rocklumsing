@@ -1,85 +1,94 @@
 body {
-  @apply bg-white dark:!bg-white;
+  @apply bg-black dark:!bg-black;
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(185, 28, 28, 0.34), transparent 34%),
+    radial-gradient(circle at 12% 12%, rgba(255, 235, 170, 0.1), transparent 20%),
+    radial-gradient(circle at 88% 20%, rgba(127, 29, 29, 0.2), transparent 24%),
+    linear-gradient(180deg, #050000 0%, #150202 45%, #000 100%);
 }
 
-.register-btn {
-  @apply shadow-md text-white dark:text-white lg:hover:text-gray-100 lg:dark:hover:text-gray-100
-  bg-gradient-to-b from-sky-400 via-sky-500 to-sky-600 
-  dark:bg-gradient-to-b dark:from-sky-400 dark:via-sky-500 dark:to-sky-600
-  lg:hover:bg-gradient-to-b lg:hover:from-sky-600 lg:hover:via-sky-500 lg:hover:to-sky-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-sky-600 lg:dark:hover:via-sky-500 lg:dark:hover:to-sky-400;
+.header-bg {
+  @apply relative w-full py-2 px-2 lg:px-0 transition-all duration-500 ease-in-out z-20;
 }
 
-.login-btn {
-  @apply shadow-md text-white dark:text-white lg:hover:text-gray-100 lg:dark:hover:text-gray-100
-  bg-gradient-to-b from-orange-400 via-orange-500 to-orange-600 
-  dark:bg-gradient-to-b dark:from-orange-400 dark:via-orange-500 dark:to-orange-600
-  lg:hover:bg-gradient-to-b lg:hover:from-orange-600 lg:hover:via-orange-500 lg:hover:to-orange-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-orange-600 lg:dark:hover:via-orange-500 lg:dark:hover:to-orange-400;
+.menu-btn-inactive {
+  @apply m-0 relative rounded-lg text-gray-50 mb-2 cursor-pointer border border-red-900/60 bg-gradient-to-b from-neutral-700/90 via-neutral-900 to-black shadow-lg shadow-black/50 ring-1 ring-amber-200/10 ring-inset;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 170, 0.16),
+    inset 0 -18px 28px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(248, 113, 113, 0.08),
+    0 10px 24px rgba(0, 0, 0, 0.55);
 }
 
-.green-gradient {
-  @apply bg-gradient-to-b from-green-400 via-green-500 to-green-600 
-  dark:bg-gradient-to-b dark:from-green-400 dark:via-green-500 dark:to-green-600
-  lg:hover:bg-gradient-to-b lg:hover:from-green-600 lg:hover:via-green-500 lg:hover:to-green-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-green-600 lg:dark:hover:via-green-500 lg:dark:hover:to-green-400;
+.menu-btn-active {
+  @apply !border-amber-300/80 !bg-gradient-to-b !from-red-500 !via-red-700 !to-red-950 !text-white shadow-lg shadow-red-500/40 ring-2 ring-amber-200/40 ring-inset;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 247, 214, 0.45),
+    inset 0 -18px 26px rgba(80, 0, 0, 0.58),
+    0 0 12px rgba(239, 68, 68, 0.55),
+    0 0 24px rgba(255, 235, 170, 0.16),
+    0 12px 24px rgba(0, 0, 0, 0.55);
 }
 
-.sky-gradient {
-  @apply bg-gradient-to-b from-sky-200 via-sky-300 to-sky-400 
-  dark:bg-gradient-to-b dark:from-sky-400 dark:via-sky-500 dark:to-sky-600
-  lg:hover:bg-gradient-to-b lg:hover:from-sky-300 lg:hover:via-sky-400 lg:hover:to-sky-500
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-sky-600 lg:dark:hover:via-sky-500 lg:dark:hover:to-sky-400;
+.slide-bar-bg {
+  @apply !bg-[url('/assets/images/slide-bar-bg.webp')] bg-cover bg-center ring-0 !divide-red-950;
 }
 
-.amber-gradient {
-  @apply bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600 
-  dark:bg-gradient-to-b dark:from-amber-400 dark:via-amber-500 dark:to-amber-600
-  lg:hover:bg-gradient-to-b lg:hover:from-amber-600 lg:hover:via-amber-500 lg:hover:to-amber-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-amber-600 lg:dark:hover:via-amber-500 lg:dark:hover:to-amber-400;
+.u-card-bg {
+  @apply !bg-[url('/assets/images/u-card-bg.webp')] bg-cover bg-center ring-0 !divide-red-950;
 }
 
-.purple-gradient {
-  @apply bg-gradient-to-b from-purple-400 via-purple-500 to-purple-600 
-  dark:bg-gradient-to-b dark:from-purple-400 dark:via-purple-500 dark:to-purple-600
-  lg:hover:bg-gradient-to-b lg:hover:from-purple-600 lg:hover:via-purple-500 lg:hover:to-purple-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-purple-600 lg:dark:hover:via-purple-500 lg:dark:hover:to-purple-400;
+.game-block {
+  @apply p-2 md:p-4 border border-red-700 bg-gray-900 bg-opacity-80 rounded-xl;
 }
 
-.rose-gradient {
-  @apply bg-gradient-to-b from-rose-400 via-rose-500 to-rose-600 
-  dark:bg-gradient-to-b dark:from-rose-400 dark:via-rose-500 dark:to-rose-600
-  lg:hover:bg-gradient-to-b lg:hover:from-rose-600 lg:hover:via-rose-500 lg:hover:to-rose-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-rose-600 lg:dark:hover:via-rose-500 lg:dark:hover:to-rose-400;
+.theme-title {
+  @apply text-transparent bg-clip-text bg-gradient-to-b from-yellow-100 via-amber-400 to-red-600;
+  filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.45));
 }
 
-.gray-gradient {
-  @apply bg-gradient-to-b from-gray-100 via-gray-200 to-gray-300 
-  dark:bg-gradient-to-b dark:from-gray-600 dark:via-gray-600 dark:to-gray-700
-  lg:hover:bg-gradient-to-b lg:hover:from-gray-100 lg:hover:via-gray-300 lg:hover:to-gray-400
-  lg:dark:hover:bg-gradient-to-b lg:dark:hover:from-gray-700 lg:dark:hover:via-gray-700 lg:dark:hover:to-gray-800;
+.theme-panel {
+  @apply rounded-xl border border-red-900/60 bg-gradient-to-b from-neutral-800/95 via-neutral-950 to-black text-gray-100 shadow-lg shadow-black/50 ring-1 ring-amber-200/10 ring-inset;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 170, 0.12),
+    0 0 0 1px rgba(248, 113, 113, 0.08),
+    0 16px 34px rgba(0, 0, 0, 0.48);
 }
 
-.tab-active-amber {
-  @apply bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600;
+.theme-label {
+  @apply font-light text-amber-200/80;
 }
 
-.tab-active-sky {
-  @apply bg-gradient-to-b from-sky-400 via-sky-500 to-sky-600;
+.theme-value {
+  @apply font-medium text-gray-50;
 }
 
-.tab-active-rose {
-  @apply bg-gradient-to-b from-rose-400 via-rose-500 to-rose-600;
+.theme-list-item {
+  @apply col-span-2 flex items-center justify-between gap-3 border-b border-dashed border-red-900/40 py-2;
 }
 
-.tab-active-red {
-  @apply bg-gradient-to-b from-red-400 via-red-500 to-red-600;
+.theme-amount {
+  @apply text-4xl sm:text-5xl font-semibold text-transparent bg-clip-text bg-gradient-to-b from-yellow-100 via-amber-400 to-red-600 drop-shadow-[0_0_14px_rgba(220,38,38,0.42)];
 }
 
-.tab-active-orange {
-  @apply bg-gradient-to-b from-orange-400 via-orange-500 to-orange-600;
+.theme-loading-icon {
+  @apply animate-spin text-amber-300 text-4xl drop-shadow-[0_0_12px_rgba(220,38,38,0.45)];
 }
 
-.tab-active-green {
-  @apply bg-gradient-to-b from-green-400 via-green-500 to-green-600;
+.theme-primary-btn {
+  @apply rounded-full border border-amber-300/70 bg-gradient-to-b from-amber-400 via-red-600 to-red-950 font-medium text-white shadow-lg shadow-gray-500/30 ring-1 ring-gray-100/30 ring-inset;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 247, 214, 0.45),
+    inset 0 -18px 22px rgba(90, 0, 0, 0.45),
+    0 0 12px rgba(239, 68, 68, 0.5),
+    0 0 22px rgba(255, 235, 170, 0.14),
+    0 10px 22px rgba(0, 0, 0, 0.5);
+}
+
+.theme-danger-btn {
+  @apply rounded-full border border-rose-400/50 bg-gradient-to-b from-rose-500 via-rose-700 to-rose-950 font-medium text-white shadow-lg shadow-rose-950/40 ring-1 ring-rose-200/20 ring-inset;
+}
+
+.theme-error-box {
+  @apply rounded-lg border border-rose-400/40 bg-rose-950/30 px-3 py-2 text-sm text-rose-200;
 }

@@ -11,7 +11,7 @@
     class="relative ransition-all duration-500 overflow-hidden mt-4"
   >
     <div class="w-full flex flex-col">
-      <div class="flex gap-4 dark:text-amber-400">
+      <div class="flex gap-4 dark:text-amber-300">
         <div class="w-1/2 font-semibold">
           {{ $t('receive') }} {{ bonus.amount }}
         </div>
@@ -37,7 +37,7 @@
 
       <UButton
         type="button"
-        class="login-btn w-full h-7 sm:h-9 justify-center rounded-full text-sm sm:text-base font-light mt-2"
+        class="theme-primary-btn w-full h-7 sm:h-9 justify-center text-sm sm:text-base mt-2"
         :disabled="isLoading"
         @click="onClicked(bonus)"
         >{{ $t('get_bonus') }}</UButton
@@ -85,7 +85,7 @@ const statusColor = computed(() => {
     case 'EXPIRED':
       return 'text-red-600'
     default:
-      return 'text-amber-400'
+      return 'text-amber-300'
   }
 })
 

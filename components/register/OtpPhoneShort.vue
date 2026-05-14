@@ -50,7 +50,7 @@
 
     <UButton
       type="submit"
-      class="login-btn w-full h-12 justify-center rounded-full text-lg font-light"
+      class="theme-primary-btn w-full h-12 justify-center text-lg"
       :loading="registerStore.isLoading"
       :disabled="registerStore.isLoading"
       >{{ $t('btn_submit') }}</UButton

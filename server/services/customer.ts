@@ -15,6 +15,11 @@ import {
   CommissionTurnOverDetail,
   RequestCommissionTurnOverDetail,
 } from '~/models/commission.model'
+import {
+  Information,
+  RequestUpdateInformation,
+  RequestUpdatePromptpay,
+} from '~/models/information.model'
 import type {
   UpdatePeer2PayUID,
   RequestUpdatePeer2PayUID,
@@ -23,62 +28,89 @@ import type {
 export const getBonus = async (body: RequestBonus): Promise<Bonus> => {
   const { data: response } = await useHttpClient().post<Bonus>(
     `/customer/getBonus`,
-    body
+    body,
   )
   return response
 }
 
 export const getBonusDetail = async (
-  body: RequestBonusDetail
+  body: RequestBonusDetail,
 ): Promise<BonusDetail> => {
   const { data: response } = await useHttpClient().post<BonusDetail>(
     `/customer/getBonusDetail`,
-    body
+    body,
   )
   return response
 }
 
 export const getCashback = async (): Promise<Cashback> => {
   const { data: response } = await useHttpClient().get<Cashback>(
-    `/customer/getCashback`
+    `/customer/getCashback`,
   )
   return response
 }
 
 export const getCashbackTurnOverDetail = async (
-  body: RequestCashbackType
+  body: RequestCashbackType,
 ): Promise<CashbackTurnOverDetail> => {
   const { data: response } = await useHttpClient().post<CashbackTurnOverDetail>(
     `/customer/getCashbackTurnOverDetail`,
-    body
+    body,
   )
   return response
 }
 
 export const getCommission = async (): Promise<Commission> => {
   const { data: response } = await useHttpClient().get<Commission>(
-    `/customer/getCommission`
+    `/customer/getCommission`,
   )
   return response
 }
 
 export const getCommissionTurnOverDetail = async (
-  body: RequestCommissionTurnOverDetail
+  body: RequestCommissionTurnOverDetail,
 ): Promise<CommissionTurnOverDetail> => {
   const { data: response } =
     await useHttpClient().post<CommissionTurnOverDetail>(
       `/customer/getCommissionTurnOverDetail`,
-      body
+      body,
     )
   return response
 }
 
 export const getUpdatePeer2PayUID = async (
-  body: RequestUpdatePeer2PayUID
+  body: RequestUpdatePeer2PayUID,
 ): Promise<UpdatePeer2PayUID> => {
   const { data: response } = await useHttpClient().post<UpdatePeer2PayUID>(
     `/customer/getCommissionTurnOverDetail`,
-    body
+    body,
+  )
+  return response
+}
+
+export const getUpdateInformation = async (
+  body: RequestUpdateInformation,
+): Promise<Information> => {
+  const { data: response } = await useHttpClient().post<Information>(
+    `/customer/getUpdateInformation`,
+    body,
+  )
+  return response
+}
+
+export const getInformation = async (): Promise<Information> => {
+  const { data: response } = await useHttpClient().get<Information>(
+    `/customer/getInformation`,
+  )
+  return response
+}
+
+export const getUpdatePromptpay = async (
+  body: RequestUpdatePromptpay,
+): Promise<Information> => {
+  const { data: response } = await useHttpClient().post<Information>(
+    `/customer/getUpdatePromptpay`,
+    body,
   )
   return response
 }

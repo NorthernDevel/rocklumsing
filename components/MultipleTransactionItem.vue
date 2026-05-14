@@ -37,7 +37,7 @@ const props = defineProps({
 const statusColor = computed(() => {
   switch (props.item.wallet) {
     case 'CREDIT':
-      return 'amber'
+      return 'red'
     default:
       return 'sky'
   }

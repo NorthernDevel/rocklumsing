@@ -19,7 +19,7 @@
 
       <UButton
         type="submit"
-        class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+        class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
         :loading="isLoading"
         :disabled="isLoading"
         >{{ t('btn_apply') }}</UButton

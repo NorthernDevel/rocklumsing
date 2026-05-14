@@ -1,60 +1,80 @@
 <template>
-  <div
-    v-if="item.active && props.item.productCode !== 'T24S'"
-    class="group relative bg-gray-900 rounded-lg cursor-pointer transition-all duration-200"
-    :class="[
-      [isFirst && 'row-span-2 col-span-2'],
-      [!isProvider && 'hover:scale-105'],
-    ]"
-  >
-    <div>
+  <div v-if="isVisibleItem" class="flex flex-col">
+    <div
+      class="group relative bg-gray-900 rounded-lg cursor-pointer transition-all duration-200"
+      :class="[[!isProvider && 'hover:scale-105']]"
+    >
       <div
-        v-if="item.rtp"
-        class="absolute right-0 w-full flex justify-end bg-gray-800 bg-opacity-50 rounded-t-md px-2 py-[2px] z-10"
+        class="relative"
+        :class="[isProvider && 'aspect-square overflow-hidden rounded-lg']"
       >
-        <UIcon
-          name="i-heroicons-fire-16-solid"
-          class="w-4 h-4 mr-1"
-          :class="winRate.color"
-        />
-        <p class="text-[8px] sm:text-[10px] text-gray-100 dark:text-gray-100">
-          {{ winRate.text }}
-          <span class="font-extralight">{{ percentage }}%</span> RTP
-        </p>
-      </div>
-      <NuxtImg
-        class="rounded-md w-full min-h-20 object-cover group-hover:brightness-75"
-        :src="gameImage"
-      />
-      <div
-        class="w-full flex items-center justify-between h-6 bg-gray-800 bg-opacity-70 absolute bottom-0 rounded-b-md"
-      >
-        <p
-          :class="[!isProvider && 'max-w-[75%]']"
-          class="text-xs sm:text-sm text-gray-100 dark:text-gray-100 truncate px-2"
+        <!-- <div
+          v-if="item.rtp"
+          class="absolute right-0 w-full flex justify-end bg-gray-800 bg-opacity-50 rounded-t-md px-2 py-[2px] z-10"
         >
-          {{ gameName }}
-        </p>
-        <div v-if="!isProvider" class="z-10" @click="toggleFavorite(item)">
-          <NuxtImg
-            :src="favoriteIcon"
-            class="w-7 h-7 object-cover transition-all duration-500 hover:scale-125 mr-1 cursor-pointer"
+          <UIcon
+            name="i-heroicons-fire-16-solid"
+            class="w-4 h-4 mr-1"
+            :class="winRate.color"
+          />
+          <p class="text-[8px] sm:text-[10px] text-gray-100 dark:text-gray-100">
+            {{ winRate.text }}
+            <span class="font-extralight">{{ percentage }}%</span> RTP
+          </p>
+        </div> -->
+        <div
+          v-if="!isProvider && item.online && item.online > 5000"
+          class="absolute left-1 md:left-2 top-2 z-10"
+        >
+          <NuxtImg class="w-10" src="/assets/images/game-hot.webp" />
+        </div>
+        <div
+          v-if="!isProvider"
+          class="absolute right-1 top-1 z-10 w-7 h-7 md:w-9 md:h-9 bg-black rounded-full flex items-center justify-center bg-opacity-60"
+        >
+          <UIcon
+            :name="favoriteIcon"
+            class="w-5 h-5 md:w-7 md:h-7 dark:bg-white cursor-pointer"
+            @click="toggleFavorite(item)"
+          />
+        </div>
+        <NuxtImg
+          v-if="isProvider"
+          src="assets/images/game-border.webp"
+          class="pointer-events-none absolute inset-0 z-10 w-full h-full rounded-lg object-fill group-hover:brightness-125"
+        />
+        <NuxtImg
+          :class="[
+            isProvider
+              ? 'h-full rounded-lg object-cover p-1 md:p-2 lg:p-[0.6rem]'
+              : 'min-h-20 rounded-t-md object-cover',
+          ]"
+          class="w-full group-hover:brightness-75"
+          :src="gameImage"
+        />
+      </div>
+      <div
+        class="w-full h-full text-gray-300 dark:text-gray-300 absolute top-0 hidden group-hover:flex justify-center items-center"
+      >
+        <div
+          class="w-20 h-20 sm:w-24 sm:h-24 lg:w-20 lg:h-20 bg-gray-900 bg-opacity-60 hover:bg-opacity-90 rounded-full flex items-center justify-center"
+          @click="gameSelected()"
+        >
+          <UIcon
+            name="i-heroicons-play-solid"
+            class="w-16 h-16 sm:w-16 sm:h-16 lg:w-12 lg:h-12 opacity-50 hover:opacity-90"
           />
         </div>
       </div>
     </div>
     <div
-      class="w-full h-full text-gray-300 dark:text-gray-300 absolute top-0 hidden group-hover:flex justify-center items-center"
+      class="w-full flex items-center justify-between h-6 bg-gray-800 bg-opacity-70 rounded-b-md"
     >
-      <div
-        class="w-20 h-20 sm:w-24 sm:h-24 lg:w-20 lg:h-20 bg-gray-900 bg-opacity-60 hover:bg-opacity-90 rounded-full flex items-center justify-center"
-        @click="gameSelected()"
+      <p
+        class="text-xs sm:text-sm text-gray-100 dark:text-gray-100 truncate px-2"
       >
-        <UIcon
-          name="i-heroicons-play-solid"
-          class="w-16 h-16 sm:w-16 sm:h-16 lg:w-12 lg:h-12 opacity-50 hover:opacity-90"
-        />
-      </div>
+        {{ gameName }}
+      </p>
     </div>
   </div>
 </template>
@@ -79,18 +99,32 @@ const props = defineProps({
   isProvider: { type: Boolean, default: false },
 })
 
-const isFirst = computed(() => props.index === 0)
-
 const gameName = computed(() => props.item.gameName || props.item.productName)
 
+const isVisibleItem = computed(() => {
+  if (!props.item.active) return false
+
+  if (props.isProvider) {
+    return !gameStore.providerBlackList.includes(props.item.productCode)
+  }
+
+  return !gameStore.gameSlotBlackList.includes(gameName.value)
+})
+
 const gameImage = computed(() => {
-  if (props.item.productCode === 'T24S' || props.item.productCode === 'NFK')
-    return props.item.logo.askmepage
-  return (
-    props.item.logo.vertical ||
-    props.item.logo.horizontal ||
-    props.item.logo.banner
-  )
+  if (props.isProvider) {
+    if (props.item.productCode === 'T24S' || props.item.productCode === 'NFK')
+      return props.item.logo.askmepage
+    return (
+      props.item.logo.default ||
+      props.item.logo.mobile ||
+      props.item.logo.transparent
+    )
+  } else if (props.item.type === 'LOTTERY') {
+    return props.item.logo.default || props.item.logo.banner
+  } else {
+    return props.item.logo.vertical
+  }
 })
 
 const percentage = computed(() => {
@@ -107,10 +141,10 @@ const winRate = computed(() => {
 })
 
 const favoriteIcon = computed(() => {
-  if (route.params.id === 'favorites') return '/assets/images/star-remove.webp'
+  if (route.params.id === 'favorites') return 'i-heroicons-heart-solid'
   const icon = props.item.isFavorite
-    ? '/assets/images/star-check.webp'
-    : '/assets/images/star-add.webp'
+    ? 'i-heroicons-heart-solid'
+    : 'i-heroicons-heart'
   return icon
 })
 
@@ -139,7 +173,7 @@ const gameSelected = () => {
     const { type, productCode } = props.item
     const typeLowerCase = type!.toLowerCase()
     const path = navStore.mutationPath.find((item) =>
-      Object.keys(item).some((key) => key === typeLowerCase)
+      Object.keys(item).some((key) => key === typeLowerCase),
     )
     const navigate = path ? Object.values(path)[0] : typeLowerCase
     router.push(`/${navigate}/${productCode}`)
@@ -155,7 +189,7 @@ const gameSelected = () => {
       window.open(
         `${baseURL}/redirect?type=${type}&product=${productCode}&gameID=${loginCode}&isMobile=true`,
         '_blank',
-        features
+        features,
       )
     } else {
       popupStore.openModalLogin()

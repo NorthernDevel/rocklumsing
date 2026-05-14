@@ -6,36 +6,20 @@
   <section>
     <div class="flex flex-col">
       <div class="flex justify-center px-2 py-4 mt-8">
-        <AppGameNav :links="navStore.menuGames" color="rose" />
+        <AppGameNav :links="navStore.menuGames" />
       </div>
       <AppDownload />
 
       <div class="w-full p-2 md:p-4">
-        <div class="space-y-10">
+        <div class="game-block">
           <section>
             <AppGameBar
-              src="/assets/images/menus/slot.webp"
-              :name="slots"
-              to="/slot"
-              is-more
+              src="/assets/images/menus/hot-game.webp"
+              :name="hotgame"
             />
             <AppGameList
               :is-loading="loaderStore.isLoading"
-              :games-list="slotRecomnended"
-              first-large
-              is-provider
-            />
-          </section>
-          <section>
-            <AppGameBar
-              src="/assets/images/menus/casino.webp"
-              :name="casino"
-              to="/casino"
-              is-more
-            />
-            <AppGameList
-              :is-loading="loaderStore.isLoading"
-              :games-list="casinoRecomnended"
+              :games-list="recommendList"
               first-large
               is-provider
             />
@@ -54,28 +38,30 @@ const { t } = useI18n()
 import { GameType } from '~/models/default.model'
 import type { GamesList } from '~/models/games.model'
 
+const resourceStore = useResourceStore()
 const navStore = useNavStore()
+const gameStore = useGameStore()
 const loaderStore = useLoaderStore()
 const popupStore = usePopupStore()
+const { origin } = useBestUrl()
 
-const slots = t('game_slot')
-const casino = t('game_casino')
+const hotgame = t('game_hotgame')
 
 useSeoMeta({
   title: 'Home Page',
   description: 'This is the home Page',
-  ogTitle: 'THEAMB303',
-  ogDescription: 'THEAMB303, slot, casino, pgslot, poker, bacarat',
-  ogImage: '/assets/images/logo.png',
-  ogUrl: 'https://theamb-303.com',
-  twitterTitle: 'THEAMB303',
-  twitterDescription: 'THEAMB303, slot, casino, pgslot, poker, bacarat',
-  twitterImage: '/assets/images/logo.png',
+  ogTitle: () => resourceStore.infoSetting.title.th ?? 'AMBGOGO',
+  ogDescription: () => resourceStore.seoMeta.description,
+  keywords: () => resourceStore.seoMeta.keywords,
+  ogImage: '/assets/images/logo.webp',
+  ogUrl: () => origin,
+  twitterTitle: () => resourceStore.infoSetting.title.th ?? 'AMBGOGO',
+  twitterDescription: () => resourceStore.seoMeta.description,
+  twitterImage: '/assets/images/logo.webp',
   twitterCard: 'summary',
 })
 
-const slotGameList = ref<GamesList[]>([])
-const casinoGameList = ref<GamesList[]>([])
+const recommendList = ref<GamesList[]>([])
 
 const fetchGamesListByType = async (gameType: GameType) => {
   try {
@@ -86,9 +72,34 @@ const fetchGamesListByType = async (gameType: GameType) => {
     } else {
       const gamesData = gamesList ? gamesList : []
       if (gameType == GameType['SLOT']) {
-        slotGameList.value = gamesData
+        const slotRecommendList = [
+          'PMTS',
+          'PGS',
+          'DRG',
+          'MGS',
+          'AMBS',
+          'RECG',
+          'JOK',
+          'SMP',
+        ]
+        const filteredSlots = gamesData.filter((slot) =>
+          slotRecommendList.includes(slot.productCode),
+        )
+        recommendList.value.push(...filteredSlots)
+      } else if (gameType === GameType['LIVE']) {
+        const casinoRecommendList = [
+          'PTG',
+          'WM',
+          'SAG',
+          'MTV',
+          'PTGC',
+        ]
+        const filteredCasinos = gamesList.filter((casino) =>
+          casinoRecommendList.includes(casino.productCode),
+        )
+        recommendList.value.push(...filteredCasinos)
       } else {
-        casinoGameList.value = gamesData
+        recommendList.value.push(...gamesData)
       }
     }
   } catch (e) {
@@ -98,51 +109,6 @@ const fetchGamesListByType = async (gameType: GameType) => {
     loaderStore.stop()
   }
 }
-
-const slotRecomnended = computed(() => {
-  const slotRecomnendList = [
-    'PGS',
-    'DRG',
-    'MGS',
-    'AMBS',
-    'PMTS',
-    'POPG',
-    'RECG',
-    'JOK',
-    'SMP',
-  ]
-  const filteredSlots = slotGameList.value.filter((slot) =>
-    slotRecomnendList.includes(slot.productCode)
-  )
-
-  const index = filteredSlots.findIndex((slot) => slot.productCode === 'AMBS')
-
-  // NOTE: AMBS frist.
-  if (index > 0) {
-    const [slot] = filteredSlots.splice(index, 1)
-    filteredSlots.unshift(slot)
-  }
-
-  return filteredSlots
-})
-
-const casinoRecomnended = computed(() => {
-  const casinoRecomnendList = [
-    'PTG',
-    'MG',
-    'PMT',
-    'WM',
-    'SAG',
-    'MTV',
-    'YB',
-    'PTGC',
-    'WON',
-  ]
-  const filteredCasinos = casinoGameList.value.filter((casino) =>
-    casinoRecomnendList.includes(casino.productCode)
-  )
-  return filteredCasinos
-})
 
 onMounted(async () => {
   await fetchGamesListByType(GameType['SLOT'])

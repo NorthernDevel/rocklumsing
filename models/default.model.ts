@@ -23,8 +23,11 @@ export interface RequestUpdateBank {
   accountNo?: string
   firstName?: string
   lastName?: string
+  firstNameEn?: string
+  lastNameEn?: string
   middleName: string
-  isAutoPromotion: boolean
+  promptPayID: string
+  type: string
 }
 
 export interface RequestSeviceArkmepay {

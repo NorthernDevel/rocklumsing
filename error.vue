@@ -1,18 +1,27 @@
 <template>
-  <div
-    class="flex flex-col items-center justify-center min-h-screen bg-gray-100"
-  >
-    <NuxtImg src="/assets/images/404.webp" class="grayscale animate-bounce" />
-    <h1 class="text-6xl font-bold text-gray-800 mt-10">
-      {{ error?.statusCode }}
-    </h1>
-    <p class="text-2xl mt-4 text-gray-700">{{ error?.statusMessage }}</p>
+  <div class="min-h-screen bg-gray-950 px-4 py-10 flex items-center justify-center">
+    <div class="theme-panel w-full max-w-md p-6 text-center">
+      <p class="theme-label text-sm uppercase tracking-widest">
+        {{ $t('something_went_wrong') }}
+      </p>
+      <h1 class="theme-title mt-2 text-6xl font-bold">
+        {{ statusCode }}
+      </h1>
+      <h2 class="mt-4 text-xl font-semibold text-gray-50">
+        {{ statusMessage }}
+      </h2>
+      <p v-if="errorMessage" class="mt-2 text-sm text-amber-100/70">
+        {{ errorMessage }}
+      </p>
 
-    <NuxtLink to="/" class="mt-6 text-amber-500">
-      <div class="border-2 border-amber-500 rounded-full px-4 py-2">
+      <UButton
+        type="button"
+        class="theme-primary-btn mt-6 w-full h-12 justify-center text-lg"
+        @click="handleError"
+      >
         {{ $t('go_to_home') }}
-      </div>
-    </NuxtLink>
+      </UButton>
+    </div>
   </div>
 </template>
 
@@ -22,10 +31,17 @@ import type { NuxtError } from '#app'
 const props = defineProps({
   error: Object as () => NuxtError,
 })
-const title = `${props.error?.statusCode} ${
-  props.error?.statusMessage || 'Something went wrong!'
-}`
+
+const statusCode = computed(() => props.error?.statusCode || 500)
+const statusMessage = computed(
+  () => props.error?.statusMessage || 'Something went wrong',
+)
+const errorMessage = computed(() => props.error?.message)
+const title = computed(() => `${statusCode.value} ${statusMessage.value}`)
+
 useHead({
-  title,
+  title: title.value,
 })
+
+const handleError = () => clearError({ redirect: '/' })
 </script>

@@ -1,10 +1,12 @@
 <template>
   <div class="w-full flex flex-col items-center">
-    <h3 class="text-2xl mb-4">{{ $t('config_promotion') }}</h3>
+    <h3 class="theme-title text-2xl font-semibold mb-4">
+      {{ $t('config_promotion') }}
+    </h3>
     <div v-if="isLoading" class="w-full">
-      <USkeleton class="w-full h-28 mt-2" />
-      <USkeleton class="w-full h-28 mt-2" />
-      <USkeleton class="w-full h-28 mt-2" />
+      <USkeleton class="w-full h-28 mt-2 rounded-xl bg-neutral-800" />
+      <USkeleton class="w-full h-28 mt-2 rounded-xl bg-neutral-800" />
+      <USkeleton class="w-full h-28 mt-2 rounded-xl bg-neutral-800" />
     </div>
     <div v-else class="w-full">
       <div v-if="promotionList.length">
@@ -17,10 +19,16 @@
           v-on:move-down="moveDown"
         />
       </div>
-      <UCard v-else class="flex items-center justify-center my-4">
+      <UCard
+        v-else
+        class="theme-panel flex items-center justify-center my-4 text-amber-100"
+      >
         <div class="flex justify-center gap-1">
-          <UIcon name="i-heroicons-circle-stack-solid" class="w-6 h-6" />
-          <p class="text-">{{ $t('data_not_found') }}</p>
+          <UIcon
+            name="i-heroicons-circle-stack-solid"
+            class="w-6 h-6 text-amber-300"
+          />
+          <p>{{ $t('data_not_found') }}</p>
         </div>
       </UCard>
 
@@ -30,7 +38,7 @@
         @submit.prevent="onSubmit"
         class="w-full"
       >
-        <div v-if="promotionList.length" class="my-4 px-5">
+        <div v-if="promotionList.length" class="theme-panel my-4 px-5 py-4">
           <URadioGroup
             :legend="$t('status')"
             v-model="isActive"
@@ -40,7 +48,7 @@
 
         <UButton
           type="submit"
-          class="login-btn w-full h-12 justify-center rounded-full text-lg font-light"
+          class="theme-primary-btn w-full h-12 justify-center text-lg"
           :loading="isSubmitLoading"
           :disabled="isLoading || isSubmitLoading || !promotionList.length"
           >{{ $t('btn_submit') }}</UButton
@@ -52,7 +60,7 @@
           class="mt-2"
         >
           <template #label>
-            <span class="text-sm font-extralight">{{
+            <span class="text-sm font-extralight text-amber-100/80">{{
               $t('notify_status')
             }}</span>
           </template>
@@ -193,7 +201,7 @@ const onSubmit = async () => {
     isSubmitLoading.value = true
     const { status, message } = await useConfigAutoPromotionCustomers(
       isCreate,
-      body
+      body,
     )
     if (!status) {
       popupStore.alertError({ message: message })

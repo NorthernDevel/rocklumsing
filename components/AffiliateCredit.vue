@@ -2,18 +2,25 @@
   <div class="flex flex-col items-center justify-center w-full">
     <div class="flex flex-col items-center justify-center w-full">
       <div
-        class="rounded-xl border-4 w-full py-2 flex flex-col items-center justify-center bg-zinc-100 dark:border-gray-500 dark:bg-gray-800"
+        class="theme-panel w-full min-h-40 py-4 px-3 flex flex-col items-center justify-center"
       >
-        <div class="">{{ $t('txt_income') }}</div>
-        <div class="cashback text-5xl text-green-600 dark:text-green-400">
-          {{ credit }}
+        <UIcon
+          v-if="isLoading"
+          name="i-heroicons-arrow-path"
+          class="theme-loading-icon"
+        />
+        <div v-else class="flex flex-col items-center justify-center">
+          <div class="theme-label">{{ $t('txt_income') }}</div>
+          <div class="theme-amount">
+            {{ credit }}
+          </div>
         </div>
 
         <UButton
           v-if="affiliateData?.credit && affiliateData.minWithdraw"
           icon="i-heroicons-banknotes"
           size="sm"
-          class="mt-4 mb-2 login-btn rounded-full"
+          class="theme-primary-btn mt-4 mb-2 px-5 py-2 justify-center text-sm"
           :disabled="
             affiliateData.credit != 0 &&
             affiliateData.minWithdraw > affiliateData.credit

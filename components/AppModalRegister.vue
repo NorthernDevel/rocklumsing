@@ -9,9 +9,9 @@
     }"
     prevent-close
   >
-    <UCard>
+    <UCard class="u-card-bg">
       <UButton
-        color="cyan"
+        color="red"
         variant="ghost"
         class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
         @click="isOpen = false"
@@ -19,7 +19,7 @@
       /></UButton>
       <div class="flex flex-col justify-center">
         <div class="flex justify-center my-2">
-          <NuxtImg src="/assets/images/logo.png" alt="logo" class="w-32" />
+          <NuxtImg src="/assets/images/logo.webp" alt="logo" class="w-32" />
         </div>
 
         <div class="mt-5">
@@ -32,7 +32,9 @@
           <RegisterOtpPhoneShort
             v-if="resourceStore.registerType === 'OTP_PHONE_SHORT'"
           />
-          <RegisterUserByPhone v-if="resourceStore.registerType === 'USER_BY_PHONE'" />
+          <RegisterUserByPhone
+            v-if="resourceStore.registerType === 'USER_BY_PHONE'"
+          />
         </template>
 
         <template v-if="registerStore.currentStep === 1">
@@ -70,7 +72,7 @@
               <ULink
                 as="button"
                 active-class="text-primary"
-                inactive-class="text-amber-500 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-200"
+                inactive-class="text-amber-500 dark:text-amber-300 hover:text-red-700 dark:hover:text-amber-200"
                 class="font-normal"
                 @click="
                   registerStore.isTimeUp ? registerStore.reCallOtp() : null
@@ -84,7 +86,7 @@
             </p>
             <UButton
               type="submit"
-              class="login-btn w-full h-12 justify-center rounded-full text-lg font-light"
+              class="theme-primary-btn w-full h-12 justify-center text-lg"
               :loading="registerStore.isLoading"
               :disabled="registerStore.isLoading"
               >{{ $t('btn_submit') }}</UButton
@@ -108,7 +110,7 @@
 
           <UButton
             icon="i-heroicons-arrow-right-end-on-rectangle"
-            class="login-btn w-full h-12 justify-center rounded-full text-lg font-light"
+            class="theme-primary-btn w-full h-12 justify-center text-lg"
             :loading="authStore.isLoading"
             :disabled="registerStore.isLoading"
             @click="autoSignIn()"
@@ -157,7 +159,7 @@ const autoSignIn = async () => {
     try {
       authStore.isLoading = true
       const { status, message } = await authStore.signIn(
-        registerStore.credential
+        registerStore.credential,
       )
       if (!status) {
         popupStore.alertError({ message: message })

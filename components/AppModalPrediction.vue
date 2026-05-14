@@ -8,9 +8,9 @@
     <UCard>
       <template #header>
         <div class="flex items-center justify-between">
-          <NuxtImg src="/assets/images/logo.png" alt="logo" class="w-20" />
+          <NuxtImg src="/assets/images/logo.webp" alt="logo" class="w-20" />
           <UButton
-            color="cyan"
+            color="red"
             variant="ghost"
             class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
             @click="isOpen = false"
@@ -70,7 +70,7 @@
                     />
                     <NuxtImg
                       v-else
-                      src="/assets/images/logo.png"
+                      src="/assets/images/logo.webp"
                       class="w-full h-48 sm:h-36 rounded-md min-h-28 object-contain"
                     />
 

@@ -4,30 +4,37 @@
       <UButton
         icon="i-heroicons-chevron-left-20-solid"
         size="sm"
-        color="black"
+        color="red"
         variant="ghost"
         label="Button"
-        class="text-gray-100 text-lg sm:text-xl font-light h-12 mt-2 pl-0"
+        class="text-amber-200 text-lg sm:text-xl font-light h-12 mt-2 pl-0"
         :trailing="false"
       >
         {{ $t('all_promotions') }}
       </UButton>
     </NuxtLink>
 
-    <UCard class="bg-opacity-90 dark:bg-opacity-90 rounded-lg my-4">
+    <UCard class="theme-panel my-4 overflow-hidden">
       <div
         v-if="promotion"
         class="w-full flex flex-col items-center my-4 sm:my-8"
       >
-        <h3 class="text-2xl sm:text-3xl">{{ promotion.title }}</h3>
+        <h3 class="theme-title text-2xl sm:text-3xl font-semibold">
+          {{ promotion.title }}
+        </h3>
         <NuxtImg
-          class="rounded-md w-full object-cover my-4"
-          :src="promotionImage"
+          class="rounded-md w-full object-cover my-4 border border-red-900/50"
+          :src="promotion.image"
         />
-        <UDivider class="border-gray-100" />
+        <UDivider :ui="{ border: { base: 'border-red-900/50' } }" />
         <div class="w-full text-left pt-4">
-          <h2 class="text-2xl mb-6">{{ promotion.shortContent }}</h2>
-          <div v-html="promotion.content" class="text-sm sm:text-base"></div>
+          <h2 class="text-2xl mb-6 text-amber-100">
+            {{ promotion.shortContent }}
+          </h2>
+          <div
+            v-html="promotion.content"
+            class="text-sm sm:text-base text-amber-100/80"
+          ></div>
         </div>
       </div>
     </UCard>
@@ -35,32 +42,20 @@
 </template>
 
 <script lang="ts" setup>
-import type { PromotionData } from '~/models/promotion.model'
-
 const route = useRoute()
-const promotionStrore = usePromotionStore()
 const resourceStore = useResourceStore()
 
-const promotion = ref<PromotionData>()
 const slug = computed(() => route.params.slug)
 
-const promotionImage = computed(() => {
-  if (!resourceStore.resources) return 'assets/images/notfound/promotion.webp'
-  return resourceStore.resources.imageUrl.promotion + promotion.value?.image!
-})
-
-const findPromotionBySlug = () => {
-  const promotionFinded = promotionStrore.promotions.find(
-    (promotion) => promotion.slug === slug.value
+const promotion = computed(() => {
+  const promotionFinded = resourceStore.promotions.find(
+    (item) => item.slug === slug.value,
   )
-  promotion.value = promotionFinded
+  if (!promotionFinded) return null
 
   useHead({
-    title: promotion.value?.title,
+    title: promotionFinded.title,
   })
-}
-
-onMounted(() => {
-  findPromotionBySlug()
+  return promotionFinded
 })
 </script>

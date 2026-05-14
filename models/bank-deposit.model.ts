@@ -44,10 +44,5 @@ export interface RequestDecimalDepositTransCreate {
 export interface DecimalDepositTrans {
   code: string
   message: string
-  data: DecimalDepositTransData
-}
-
-export interface DecimalDepositTransData {
-  amount: number
-  expireDate: string
+  data: DecimalDepositTransCreateData
 }

@@ -1,19 +1,17 @@
 <template>
   <div class="w-full flex flex-col items-center gap-2 sm:gap-4">
     <div
-      class="rounded-xl border-2 w-full h-40 flex flex-col items-center justify-center bg-zinc-100 dark:border-gray-500 dark:bg-gray-800"
+      class="theme-panel w-full h-40 flex flex-col items-center justify-center"
     >
       <UIcon
         v-if="isLoading"
         name="i-heroicons-arrow-path"
-        class="animate-spin text-slate-500 text-4xl"
+        class="theme-loading-icon"
       />
 
       <div v-else class="flex flex-col items-center justify-center">
-        <p class="font-light">{{ $t('your_credit') }}</p>
-        <p
-          class="cashback text-4xl sm:text-5xl text-green-600 dark:text-green-400"
-        >
+        <p class="theme-label">{{ $t('your_credit') }}</p>
+        <p class="theme-amount">
           {{ profileStore.balance }}
         </p>
       </div>
@@ -21,7 +19,7 @@
 
     <div
       v-if="!isDisbled"
-      class="w-full border-2 border-gray-200 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 rounded-lg p-4"
+      class="theme-panel w-full p-4"
     >
       <UForm
         :state="state"
@@ -37,7 +35,16 @@
         >
           <UInput
             :ui="{
-              base: 'text-right',
+              base: 'text-right text-gray-100 placeholder:text-gray-500',
+              icon: {
+                leading: { pointer: '', padding: { lg: 'ps-10' } },
+              },
+              color: {
+                white: {
+                  outline:
+                    'bg-black/50 border-red-900/60 text-gray-100 ring-red-900/60 focus:ring-red-500 focus:border-amber-300',
+                },
+              },
             }"
             icon="i-heroicons-banknotes"
             type="text"
@@ -48,7 +55,7 @@
             :disabled="isDisbled"
           >
             <template #trailing>
-              <span class="text-gray-500 dark:text-gray-400 text-xs">{{
+              <span class="text-amber-200/70 text-xs">{{
                 profileStore.currency
               }}</span>
             </template>
@@ -57,7 +64,7 @@
 
         <UButton
           type="submit"
-          class="login-btn w-full h-12 justify-center rounded-full text-lg font-light mt-2"
+          class="theme-primary-btn w-full h-12 justify-center text-lg mt-2"
           :loading="isLoading"
           :disabled="isDisbled"
         >
@@ -65,7 +72,10 @@
         </UButton>
       </UForm>
     </div>
-    <p v-if="!isLoading && isDisbled" class="text-sm text-red-700">
+    <p
+      v-if="!isLoading && isDisbled"
+      class="theme-error-box w-full text-center"
+    >
       {{ dataMessage }}
     </p>
   </div>
@@ -169,7 +179,7 @@ const onSubmit = async () => {
   try {
     isLoading.value = true
     const { status, data, message } = await useWithdraw(
-      state.value as RequestWithdraw
+      state.value as RequestWithdraw,
     )
     if (!status) {
       popupStore.alertError({ message })

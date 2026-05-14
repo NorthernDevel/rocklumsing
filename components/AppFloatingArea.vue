@@ -4,10 +4,13 @@
   >
     <UButton
       :class="isShowButton ? 'inline-flex' : 'hidden'"
-      class="w-12 h-12 lg:w-14 lg:h-14 justify-center !rounded-full !bg-gradient-to-b tab-menu from-sky-400 via-sky-500 to-sky-600 opacity-95"
+      class="w-12 h-12 lg:w-14 lg:h-14 justify-center !rounded-full !bg-gradient-to-b menu-btn-inactive from-sky-400 via-sky-500 to-sky-600 opacity-95"
       @click="scrollToTop"
-      >
-      <UIcon name="i-heroicons-arrow-up-20-solid" class="w-8 h-8 text-gray-100" />
+    >
+      <UIcon
+        name="i-heroicons-arrow-up-20-solid"
+        class="w-8 h-8 text-gray-100"
+      />
     </UButton>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[isActive(item.to) && tabActiveColor]"
-    class="relative w-full h-16 lg:h-14 p-1 sm:p-2 flex flex-col lg:flex-row flex-nowrap items-center justify-center space-y-1 lg:space-x-1 tab-menu"
+    class="relative w-full h-16 lg:h-14 p-1 sm:p-2 flex flex-col lg:flex-row flex-nowrap items-center justify-center space-y-1 lg:space-x-1 menu-btn-inactive"
   >
     <AppChip v-if="isShowChip" />
     <NuxtImg
@@ -40,7 +40,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: 'amber',
+    default: 'red',
   },
   useRoute: {
     type: Boolean,
@@ -48,24 +48,7 @@ const props = defineProps({
   },
 })
 
-const tabActiveColor = computed(() => {
-  switch (props.color) {
-    case 'amber':
-      return 'tab-active-amber'
-    case 'sky':
-      return 'tab-active-sky'
-    case 'rose':
-      return 'tab-active-rose'
-    case 'green':
-      return 'tab-active-green'
-    case 'red':
-      return 'tab-active-red'
-    case 'orange':
-      return 'tab-active-orange'
-    default:
-      return 'tab-active-amber'
-  }
-})
+const tabActiveColor = computed(() => 'menu-btn-active')
 
 const isActive = (path: string) => {
   if (props.useRoute) {
@@ -85,7 +68,3 @@ const isShowChip = computed(() => {
     return true
 })
 </script>
-
-<style scoped>
-
-</style>

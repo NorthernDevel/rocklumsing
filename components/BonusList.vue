@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div v-if="isLoading">
-      <USkeleton class="h-32 sm:h-36 mt-4" />
+      <USkeleton class="h-32 sm:h-36 mt-4 rounded-xl bg-neutral-800" />
     </div>
     <div v-else>
       <BonusListItem
@@ -11,9 +11,15 @@
         :is-loading="isExchangeLoading"
         v-on:get-bonus="onGetBonus"
       />
-      <UCard v-else class="flex items-center justify-center mt-4 h-36">
+      <UCard
+        v-else
+        class="theme-panel flex items-center justify-center mt-4 h-36 text-amber-100"
+      >
         <div class="flex justify-center gap-1">
-          <UIcon name="i-heroicons-circle-stack-solid" class="w-6 h-6" />
+          <UIcon
+            name="i-heroicons-circle-stack-solid"
+            class="w-6 h-6 text-amber-300"
+          />
           <p class="text-lg">{{ $t('data_not_found') }}</p>
         </div>
       </UCard>

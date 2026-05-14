@@ -1,13 +1,13 @@
 import type { IsDeposit, PrefixPermissionData } from '~/models/prefix.model'
 import type {
   Announcement,
-  imageLuancherData,
-  ApkFile,
-  ContactData,
-  FooterDescription,
-  InfoSetting,
   ResoucesData,
   RegisterTypes,
+  InfoData,
+  FooterDescription,
+  BannerData,
+  ContactData,
+  PromotionData,
 } from '~/models/resource.model'
 
 interface NewBankList {
@@ -25,8 +25,18 @@ export const useResourceStore = defineStore('resourceStore', () => {
   const resources = ref<ResoucesData>()
   const bankList = ref<NewBankList[]>([])
   const clientIp = ref<string | undefined>()
+  const defaultExtaApplication = {
+    andriod: {
+      active: false,
+      source: '',
+    },
+    ios: {
+      active: false,
+      source: '',
+    },
+  }
 
-  const infoSetting = computed((): InfoSetting => {
+  const infoSetting = computed((): InfoData => {
     if (!resources.value)
       return {
         language: { en: true, th: true },
@@ -36,9 +46,11 @@ export const useResourceStore = defineStore('resourceStore', () => {
     return resources.value.info
   })
 
-  const apkFile = ref<ApkFile>({
-    active: false,
-    source: '',
+  const extraApplication = computed(() => {
+    if (!resources.value) return defaultExtaApplication
+    const { extraApplication } = resources.value
+    if (!extraApplication) return defaultExtaApplication
+    return extraApplication
   })
 
   const announcement = computed((): Announcement => {
@@ -47,7 +59,7 @@ export const useResourceStore = defineStore('resourceStore', () => {
     return resources.value.announcement
   })
 
-  const bannerImages = computed((): imageLuancherData[] => {
+  const bannerImages = computed((): BannerData[] => {
     if (!resources.value) return []
     const { banners, imageUrl } = resources.value
     if (!banners.length) return []
@@ -57,25 +69,38 @@ export const useResourceStore = defineStore('resourceStore', () => {
     return newBanners
   })
 
-  const promotionImages = computed((): imageLuancherData[] => {
+  const promotions = computed((): PromotionData[] => {
     if (!resources.value) return []
-    const { promotions, imageUrl } = resources.value
-    if (!promotions.length) return []
-    const newPromotionImages = promotions.map((promotion) => {
+    const { promotions: promotionList, imageUrl } = resources.value
+    if (!promotionList.length) return []
+    const newPromotions = promotionList.map((promotion) => {
       return { ...promotion, image: `${imageUrl.promotion}${promotion.image}` }
     })
-    return newPromotionImages
+    return newPromotions
   })
 
-  const footerDescription = ref<FooterDescription>({
-    title: {
-      en: 'Game skills, the first in Thailand',
-      th: 'สกิลเกม เจ้าแรกในไทย',
-    },
-    description: {
-      en: 'THEAMB303 Slot Online FullHD, offering slots, casinos, fishing games, and sports all in one place from famous providers around the world. theamb-303.com has more, but is easier. With a wide variety of games, beautiful new graphics, and popularity, we gather the most online slots and slot games in Thailand. With our intelligent deposit and withdrawal system, it is easy to play, fast, and features auto deposit and withdrawal — the only one that truly works.',
-      th: 'THEAMB303 Slot Online FullHD สล็อต คาสิโน ยิงปลา และกีฬา ครบจบ เว็บเดียวจากค่ายดังทุกมุมโลก theamb-303.com มีมากกว่า แต่ง่ายกว่า เกมเยอะ ภาพสวยใหม่ และ เป็นที่นิยม เรารวม สล็อตออนไลน์ และ เกมสล็อต มากที่สุดในไทย ด้วยระบบเติมถอนอัจฉริยะ เล่นง่าย รวดเร็ว ฝากถอนออโต้ เจ้าเดียวที่ใช้ได้จริง',
-    },
+  const footerDescription = computed((): FooterDescription => {
+    if (!resources.value)
+      return {
+        title: {
+          en: 'Game skills, the first in Thailand',
+          th: 'สกิลเกม เจ้าแรกในไทย',
+        },
+        description: {
+          en: 'Slot Online FullHD, offering slots, casinos, fishing games, and sports all in one place from famous providers around the world. has more, but is easier. With a wide variety of games, beautiful new graphics, and popularity, we gather the most online slots and slot games in Thailand. With our intelligent deposit and withdrawal system, it is easy to play, fast, and features auto deposit and withdrawal the only one that truly works.',
+          th: 'Slot Online FullHD สล็อต คาสิโน ยิงปลา และกีฬา ครบจบ เว็บเดียวจากค่ายดังทุกมุมโลก มีมากกว่า แต่ง่ายกว่า เกมเยอะ ภาพสวยใหม่ และ เป็นที่นิยม เรารวม สล็อตออนไลน์ และ เกมสล็อต มากที่สุดในไทย ด้วยระบบเติมถอนอัจฉริยะ เล่นง่าย รวดเร็ว ฝากถอนออโต้ เจ้าเดียวที่ใช้ได้จริง',
+        },
+      }
+    return {
+      title: {
+        en: 'Game skills, the first in Thailand',
+        th: 'สกิลเกม เจ้าแรกในไทย',
+      },
+      description: {
+        en: infoSetting.value.description.en,
+        th: infoSetting.value.description.th,
+      },
+    }
   })
 
   const registerType = computed((): RegisterTypes => {
@@ -146,8 +171,13 @@ export const useResourceStore = defineStore('resourceStore', () => {
   const showPopupLoggedIn = () => {
     setTimeout(() => {
       if (popupLoggedIn.value.length) popupStore.openPopupLoggedIn()
-    }, 1000)
+    }, 500)
   }
+
+  const seoMeta = computed(() => {
+    if (!resources.value) return { title: '', keywords: '', description: '' }
+    return resources.value.seoMeta
+  })
 
   const getResoures = async () => {
     try {
@@ -184,11 +214,12 @@ export const useResourceStore = defineStore('resourceStore', () => {
     announcement,
     footerDescription,
     bannerImages,
-    promotionImages,
+    promotions,
     registerType,
     tags,
-    apkFile,
+    extraApplication,
     clientIp,
+    seoMeta,
     getResoures,
     showPopupNotLogin,
     showPopupLoggedIn,

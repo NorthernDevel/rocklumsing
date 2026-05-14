@@ -27,17 +27,17 @@
           indicators: {
             wrapper: '-bottom-0',
             base: 'rounded-full h-1 w-5',
-            active: 'bg-amber-500 dark:bg-amber-500',
+            active: 'bg-red-600 dark:bg-red-600',
             inactive: 'bg-gray-100 dark:bg-gray-100',
           },
         }"
         :prev-button="{
-          color: 'amber',
+          color: 'red',
           icon: 'i-heroicons-chevron-left',
           class: 'left-4',
         }"
         :next-button="{
-          color: 'amber',
+          color: 'red',
           icon: 'i-heroicons-chevron-right',
           class: 'right-4',
         }"

@@ -8,19 +8,19 @@ export interface Profile {
 
 export interface User {
   id: string
-  customerBankAccount?: string
-  customerBankName?: string
+  customerBankAccount: string
+  customerBankName: string
   createDate: Date
   lastIpLogin: string
   lastLoginDate: Date
   username: string
   prefix: string
   balance: number
-  currency: Currency
+  currency: string
   phoneNo: string
   link: string
-  firstName?: string
-  lastName?: string
+  firstName: string
+  lastName: string
   usernameGameProfile: string
   rank: Rank
   walletCash: number
@@ -32,12 +32,21 @@ export interface User {
   walletDiamond: number
   walletReward: number
   isDeposit: IsDeposit
-  middleName?: string
   isSyncPeer2Pay: boolean
   lastestGatewayChannel: string
   isAutoPromotion: boolean
+  fiat: Fiat[]
+  promptpayNo: string
+  firstNameEn: string
+  lastNameEn: string
+  isForceDeposit: IsDeposit
 }
 
+export interface Fiat {
+  currency: string
+  bankname: string
+  accountNo: string
+}
 export interface Rank {
   rank: string
   level: number
@@ -50,6 +59,7 @@ export interface Rank {
 export interface IsDeposit {
   isAskmepay: boolean
   isAuto: boolean
+  isAutoPeer: boolean
   isCrypto: boolean
   isDecimal: boolean
   isWiWallet: boolean
