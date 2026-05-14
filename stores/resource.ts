@@ -169,10 +169,32 @@ export const useResourceStore = defineStore('resourceStore', () => {
     )
   })
 
-  const showPopupNotLogin = () => {
+  const openPopupWhenReady = (
+    popupItems: typeof popupNotLogin,
+    openPopup: () => void,
+    delay: number,
+  ) => {
     setTimeout(() => {
-      if (popupNotLogin.value.length) popupStore.openPopupNotLogin()
-    }, 1000)
+      if (popupItems.value.length) {
+        openPopup()
+        return
+      }
+
+      if (resources.value) return
+
+      const stop = watch(
+        [resources, popupItems],
+        () => {
+          if (popupItems.value.length) openPopup()
+          if (resources.value) stop()
+        },
+        { flush: 'post' },
+      )
+    }, delay)
+  }
+
+  const showPopupNotLogin = () => {
+    openPopupWhenReady(popupNotLogin, () => popupStore.openPopupNotLogin(), 1000)
   }
 
   const popupLoggedIn = computed(() => {
@@ -183,9 +205,7 @@ export const useResourceStore = defineStore('resourceStore', () => {
   })
 
   const showPopupLoggedIn = () => {
-    setTimeout(() => {
-      if (popupLoggedIn.value.length) popupStore.openPopupLoggedIn()
-    }, 500)
+    openPopupWhenReady(popupLoggedIn, () => popupStore.openPopupLoggedIn(), 500)
   }
 
   const seoMeta = computed(() => {
@@ -229,6 +249,7 @@ export const useResourceStore = defineStore('resourceStore', () => {
     footerDescription,
     bannerImages,
     promotions,
+    popups,
     registerType,
     tags,
     extraApplication,
