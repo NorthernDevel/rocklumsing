@@ -34,7 +34,7 @@ colorMode.preference = 'dark'
 const isShowContent = ref(true)
 
 useHead({
-  titleTemplate: '%s - THEAMB303',
+  titleTemplate: '%s - ROCKLUMSING',
   link: [
     {
       rel: 'preconnect',

@@ -32,7 +32,7 @@ const date = computed({
 const attrs = {
   transparent: true,
   borderless: true,
-  color: 'primary',
+  color: 'rock',
   'is-dark': { selector: 'html', darkClass: 'dark' },
   'first-day-of-week': 2,
 }
@@ -70,16 +70,16 @@ const attrs = {
   --vc-gray-900: rgb(var(--color-gray-900));
 }
 
-.vc-primary {
-  --vc-accent-50: rgb(var(--color-primary-50));
-  --vc-accent-100: rgb(var(--color-primary-100));
-  --vc-accent-200: rgb(var(--color-primary-200));
-  --vc-accent-300: rgb(var(--color-primary-300));
-  --vc-accent-400: rgb(var(--color-primary-400));
-  --vc-accent-500: rgb(var(--color-primary-500));
-  --vc-accent-600: rgb(var(--color-primary-600));
-  --vc-accent-700: rgb(var(--color-primary-700));
-  --vc-accent-800: rgb(var(--color-primary-800));
-  --vc-accent-900: rgb(var(--color-primary-900));
+.vc-rock {
+  --vc-accent-50: 229, 242, 255;
+  --vc-accent-100: 191, 231, 255;
+  --vc-accent-200: 125, 211, 252;
+  --vc-accent-300: 56, 199, 255;
+  --vc-accent-400: 0, 108, 255;
+  --vc-accent-500: 0, 108, 255;
+  --vc-accent-600: 0, 72, 210;
+  --vc-accent-700: 0, 24, 168;
+  --vc-accent-800: 120, 0, 0;
+  --vc-accent-900: 5, 5, 7;
 }
 </style>

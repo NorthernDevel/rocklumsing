@@ -1,5 +1,5 @@
 <template>
-  <div class="border-y border-red-950/40 bg-gradient-to-b from-neutral-950 via-black to-neutral-900">
+  <div class="border-y border-blue-950/50 bg-[radial-gradient(ellipse_at_18%_0%,rgba(240,20,24,0.18)_0%,transparent_36%),radial-gradient(ellipse_at_82%_0%,rgba(0,108,255,0.2)_0%,transparent_38%),linear-gradient(180deg,#050507,#000,#0b0b12)]">
     <div class="container mx-auto">
       <div class="grid grid-cols-2 lg:grid-cols-3 gab-4">
         <div v-for="item in status" class="flex my-3 mx-2">
@@ -12,7 +12,7 @@
             <h2 class="theme-title text-[16px] font-semibold">
               {{ $t(item.title) }}
             </h2>
-            <p class="hidden md:inline text-amber-100/70">
+            <p class="hidden md:inline text-sky-100/70">
               {{ $t(item.description) }}
             </p>
           </div>

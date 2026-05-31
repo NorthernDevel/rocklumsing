@@ -20,18 +20,18 @@
         class="text-center font-semibold text-sm md:text-xl lg:text-2xl text-transparent"
       >
         <p
-          class="bg-clip-text bg-gradient-to-b from-yellow-100 via-amber-300 to-amber-600"
+          class="bg-clip-text bg-gradient-to-r from-white via-sky-300 to-red-500"
         >
           คาสิโนออนไลน์ ที่ใหญ่ที่สุด
         </p>
         <p
-          class="bg-clip-text bg-gradient-to-b from-yellow-100 via-amber-300 to-amber-600"
+          class="bg-clip-text bg-gradient-to-r from-white via-sky-300 to-red-500"
         >
           ครบทุกความบันเทิง
         </p>
       </div>
       <UButton
-        class="md:w-44 lg:w-64 md:h-12 lg:h-16 justify-center rounded-full border-2 border-slate-200/85 bg-gradient-to-b from-red-400 via-red-700 to-red-950 md:text-xl lg:text-3xl font-semibold !text-slate-100 shadow-[0_0_28px_rgba(220,38,38,0.55)] ring-2 ring-slate-100/30 ring-offset-2 ring-offset-black lg:my-2 [&_*]:!text-slate-100"
+        class="theme-primary-btn md:w-44 lg:w-64 md:h-12 lg:h-16 justify-center border-2 md:text-xl lg:text-3xl font-semibold lg:my-2 [&_*]:!text-white"
         @click="popupStore.openModalRegister()"
         >{{ $t('register') }}</UButton
       >
@@ -61,8 +61,8 @@
         indicators: {
           wrapper: 'bottom-0',
           base: 'rounded-full h-1 w-5',
-          active: 'bg-red-600 dark:bg-red-600',
-          inactive: 'bg-amber-100/40 dark:bg-amber-100/40',
+          active: 'bg-gradient-to-r from-red-500 via-sky-300 to-blue-500 dark:from-red-500 dark:via-sky-300 dark:to-blue-500 shadow-[0_0_10px_rgba(0,108,255,0.65)]',
+          inactive: 'bg-sky-100/25 dark:bg-sky-100/25',
         },
       }"
       :prev-button="{
@@ -87,7 +87,7 @@
 
   <div class="relative">
     <div
-      class="absolute inset-0 border-y  border-red-900/50 bg-[radial-gradient(ellipse_at_center,rgba(185,28,28,0.3)_0%,rgba(15,15,18,0.98)_48%,rgba(24,24,24,1)_100%)]"
+      class="absolute inset-0 border-y border-blue-700/70 bg-[radial-gradient(ellipse_at_18%_50%,rgba(240,20,24,0.42)_0%,transparent_42%),radial-gradient(ellipse_at_82%_50%,rgba(0,108,255,0.46)_0%,transparent_44%),linear-gradient(180deg,rgba(5,5,7,1),rgba(0,0,0,1))] py-6 shadow-[inset_0_1px_0_rgba(240,240,240,0.18),inset_0_-1px_0_rgba(56,199,255,0.16)]"
     ></div>
     <NuxtMarquee :speed="50" direction="left">
       <NuxtImg
@@ -129,7 +129,7 @@
     <div class="flex items-center justify-center gap-4 mt-4 sm:mt-6 mb-2">
       <div class="group" @click="cashierStore.openWithdrawFromPage()">
         <div
-          class="relative w-36 sm:w-44 lg:w-52 h-14 sm:h-16 lg:h-20 p-2 flex flex-nowrap items-center justify-center gap-1 menu-btn-inactive !border-emerald-300/60 !bg-gradient-to-b !from-emerald-400 !via-emerald-700 !to-black !shadow-emerald-700/30"
+          class="theme-deposit-btn relative w-36 sm:w-44 lg:w-52 h-14 sm:h-16 lg:h-20 p-2 flex flex-nowrap items-center justify-center gap-1 menu-btn-inactive"
         >
           <AppChip :show="!bankStore.isCustomerAccount" />
           <NuxtImg

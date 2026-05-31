@@ -18,13 +18,16 @@ body {
   margin: 0;
   padding: 5px 10px;
   background: radial-gradient(
-    100% 100% at 50% 0,
-    #eaeaea 0,
-    #d6d6d6 44%,
-    #b4b4b4 100%
+    120% 120% at 50% 0,
+    #f0f0f0 0,
+    #38c7ff 42%,
+    #0018a8 100%
   );
   position: relative;
-  box-shadow: 0 5px 10px #000000b0;
+  box-shadow:
+    0 5px 10px #000000b0,
+    inset 0 1px 0 rgba(240, 240, 240, 0.45),
+    0 0 16px rgba(0, 108, 255, 0.24);
   border-radius: 20px;
   margin-bottom: 8px;
   cursor: pointer;

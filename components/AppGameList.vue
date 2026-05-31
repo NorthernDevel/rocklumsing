@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isLoading"
-    :class="[isProvider && '!grid-cols-3 sm:!grid-cols-5 lg:!grid-cols-7 xl:!grid-cols-9']"
-    class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3 md:gap-4"
+    :class="[isProvider && '!grid-cols-2 sm:!grid-cols-4 lg:!grid-cols-7 xl:!grid-cols-9']"
+    class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-7 gap-3 md:gap-4"
   >
     <USkeleton class="w-full h-20 sm:h-28 md:h-32 lg:36" v-for="item in 14" />
   </div>
@@ -17,8 +17,8 @@
     leave-to-class="opacity-0"
   >
     <div
-      :class="[[isProvider && '!grid-cols-3 sm:!grid-cols-5 lg:!grid-cols-7 xl:!grid-cols-9']]"
-      class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3 md:gap-4"
+      :class="[[isProvider && '!grid-cols-2 sm:!grid-cols-4 lg:!grid-cols-7 xl:!grid-cols-9']]"
+      class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-7 xl:grid-cols-9 gap-3 md:gap-4"
     >
       <AppGameListItem
         v-for="item in visibleGames"

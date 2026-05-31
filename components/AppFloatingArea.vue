@@ -4,7 +4,7 @@
   >
     <UButton
       :class="isShowButton ? 'inline-flex' : 'hidden'"
-      class="w-12 h-12 lg:w-14 lg:h-14 justify-center !rounded-full !bg-gradient-to-b menu-btn-inactive from-sky-400 via-sky-500 to-sky-600 opacity-95"
+      class="w-12 h-12 lg:w-14 lg:h-14 justify-center !rounded-full !bg-gradient-to-br menu-btn-active from-red-600 via-blue-600 to-blue-950 opacity-95"
       @click="scrollToTop"
     >
       <UIcon

@@ -10,7 +10,7 @@
         <div class="flex items-center justify-between">
           <NuxtImg src="/assets/images/logo.webp" alt="logo" class="w-20" />
           <UButton
-            color="red"
+            color="blue"
             variant="ghost"
             class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
             @click="isOpen = false"

@@ -7,14 +7,14 @@
     }"
   >
     <div
-      class="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-amber-200/70 to-transparent"
+      class="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-sky-200/70 to-transparent"
     ></div>
     <div
-      class="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-red-950 via-red-600/70 to-red-950"
+      class="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-red-950 via-blue-500/70 to-red-950"
     ></div>
     <div
       v-if="isChangeClass"
-      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.24)_0%,rgba(127,29,29,0.12)_42%,transparent_70%),linear-gradient(180deg,rgba(18,18,20,0.96),rgba(20,0,0,0.92)_55%,rgba(0,0,0,0.96))] shadow-[inset_0_1px_0_rgba(255,235,170,0.14),inset_0_-10px_26px_rgba(185,28,28,0.16)] backdrop-blur-sm"
+      class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_18%_0%,rgba(240,20,24,0.22)_0%,transparent_42%),radial-gradient(ellipse_at_84%_0%,rgba(0,108,255,0.24)_0%,transparent_46%),linear-gradient(180deg,rgba(11,11,18,0.96),rgba(5,5,7,0.96))] shadow-[inset_0_1px_0_rgba(240,240,240,0.14),inset_0_-10px_26px_rgba(0,108,255,0.14)] backdrop-blur-sm"
     ></div>
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex gap-2">
@@ -22,7 +22,7 @@
           <AppSlideMenu v-model="popupStore.isOpenSlideMenu" />
           <UIcon
             name="i-heroicons-bars-3-bottom-left-20-solid"
-            class="h-10 w-10 cursor-pointer text-amber-100 drop-shadow-[0_0_10px_rgba(220,38,38,0.45)]"
+            class="h-10 w-10 cursor-pointer text-sky-100 drop-shadow-[0_0_10px_rgba(0,108,255,0.45)]"
             @click="popupStore.openSlideMenu"
           />
         </div>
@@ -51,19 +51,19 @@
               <div class="flex items-center">
                 <UIcon
                   name="i-heroicons-user-16-solid"
-                  class="w-4 h-4 mr-1 text-amber-300"
+                  class="w-4 h-4 mr-1 text-sky-300"
                 />
                 <UDropdown
                   :items="navStore.menuHeaderDropdown"
                   :ui="{ item: { disabled: 'cursor-text select-text' } }"
                   :popper="{ placement: 'bottom-end' }"
                 >
-                  <span class="text-amber-100 text-sm">{{
+                  <span class="text-sky-100 text-sm">{{
                     profileStore.userData.username
                   }}</span>
                   <UIcon
                     name="i-heroicons-chevron-down-16-solid"
-                    class="w-4 h-4 ml-1 text-amber-300"
+                    class="w-4 h-4 ml-1 text-sky-300"
                   />
 
                   <template #item="{ item }">
@@ -85,10 +85,9 @@
                     alt="logo"
                     class="w-7"
                   />
-                  <span
-                    class="text-amber-200 sm:text-lg font-semibold"
-                    >{{ profileStore.diamond }}</span
-                  >
+                  <span class="text-sky-200 sm:text-lg font-semibold">{{
+                    profileStore.diamond
+                  }}</span>
                 </div>
                 <div
                   class="theme-panel h-7 flex items-center relative rounded-full pl-6 pr-3"
@@ -106,7 +105,7 @@
                     :ui="{
                       color: {
                         white: {
-                          ghost: 'text-amber-200 dark:text-amber-200 bg-transparent',
+                          ghost: 'text-sky-200 dark:text-sky-200 bg-transparent',
                         },
                       },
                     }"

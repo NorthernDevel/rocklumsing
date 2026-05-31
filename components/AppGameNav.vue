@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center flex-wrap gap-2 md:gap-4">
+  <div class="md:flex justify-center flex-wrap gap-2 md:gap-4 mt-10 md:mt-0">
     <GameMenu
       v-for="link in links"
       :key="link.name"

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="theme-panel flex flex-col gap-3 p-3 my-2"
-  >
+  <div class="theme-panel flex flex-col gap-3 p-3 my-2">
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <p class="theme-label text-xs">{{ $t('date') }}</p>
@@ -27,7 +25,7 @@
         <div class="flex gap-2">
           <UButton
             v-if="item.isRejectTrans && !item.isReceive"
-            color="red"
+            color="blue"
             variant="solid"
             class="theme-primary-btn h-6 justify-center px-3 text-xs"
             @click="receiveRejectTransactionId(item)"

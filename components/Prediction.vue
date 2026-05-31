@@ -91,7 +91,7 @@
             :key="key"
             :item="value"
             type="button"
-            color="red"
+            color="blue"
             variant="soft"
             @click="onSelectedAnswer(key)"
             class="w-full h-8 rounded-full font-light"

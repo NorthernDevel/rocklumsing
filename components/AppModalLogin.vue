@@ -10,7 +10,7 @@
   >
     <UCard class="u-card-bg">
       <UButton
-        color="red"
+        color="blue"
         variant="ghost"
         class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
         @click="isOpen = false"
@@ -84,8 +84,8 @@
           <p class="font-light">
             <ULink
               as="button"
-              active-class="text-primary"
-              inactive-class="text-green-500 dark:text-green-400 hover:text-green-700 dark:hover:text-green-200"
+              active-class="text-sky-300"
+              inactive-class="text-sky-300 dark:text-sky-300 hover:text-white dark:hover:text-white hover:drop-shadow-[0_0_8px_rgba(56,199,255,0.55)]"
               @click="swicthToRegister"
             >
               {{ $t('register') }}
@@ -95,8 +95,8 @@
           <p class="font-light">
             <ULink
               as="button"
-              active-class="text-primary"
-              inactive-class="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-200"
+              active-class="text-red-400"
+              inactive-class="text-red-400 dark:text-red-400 hover:text-white dark:hover:text-white hover:drop-shadow-[0_0_8px_rgba(240,20,24,0.55)]"
               @click="swicthToForgotPassword"
             >
               {{ $t('forgot_password') }}

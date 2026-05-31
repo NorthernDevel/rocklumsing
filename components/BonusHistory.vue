@@ -12,7 +12,7 @@
         },
       }"
     />
-    
+
     <div class="md:max-h-[55vh] overflow-y-auto mt-2">
       <section v-if="!isLoading">
         <RewardHistoryItem
@@ -21,10 +21,7 @@
           :key="key"
           :item="item"
         />
-        <div
-          v-else
-          class="theme-panel py-4 text-amber-100"
-        >
+        <div v-else class="theme-panel py-4 text-amber-100">
           <div class="flex justify-center gap-1">
             <UIcon
               name="i-heroicons-circle-stack-solid"
@@ -56,7 +53,7 @@
           <UTooltip :text="$t('previous_page')">
             <UButton
               icon="i-heroicons-arrow-small-left-20-solid"
-              color="red"
+              color="blue"
               variant="ghost"
               :ui="{ rounded: 'rounded-full' }"
               class="theme-panel rtl:[&_span:first-child]:rotate-180 me-2 text-amber-200"
@@ -69,7 +66,7 @@
           <UTooltip :text="$t('next_page')">
             <UButton
               icon="i-heroicons-arrow-small-right-20-solid"
-              color="red"
+              color="blue"
               variant="ghost"
               :ui="{ rounded: 'rounded-full' }"
               class="theme-panel rtl:[&_span:last-child]:rotate-180 ms-2 text-amber-200"
@@ -167,7 +164,7 @@ const getReportExchangeReward = async (body: RequestReportExchangeReward) => {
 }
 
 watch([selected, page], () => {
-   getReportExchangeReward({
+  getReportExchangeReward({
     username: '',
     isPlayer: true,
     page: page.value,

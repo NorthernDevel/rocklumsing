@@ -4,26 +4,27 @@
   </section>
 
   <section>
-    <div class="flex flex-col">
-      <div class="flex justify-center px-2 py-4 mt-8">
+    <div class="flex">
+      <div class="flex md:flex-col justify-center px-2 py-4 mt-8">
         <AppGameNav :links="navStore.menuGames" />
-      </div>
-      <AppDownload />
 
-      <div class="w-full p-2 md:p-4">
-        <div class="game-block">
-          <section>
-            <AppGameBar
-              src="/assets/images/menus/hot-game.webp"
-              :name="hotgame"
-            />
-            <AppGameList
-              :is-loading="loaderStore.isLoading"
-              :games-list="recommendList"
-              first-large
-              is-provider
-            />
-          </section>
+        <!-- <AppDownload /> -->
+
+        <div class="w-full pl-2 md:p-4">
+          <div class="game-block">
+            <section>
+              <AppGameBar
+                src="/assets/images/menus/hot-game.webp"
+                :name="hotgame"
+              />
+              <AppGameList
+                :is-loading="loaderStore.isLoading"
+                :games-list="recommendList"
+                first-large
+                is-provider
+              />
+            </section>
+          </div>
         </div>
       </div>
     </div>
@@ -50,12 +51,12 @@ const hotgame = t('game_hotgame')
 useSeoMeta({
   title: 'Home Page',
   description: 'This is the home Page',
-  ogTitle: () => resourceStore.infoSetting.title.th ?? 'AMBGOGO',
+  ogTitle: () => resourceStore.infoSetting.title.th ?? 'ROCKLUMSING',
   ogDescription: () => resourceStore.seoMeta.description,
   keywords: () => resourceStore.seoMeta.keywords,
   ogImage: '/assets/images/logo.webp',
   ogUrl: () => origin,
-  twitterTitle: () => resourceStore.infoSetting.title.th ?? 'AMBGOGO',
+  twitterTitle: () => resourceStore.infoSetting.title.th ?? 'ROCKLUMSING',
   twitterDescription: () => resourceStore.seoMeta.description,
   twitterImage: '/assets/images/logo.webp',
   twitterCard: 'summary',
@@ -87,13 +88,7 @@ const fetchGamesListByType = async (gameType: GameType) => {
         )
         recommendList.value.push(...filteredSlots)
       } else if (gameType === GameType['LIVE']) {
-        const casinoRecommendList = [
-          'PTG',
-          'WM',
-          'SAG',
-          'MTV',
-          'PTGC',
-        ]
+        const casinoRecommendList = ['PTG', 'WM', 'SAG', 'MTV', 'PTGC']
         const filteredCasinos = gamesList.filter((casino) =>
           casinoRecommendList.includes(casino.productCode),
         )

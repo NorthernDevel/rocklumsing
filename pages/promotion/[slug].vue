@@ -4,7 +4,7 @@
       <UButton
         icon="i-heroicons-chevron-left-20-solid"
         size="sm"
-        color="red"
+        color="blue"
         variant="ghost"
         label="Button"
         class="text-amber-200 text-lg sm:text-xl font-light h-12 mt-2 pl-0"

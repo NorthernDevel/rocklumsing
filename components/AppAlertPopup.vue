@@ -42,7 +42,7 @@
             <div class="w-full flex justify-around !mt-8 !mb-2">
               <div v-if="alert.type === 'confirm' || alert.type === 'success'">
                 <UButton
-                  color="red"
+                  color="blue"
                   variant="solid"
                   size="xl"
                   :class="[alert.copyText && '!w-48']"
@@ -63,7 +63,7 @@
               </div>
               <div v-if="alert.type === 'warning'">
                 <UButton
-                  color="red"
+                  color="blue"
                   variant="solid"
                   size="xl"
                   class="theme-primary-btn w-24 flex justify-center"

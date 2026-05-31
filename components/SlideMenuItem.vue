@@ -5,7 +5,7 @@
     class="flex justify-center h-32"
   >
     <div
-      class="menu-btn-inactive w-full flex flex-col items-center justify-center rounded-2xl p-2 transition-all duration-300 hover:scale-105"
+      class="slide-menu-btn w-full flex flex-col items-center justify-center rounded-2xl p-2 transition-all duration-300 hover:scale-105"
     >
       <NuxtImg
         :src="item.image"
@@ -13,7 +13,9 @@
         class="w-20 h-20 object-contain"
         loading="lazy"
       />
-      <p>{{ $t(item.label) }}</p>
+      <p class="mt-1 text-sm font-medium drop-shadow-[0_0_8px_rgba(56,199,255,0.45)]">
+        {{ $t(item.label) }}
+      </p>
     </div>
   </div>
 </template>

@@ -11,7 +11,7 @@
   >
     <UCard class="u-card-bg">
       <UButton
-        color="red"
+        color="blue"
         variant="ghost"
         class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
         @click="isOpen = false"
@@ -71,8 +71,8 @@
               {{ $t('register_request_otp') }}
               <ULink
                 as="button"
-                active-class="text-primary"
-                inactive-class="text-amber-500 dark:text-amber-300 hover:text-red-700 dark:hover:text-amber-200"
+                active-class="text-sky-300"
+                inactive-class="text-sky-300 dark:text-sky-300 hover:text-white dark:hover:text-white hover:drop-shadow-[0_0_8px_rgba(56,199,255,0.55)]"
                 class="font-normal"
                 @click="
                   registerStore.isTimeUp ? registerStore.reCallOtp() : null

@@ -5,28 +5,31 @@
 
   <section>
     <div class="flex flex-col">
-      <div class="flex justify-center px-2 py-4 mt-4">
+      <div class="flex md:flex-col justify-center px-2 py-4 mt-8">
         <AppGameNav :links="navStore.menuGames" />
-      </div>
 
-      <div class="w-full p-2 md:p-4">
-        <div class="game-block rounded-3xl">
-          <section>
-            <AppGameBar
-              v-if="gameObject?.gameType === 'SPORT'"
-              :name="title"
-              :src="barImage"
-            />
-            <AppGameBar
-              v-else
-              :game-type="`${gameObject?.gameType}`"
-              is-search
-              is-select
-              v-on:search-term="onSearchTerm"
-              v-on:selected="onSelected"
-            />
-            <AppGameList :is-loading="isLoading" :games-list="filterListData" />
-          </section>
+        <div class="w-full p-2 md:p-4">
+          <div class="game-block rounded-3xl">
+            <section>
+              <AppGameBar
+                v-if="gameObject?.gameType === 'SPORT'"
+                :name="title"
+                :src="barImage"
+              />
+              <AppGameBar
+                v-else
+                :game-type="`${gameObject?.gameType}`"
+                is-search
+                is-select
+                v-on:search-term="onSearchTerm"
+                v-on:selected="onSelected"
+              />
+              <AppGameList
+                :is-loading="isLoading"
+                :games-list="filterListData"
+              />
+            </section>
+          </div>
         </div>
       </div>
     </div>

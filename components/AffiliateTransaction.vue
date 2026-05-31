@@ -12,7 +12,7 @@
           id="startDate"
           icon="i-heroicons-calendar-days-20-solid"
           :label="dayjs(startDate).format('DD-MM-YYYY')"
-          color="red"
+          color="blue"
           variant="ghost"
           class="theme-panel w-full flex justify-center items-center text-center !text-amber-100"
           :ui="{
@@ -37,7 +37,7 @@
           id="endDate"
           icon="i-heroicons-calendar-days-20-solid"
           :label="dayjs(endDate).format('DD-MM-YYYY')"
-          color="red"
+          color="blue"
           variant="ghost"
           class="theme-panel w-full flex justify-center items-center text-center !text-amber-100"
           :ui="{

@@ -1,11 +1,16 @@
 <template>
   <div class="w-full">
-    <UDivider :ui="{ border: { base: 'dark:bg-emerald-700' } }" label="ช่องทางการฝากเงิน" size="sm" class="mt-4" />
+    <UDivider
+      :ui="{ border: { base: 'dark:bg-emerald-700' } }"
+      label="ช่องทางการฝากเงิน"
+      size="sm"
+      class="mt-4"
+    />
     <div class="grid grid-cols-2 place-items-center mt-4">
       <CashierDepositButton
         v-for="item in cashierStore.depositMenu"
         :item="item"
-        color="red"
+        color="blue"
         size="w-32 sm:w-36 h-14 sm:h-16"
       />
     </div>

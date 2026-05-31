@@ -12,7 +12,7 @@
   >
     <div class="relative">
       <UButton
-        color="red"
+        color="blue"
         variant="ghost"
         class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0 z-50"
         @click="isOpen = false"
@@ -27,8 +27,9 @@
           indicators: {
             wrapper: '-bottom-0',
             base: 'rounded-full h-1 w-5',
-            active: 'bg-red-600 dark:bg-red-600',
-            inactive: 'bg-gray-100 dark:bg-gray-100',
+            active:
+              'bg-gradient-to-r from-red-500 via-sky-300 to-blue-500 dark:from-red-500 dark:via-sky-300 dark:to-blue-500 shadow-[0_0_10px_rgba(0,108,255,0.65)]',
+            inactive: 'bg-sky-100/25 dark:bg-sky-100/25',
           },
         }"
         :prev-button="{
@@ -75,7 +76,7 @@ const popupItems = computed(() => {
   if (!resourceStore.popups) return []
   return resourceStore.popups
     .filter(
-      (popup) => popup.isActive && popup.isLogin !== true && !popup.isFlash
+      (popup) => popup.isActive && popup.isLogin !== true && !popup.isFlash,
     )
     .map((item) => item)
 })

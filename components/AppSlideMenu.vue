@@ -9,9 +9,9 @@
             <NuxtImg src="/assets/images/logo.webp" alt="logo" class="w-32" />
           </h3>
           <UButton
-            color="red"
+            color="white"
             variant="ghost"
-            class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 focus-visible:ring-0"
+            class="-my-1 justify-center absolute top-1 right-0 w-14 h-14 text-sky-100 hover:text-white hover:bg-blue-500/10 focus-visible:ring-0"
             @click="isOpen = false"
             ><UIcon name="i-heroicons-x-mark-20-solid" class="w-14 h-14"
           /></UButton>
@@ -24,6 +24,7 @@
           :options="langStore.multilingual"
           @change="langStore.onSwitchLanguage"
           variant="none"
+          class="slide-menu-btn rounded-xl px-2 py-1"
         >
           <template #leading>
             <NuxtImg
@@ -33,13 +34,13 @@
             />
           </template>
           <template #label>
-            <span class="truncate text-base pl-4">{{
+            <span class="truncate text-base pl-4 text-white">{{
               langStore.langSelected.label
             }}</span>
           </template>
           <template #option="{ option: lang }">
             <NuxtImg :src="lang.avatar?.src" :alt="lang.label" class="w-8" />
-            <span class="truncate text-base">{{ lang.label }}</span>
+            <span class="truncate text-base text-white">{{ lang.label }}</span>
           </template>
         </USelectMenu>
       </div>

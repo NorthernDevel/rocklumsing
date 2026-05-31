@@ -8,7 +8,7 @@
     >
       <UIcon
         name="i-heroicons-megaphone-20-solid"
-        class="w-5 h-5 text-red-400"
+        class="w-5 h-5 text-blue-400"
       />
     </div>
     <div class="inline-block whitespace-nowrap overflow-hidden py-2 pl-12">

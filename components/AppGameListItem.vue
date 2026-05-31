@@ -5,7 +5,7 @@
       :class="[[!isProvider && 'hover:scale-105']]"
     >
       <div
-        class="relative"
+        class="relative brightness-80"
         :class="[isProvider && 'aspect-square overflow-hidden rounded-lg']"
       >
         <!-- <div
@@ -24,17 +24,17 @@
         </div> -->
         <div
           v-if="!isProvider && item.online && item.online > 5000"
-          class="absolute left-1 md:left-2 top-2 z-10"
+          class="absolute left-1 md:left-2 top-1 md:top-2 z-10"
         >
-          <NuxtImg class="w-10" src="/assets/images/game-hot.webp" />
+          <NuxtImg class="w-8 md:w-10" src="/assets/images/game-hot.webp" />
         </div>
         <div
           v-if="!isProvider"
-          class="absolute right-1 top-1 z-10 w-7 h-7 md:w-9 md:h-9 bg-black rounded-full flex items-center justify-center bg-opacity-60"
+          class="absolute right-1 top-1 z-10 w-5 h-5 md:w-9 md:h-9 bg-black rounded-full flex items-center justify-center bg-opacity-60"
         >
           <UIcon
             :name="favoriteIcon"
-            class="w-5 h-5 md:w-7 md:h-7 dark:bg-white cursor-pointer"
+            class="w-4 h-4 md:w-7 md:h-7 dark:bg-white cursor-pointer"
             @click="toggleFavorite(item)"
           />
         </div>
@@ -49,29 +49,29 @@
               ? 'h-full rounded-lg object-cover p-1 md:p-2 lg:p-[0.6rem]'
               : 'min-h-20 rounded-t-md object-cover',
           ]"
-          class="w-full group-hover:brightness-75"
+          class="w-full group-hover:brightness-125"
           :src="gameImage"
         />
       </div>
       <div
         class="w-full h-full text-gray-300 dark:text-gray-300 absolute top-0 hidden group-hover:flex justify-center items-center"
+        @click="gameSelected()"
       >
-        <div
+        <!-- <div
           class="w-20 h-20 sm:w-24 sm:h-24 lg:w-20 lg:h-20 bg-gray-900 bg-opacity-60 hover:bg-opacity-90 rounded-full flex items-center justify-center"
-          @click="gameSelected()"
         >
           <UIcon
             name="i-heroicons-play-solid"
             class="w-16 h-16 sm:w-16 sm:h-16 lg:w-12 lg:h-12 opacity-50 hover:opacity-90"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <div
-      class="w-full flex items-center justify-between h-6 bg-gray-800 bg-opacity-70 rounded-b-md"
+      class="w-full flex justify-center h-6 bg-gray-800 bg-opacity-70 rounded-b-md"
     >
       <p
-        class="text-xs sm:text-sm text-gray-100 dark:text-gray-100 truncate px-2"
+        class="text-xs sm:text-sm text-gray-100 dark:text-gray-100 truncate"
       >
         {{ gameName }}
       </p>

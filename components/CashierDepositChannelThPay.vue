@@ -1,9 +1,7 @@
 <template>
   <div class="w-full flex flex-col items-center gap-2 sm:gap-4">
     <div v-if="!isQrCode" class="w-full">
-      <div
-        class="theme-panel w-full p-4"
-      >
+      <div class="theme-panel w-full p-4">
         <div>
           <UForm
             :state="state"
@@ -116,7 +114,7 @@
                   <UButton
                     :ui="{ rounded: 'rounded-full' }"
                     icon="i-heroicons-arrow-top-right-on-square"
-                    color="red"
+                    color="blue"
                     class="absolute top-1 right-1"
                   />
                 </NuxtLink>
@@ -158,14 +156,10 @@
                   </p>
                 </div>
 
-                <div
-                  class="theme-panel flex justify-around p-2 mt-2"
-                >
+                <div class="theme-panel flex justify-around p-2 mt-2">
                   <div class="w-1/2 flex flex-col items-start justify-center">
                     <p class="theme-label text-sm">{{ $t('time_up_in') }}</p>
-                    <p
-                      class="theme-title font-medium text-2xl"
-                    >
+                    <p class="theme-title font-medium text-2xl">
                       {{ formattedTime }}
                     </p>
                   </div>
@@ -174,16 +168,18 @@
                     <p class="theme-label text-sm">
                       {{ $t('transfer_amount') }}
                     </p>
-                    <p
-                      class="theme-title font-medium text-2xl"
-                    >
+                    <p class="theme-title font-medium text-2xl">
                       {{ amountTransfer }}
                     </p>
                   </div>
                 </div>
                 <div class="mt-4">
-                  <h3 class="theme-title text-center font-semibold">{{ $t('follow_conditions') }}</h3>
-                  <div class="font-light text-sm mt-2 space-y-2 text-amber-100/80">
+                  <h3 class="theme-title text-center font-semibold">
+                    {{ $t('follow_conditions') }}
+                  </h3>
+                  <div
+                    class="font-light text-sm mt-2 space-y-2 text-amber-100/80"
+                  >
                     <li>{{ $t('do_not_transfer_again') }}</li>
                     <li>{{ $t('do_not_edit_amount') }}</li>
                     <li>{{ $t('please_wait_a_moment') }}</li>
