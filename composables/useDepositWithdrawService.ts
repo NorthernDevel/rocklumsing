@@ -11,8 +11,8 @@ import type {
 // NOTE: -------------- ASKMEPAY --------------
 export const useAllServiceAskmepay = async (body: RequestSeviceArkmepay) => {
   const { code, message, data } = await services.getAllServiceAskmepay(body)
-  if (!code || code != '0') return { status: false, data: undefined, message }
-  return { status: true, data, message }
+  if (!code || code != '0') return { code, status: false, data: undefined, message }
+  return { code, status: true, data, message }
 }
 
 export const useMinMaxAskmepay = async (body: RequestMinMaxAskmepay) => {

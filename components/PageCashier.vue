@@ -1,9 +1,7 @@
 <template>
   <div v-if="!bankStore.isCustomerAccount">
     <div class="flex flex-col items-center justify-center">
-      <h3
-        class="theme-title mb-4 text-2xl font-semibold"
-      >
+      <h3 class="theme-title mb-4 text-2xl font-semibold">
         {{ $t('cashier_update_bank') }}
       </h3>
       <div
@@ -121,9 +119,7 @@
   </div>
   <div v-else>
     <div class="flex justify-center">
-      <h3
-        class="theme-title mb-4 text-2xl font-semibold"
-      >
+      <h3 class="theme-title mb-4 text-2xl font-semibold">
         {{ cashierStore.title }}
       </h3>
     </div>
@@ -201,14 +197,18 @@ const updateBankSchema = z.object({
 const getAllServiceAskmepay = async () => {
   try {
     isLoading.value = true
-    const { status, data, message } = await useAllServiceAskmepay({
+    const { code, status, data, message } = await useAllServiceAskmepay({
       type: '',
     })
     if (!status) {
-      popupStore.alertError({ message: message })
+      cashierStore.thpayIsDisabled = true
+      if (code !== '3311') {
+        popupStore.alertError({ message: message })
+      }
     } else {
       if (data) {
         cashierStore.askmepayData = data
+        cashierStore.thpayIsDisabled = false
       }
     }
   } catch (e) {

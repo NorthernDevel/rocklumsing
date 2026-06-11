@@ -90,6 +90,7 @@ export const useCashierStore = defineStore('CashierStore', () => {
   const isSelectedChannel = ref(false)
   const idSelect = ref()
   const p2cRef = ref('')
+  const thpayIsDisabled = ref(false)
   const askmepayData = ref<ServiceAskmepayData>()
 
   const askmepaySerivce = computed(() => {
@@ -209,6 +210,7 @@ export const useCashierStore = defineStore('CashierStore', () => {
     askmepayMinMaxDeposit,
     depositMenu,
     p2cRef,
+    thpayIsDisabled,
     previousPage,
     goDepositHistory,
     openWithdrawFromPage,
