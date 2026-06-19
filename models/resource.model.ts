@@ -17,6 +17,8 @@ export interface ResoucesData {
   promotions: PromotionData[]
   popups: any[]
   seoMeta: SEOMetaData
+  providerBlackList?: string[]
+  gameBlackList?: string[]
 }
 
 export type RegisterTypes =

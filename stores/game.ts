@@ -97,21 +97,6 @@ export const useGameStore = defineStore('gameStore', () => {
     imageUrl: '/assets/images/games/sports/',
   }
 
-  const providerBlackList = ['T24W', 'RTG', 'NLC', 'RTG', 'NLC']
-
-  const gameSlotBlackList = [
-    'Super Ace',
-    'Super Ace Deluxe',
-    'Super Ace X',
-    'Super Ace 2',
-    'Wild Ace',
-    'Nova Crash',
-    'Rabbit Mines',
-    "Mummy's Treasure",
-    'Lucky Mine',
-    'Wizard Dice',
-  ]
-
   const onSearchTerm = (search: string) => {
     searchTerm.value = search
   }
@@ -393,8 +378,6 @@ export const useGameStore = defineStore('gameStore', () => {
     gamesListData,
     gameSports,
     collapsed,
-    providerBlackList,
-    gameSlotBlackList,
     afterSearch,
     onSearchTerm,
     playGame,

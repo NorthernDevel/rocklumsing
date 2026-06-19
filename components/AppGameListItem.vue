@@ -22,11 +22,22 @@
             <span class="font-extralight">{{ percentage }}%</span> RTP
           </p>
         </div> -->
-        <div
-          v-if="!isProvider && item.online && item.online > 5000"
-          class="absolute left-1 md:left-2 top-1 md:top-2 z-10"
-        >
-          <NuxtImg class="w-8 md:w-10" src="/assets/images/game-hot.webp" />
+        <div class="absolute left-1 md:left-2 top-1 md:top-2 z-10">
+          <div v-if="!isProvider && item.online && item.online > 5000">
+            <NuxtImg class="w-8 md:w-10" src="/assets/images/game-hot.webp" />
+          </div>
+          <div
+            v-else-if="!isProvider"
+            class="flex items-center gap-1 bg-black bg-opacity-70 rounded-full px-2"
+          >
+            <UIcon
+              name="i-heroicons-users-20-solid"
+              class="w-4 h-4 dark:bg-green-500 cursor-pointer"
+            />
+            <p class="text-sm text-gray-100 dark:text-gray-100">
+              {{ onlinePlayers }}
+            </p>
+          </div>
         </div>
         <div
           v-if="!isProvider"
@@ -89,6 +100,8 @@ const authStore = useAuthStore()
 const gameStore = useGameStore()
 const popupStore = usePopupStore()
 const navStore = useNavStore()
+const resourceStore = useResourceStore()
+const { useNumberWithComma } = useFormatter()
 
 const props = defineProps({
   index: Number,
@@ -105,10 +118,10 @@ const isVisibleItem = computed(() => {
   if (!props.item.active) return false
 
   if (props.isProvider) {
-    return !gameStore.providerBlackList.includes(props.item.productCode)
+    return !resourceStore.providerBlackList.includes(props.item.productCode)
   }
 
-  return !gameStore.gameSlotBlackList.includes(gameName.value)
+  return !resourceStore.gameBlackList.includes(gameName.value)
 })
 
 const gameImage = computed(() => {
@@ -125,6 +138,11 @@ const gameImage = computed(() => {
   } else {
     return props.item.logo.vertical
   }
+})
+
+const onlinePlayers = computed(() => {
+  if (!props.item.online) return 0
+  return useNumberWithComma(props.item.online).amount
 })
 
 const percentage = computed(() => {

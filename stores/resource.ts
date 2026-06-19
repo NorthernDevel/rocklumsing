@@ -213,6 +213,17 @@ export const useResourceStore = defineStore('resourceStore', () => {
     return resources.value.seoMeta
   })
 
+  const providerBlackList = computed(() => {
+    if (!resources.value) return []
+    return resources.value.providerBlackList ?? []
+  })
+
+  const gameBlackList = computed(() => {
+    if (!resources.value) return []
+    return resources.value.gameBlackList ?? []
+  })
+
+
   const getResoures = async () => {
     try {
       isLoading.value = true
@@ -255,6 +266,8 @@ export const useResourceStore = defineStore('resourceStore', () => {
     extraApplication,
     clientIp,
     seoMeta,
+    providerBlackList,
+    gameBlackList,
     getResoures,
     showPopupLoggedIn,
     showPopupNotLogin,
