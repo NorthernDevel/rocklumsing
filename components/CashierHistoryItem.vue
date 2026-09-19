@@ -69,9 +69,13 @@ const emit = defineEmits(['receiveReject'])
 const statusColor = computed(() => {
   switch (props.item?.status) {
     case 'REJECTED':
-      return 'rose'
-    case 'PENDING':
       return 'red'
+    case 'TIMEOUT':
+      return 'gray'
+    case 'CANCEL':
+      return 'red'
+    case 'PENDING':
+      return 'yellow'
     default:
       return 'primary'
   }

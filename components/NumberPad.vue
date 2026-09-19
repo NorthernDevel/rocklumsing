@@ -29,6 +29,7 @@
         type="text"
         size="lg"
         inputmode="numeric"
+        enterkeyhint="done"
         :placeholder="
           $t('deposit_range', {
             min: amountCurrency(min),
@@ -38,6 +39,7 @@
         "
         v-model="state.amount"
         @blur="onBlur"
+        @keydown.enter.prevent.stop="onEnter"
       >
         <template #trailing>
           <span class="text-amber-200/70 text-xs">
@@ -193,6 +195,12 @@ const onBlur = (event: Event) => {
 
   amount.value = useParseAmount().formatAmount(amountNumber)
   state.value.amount = amountNumber
+}
+
+const onEnter = (event: KeyboardEvent) => {
+  onBlur(event)
+  const input = event.target as HTMLInputElement
+  input.blur()
 }
 
 const onSelectshortCutAmount = (value: number) => {
